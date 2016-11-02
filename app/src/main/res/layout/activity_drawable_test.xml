@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/bt_press"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="selector press"
+        android:background="@drawable/press_selector"
+        />
+
+    <Button
+        android:id="@+id/bt_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="selector select"
+        android:background="@drawable/select_selector"
+        />
+
+    <ImageView
+        android:id="@+id/one_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        android:background="@drawable/one_pic_selector"
+        />
+
+</LinearLayout>
