@@ -17,6 +17,7 @@
         </activity>
         <activity android:name=".recycleviewTest.RecycleViewActivity"></activity>
         <activity android:name=".drawableTest.DrawableTestActivity"></activity>
+        <activity android:name=".NotificationTest.NotificationTestActivity"></activity>
 
     </application>
 

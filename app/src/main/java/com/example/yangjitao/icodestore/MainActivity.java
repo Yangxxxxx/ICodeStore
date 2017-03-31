@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.example.yangjitao.icodestore.NotificationTest.NotificationTestActivity;
 import com.example.yangjitao.icodestore.drawableTest.DrawableTestActivity;
 import com.example.yangjitao.icodestore.recycleviewTest.RecycleViewActivity;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         addActivityButton(RecycleViewActivity.class, "RecycleView Test");
         addActivityButton(DrawableTestActivity.class, "Drawable Test");
+        addActivityButton(NotificationTestActivity.class, "Notification Test");
 
     }
 
