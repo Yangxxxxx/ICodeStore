@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.yangjitao.icodestore">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,10 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".recycleviewTest.RecycleViewActivity"></activity>
-        <activity android:name=".drawableTest.DrawableTestActivity"></activity>
-        <activity android:name=".NotificationTest.NotificationTestActivity"></activity>
-
+        <activity android:name=".recycleviewTest.RecycleViewActivity" />
+        <activity android:name=".drawableTest.DrawableTestActivity" />
+        <activity android:name=".NotificationTest.NotificationTestActivity" />
+        <activity android:name=".LocalPhotoExhibition.LocalPhotoAlbumActivity"></activity>
+        <activity android:name=".LocalPhotoExhibition.LocalPhotoDetailActivity"></activity>
     </application>
 
 </manifest>

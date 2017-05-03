@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.example.yangjitao.icodestore.LocalPhotoExhibition.LocalPhotoAlbumActivity;
 import com.example.yangjitao.icodestore.NotificationTest.NotificationTestActivity;
 import com.example.yangjitao.icodestore.drawableTest.DrawableTestActivity;
 import com.example.yangjitao.icodestore.recycleviewTest.RecycleViewActivity;
@@ -23,8 +24,11 @@ public class MainActivity extends AppCompatActivity {
         addActivityButton(RecycleViewActivity.class, "RecycleView Test");
         addActivityButton(DrawableTestActivity.class, "Drawable Test");
         addActivityButton(NotificationTestActivity.class, "Notification Test");
+        addActivityButton(LocalPhotoAlbumActivity.class, "Local Photo show");
 
+        AppInitialWork.getInstance().init(this);
     }
+
 
     private void addActivityButton(final Class c, String description){
         Button button = new Button(this);

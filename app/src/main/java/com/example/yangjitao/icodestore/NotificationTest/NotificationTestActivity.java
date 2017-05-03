@@ -72,9 +72,9 @@ public class NotificationTestActivity extends Activity {
          *    versions of Android prior to 4.2 will ignore this field, so don't use it for
          *    anything vital!
          */
-        builder.setContentTitle("BasicNotifications Sample");
-        builder.setContentText("Time to learn about notifications!");
-        builder.setSubText("Tap to view documentation about notifications.");
+        builder.setContentTitle("content title");
+        builder.setContentText("content text");
+        builder.setSubText("sub text");
 
 
         /**
@@ -83,6 +83,9 @@ public class NotificationTestActivity extends Activity {
          */
         NotificationManager notificationManager = (NotificationManager) getSystemService(
                 NOTIFICATION_SERVICE);
-        notificationManager.notify(NOTIFICATION_ID, builder.build());
+        notificationManager.notify(/*NOTIFICATION_ID*/notificationid++, builder.build());
     }
+
+    //id不同,发送的多个通知不会覆盖
+    private int notificationid = 0;
 }
