@@ -1,6 +1,7 @@
 package com.example.yangjitao.icodestore;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.yangjitao.icodestore.LocalPhotoExhibition.LocalPhotoManager;
 import com.example.yangjitao.icodestore.Utils.CommonUtils;
@@ -16,6 +17,7 @@ public class AppInitialWork {
     public void init(Context context){
         initImageLoader(context);
         LocalPhotoManager.getInstance(context).init();
+        Log.e("yang", "win project github test");
     }
 
     public static void initImageLoader(Context context) {
