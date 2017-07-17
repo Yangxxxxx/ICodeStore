@@ -21,7 +21,7 @@ public class DrawableTestActivity extends Activity implements View.OnClickListen
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v) {/** git测试 local add */
         int id = v.getId();
         switch (id){
             case R.id.bt_select:
