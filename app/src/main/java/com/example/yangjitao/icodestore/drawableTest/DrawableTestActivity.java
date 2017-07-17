@@ -9,7 +9,7 @@ import com.example.yangjitao.icodestore.R;
 /**
  * Created by user1 on 2016/11/2.
  */
-public class DrawableTestActivity extends Activity implements View.OnClickListener{／＊＊ git 测试＊／
+public class DrawableTestActivity extends Activity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
