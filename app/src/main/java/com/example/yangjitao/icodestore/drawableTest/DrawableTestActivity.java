@@ -16,6 +16,7 @@ public class DrawableTestActivity extends Activity implements View.OnClickListen
         setContentView(R.layout.activity_drawable_test);
         findViewById(R.id.bt_select).setOnClickListener(this);
 
+        //git测试
         //设置监听才有点击效果
         findViewById(R.id.one_pic).setOnClickListener(this);
     }
