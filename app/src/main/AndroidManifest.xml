@@ -10,7 +10,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,8 +22,14 @@
         <activity android:name=".recycleviewTest.RecycleViewActivity" />
         <activity android:name=".drawableTest.DrawableTestActivity" />
         <activity android:name=".NotificationTest.NotificationTestActivity" />
-        <activity android:name=".LocalPhotoExhibition.LocalPhotoAlbumActivity"></activity>
-        <activity android:name=".LocalPhotoExhibition.LocalPhotoDetailActivity"></activity>
+        <activity android:name=".LocalPhotoExhibition.LocalPhotoAlbumActivity" />
+        <activity android:name=".LocalPhotoExhibition.LocalPhotoDetailActivity" />
+        <activity android:name=".FragmentUsage.FragmentUsageActivity" />
+        <activity
+            android:name=".FragmentUsage.Activity1"
+            />
+        <activity android:name=".FragmentUsage.Activity2" />
+        <activity android:name=".FragmentUsage.Activity3"></activity>
     </application>
 
 </manifest>

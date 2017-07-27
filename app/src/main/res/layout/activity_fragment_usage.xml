@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.yangjitao.icodestore.FragmentUsage.FragmentUsageActivity"
+    android:orientation="vertical"
+    >
+
+    <Button
+        android:id="@+id/click_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="click_switch"
+        android:onClick="nowClick"
+        />
+    <Button
+        android:id="@+id/swip_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="swip_switch"
+        android:onClick="nowClick"
+        />
+    <Button
+        android:id="@+id/menu_pop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="menu_pop"
+        android:onClick="nowClick"
+        />
+
+</LinearLayout>
