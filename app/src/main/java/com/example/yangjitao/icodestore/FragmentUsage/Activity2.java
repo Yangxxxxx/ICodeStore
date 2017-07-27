@@ -20,6 +20,7 @@ public class Activity2 extends AppCompatActivity {
         setContentView(R.layout.activity_2);
         ViewPager viewPager = (ViewPager)findViewById(R.id.viewpager);
         viewPager.setAdapter(new IFragmentAdapter(getSupportFragmentManager()));
+//        viewPager.setOffscreenPageLimit(2);
     }
 
 
