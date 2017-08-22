@@ -31,6 +31,7 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
     int interval;
 
     public DividerGridItemDecoration(Context context) {
+        Log.e("yang", "brance merge test");
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         a.recycle();

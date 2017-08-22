@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout layoutContent;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {Log.e("yang", "git plugin test");
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         layoutContent = (LinearLayout) findViewById(R.id.ll_content);
@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         addActivityButton(FragmentUsageActivity.class, "FragmentUsage");
 
         AppInitialWork.getInstance().init(this);
+        Log.e("yang", "branch test");
     }
 
 
