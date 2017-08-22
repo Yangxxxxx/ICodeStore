@@ -33,7 +33,8 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
         a.recycle();
 
 //        interval = context.getResources().getDimensionPixelSize(R.dimen.new_collage_grid_divider_distance);
-        interval = 20;//TypedValue.complexToDimensionPixelSize(5, context.getResources().getDisplayMetrics());
+        interval = 20;
+        //TypedValue.complexToDimensionPixelSize(5, context.getResources().getDisplayMetrics());
     }
 
     public DividerGridItemDecoration(Context context, int offTop, int offBottom) {
