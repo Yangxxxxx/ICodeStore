@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.yangjitao.icodestore.CommonFunciton.DividerGridItemDecoration;
+import com.example.yangjitao.icodestore.CommonFunciton.GridItemDecoration;
 import com.example.yangjitao.icodestore.R;
 import com.example.yangjitao.icodestore.Utils.CommonUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -42,7 +42,7 @@ public class LocalPhotoDetailActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.rc_album);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
-        recyclerView.addItemDecoration(new DividerGridItemDecoration(this));
+        recyclerView.addItemDecoration(new GridItemDecoration());
         recyclerView.setAdapter(new AlbumAdapter(this));
     }
 

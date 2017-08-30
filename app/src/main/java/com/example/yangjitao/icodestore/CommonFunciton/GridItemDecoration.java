@@ -1,12 +1,11 @@
 package com.example.yangjitao.icodestore.CommonFunciton;
 
-import android.content.Context;
 import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.LayoutManager;
 
-
+/** recyclerview分割线（井字形状的分割线）*/
 public class GridItemDecoration extends RecyclerView.ItemDecoration {
 
     private int offTop = 0;
@@ -22,11 +21,13 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
     public GridItemDecoration() {
     }
 
-    public GridItemDecoration(Context context, int interval) {
+    /** 可以设置分割线的宽度*/
+    public GridItemDecoration(int interval) {
         this.interval = interval;
     }
 
-    public GridItemDecoration(Context context, int offLeft, int offTop, int offRight, int offBottom, int interval) {
+    /** 可以设置分割线的宽度，及recyclerview的padding值*/
+    public GridItemDecoration(int offLeft, int offTop, int offRight, int offBottom, int interval) {
         this.offBottom = offBottom;
         this.offTop = offTop;
         this.offLeft = offLeft;
