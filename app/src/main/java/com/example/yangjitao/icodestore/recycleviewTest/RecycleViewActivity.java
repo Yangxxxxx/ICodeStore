@@ -29,7 +29,7 @@ public class RecycleViewActivity extends AppCompatActivity {
         Log.e("yang", "enter onCreate");
         recyclerView.setLayoutManager(new GridLayoutManager(this, 6));
 
-        recyclerView.addItemDecoration(new GridItemDecoration(this, 0, 0, 0, 0, 20));
+        recyclerView.addItemDecoration(new GridItemDecoration(0, 0, 0, 0, 20));
 //
         HomeAdapter cateAdapter = new HomeAdapter();
         recyclerView.setAdapter(cateAdapter);
