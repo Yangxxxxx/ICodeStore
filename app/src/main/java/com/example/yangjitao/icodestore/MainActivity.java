@@ -3,7 +3,6 @@ package com.example.yangjitao.icodestore;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -28,9 +27,6 @@ public class MainActivity extends AppCompatActivity {
         addActivityButton(NotificationTestActivity.class, "Notification Test");
         addActivityButton(LocalPhotoAlbumActivity.class, "Local Photo show");
         addActivityButton(FragmentUsageActivity.class, "FragmentUsage");
-
-        AppInitialWork.getInstance().init(this);
-        Log.e("yang", "branch test");
     }
 
 

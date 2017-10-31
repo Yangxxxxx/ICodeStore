@@ -33,6 +33,7 @@ public class RecycleViewActivity extends AppCompatActivity {
 //
         HomeAdapter cateAdapter = new HomeAdapter();
         recyclerView.setAdapter(cateAdapter);
+
     }
 
 

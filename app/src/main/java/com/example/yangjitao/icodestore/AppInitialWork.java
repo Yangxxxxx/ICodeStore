@@ -3,6 +3,7 @@ package com.example.yangjitao.icodestore;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.yangjitao.icodestore.CrashProcess.CrashHandler;
 import com.example.yangjitao.icodestore.LocalPhotoExhibition.LocalPhotoManager;
 import com.example.yangjitao.icodestore.Utils.CommonUtils;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
@@ -17,6 +18,7 @@ public class AppInitialWork {
     public void init(Context context){
         initImageLoader(context);
         LocalPhotoManager.getInstance(context).init();
+        CrashHandler.getInstance().init(context);
         Log.e("yang", "win project github test");
     }
 
