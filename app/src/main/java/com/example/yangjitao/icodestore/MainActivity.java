@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import com.example.yangjitao.icodestore.FragmentUsage.FragmentUsageActivity;
 import com.example.yangjitao.icodestore.LocalPhotoExhibition.LocalPhotoAlbumActivity;
 import com.example.yangjitao.icodestore.NotificationTest.NotificationTestActivity;
+import com.example.yangjitao.icodestore.UtilSample.BGLayoutActivity;
 import com.example.yangjitao.icodestore.drawableTest.DrawableTestActivity;
 import com.example.yangjitao.icodestore.recycleviewTest.RecycleViewActivity;
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         layoutContent = (LinearLayout) findViewById(R.id.ll_content);
 
+        addActivityButton(BGLayoutActivity.class, "BGLayout Test");
         addActivityButton(RecycleViewActivity.class, "RecycleView Test");
         addActivityButton(DrawableTestActivity.class, "Drawable Test");
         addActivityButton(NotificationTestActivity.class, "Notification Test");

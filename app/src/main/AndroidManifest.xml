@@ -28,6 +28,7 @@
         <activity android:name=".FragmentUsage.Activity1" />
         <activity android:name=".FragmentUsage.Activity2" />
         <activity android:name=".FragmentUsage.Activity3" />
+        <activity android:name=".UtilSample.BGLayoutActivity"></activity>
     </application>
 
 </manifest>

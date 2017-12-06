@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BGFrameLayout">
+        <attr name="bgCorner" format="dimension"></attr>
+        <attr name="bgIsCircle" format="boolean"></attr>
+        <attr name="bgPressTureDrawable" format="reference"></attr>
+        <attr name="bgPressFalseDrawable" format="reference"></attr>
+    </declare-styleable>
+</resources>

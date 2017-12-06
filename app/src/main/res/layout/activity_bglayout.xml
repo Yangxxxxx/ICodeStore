@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.yangjitao.icodestore.UtilSample.BGLayoutActivity">
+
+    <com.example.yangjitao.icodestore.Utils.BGFrameLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:bgCorner="10dp"
+        >
+
+        <ImageView
+            android:background="@mipmap/img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.example.yangjitao.icodestore.Utils.BGFrameLayout>
+
+    <!--有点击事件才会有效果-->
+    <com.example.yangjitao.icodestore.Utils.BGFrameLayout
+        android:onClick="click1"
+        app:bgCorner="10dp"
+        app:bgPressTureDrawable="@color/colorPrimary"
+        app:bgPressFalseDrawable="@color/colorAccent"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+
+
+
+</LinearLayout>
