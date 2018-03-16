@@ -2,6 +2,7 @@ package com.example.yangjitao.icodestore.CommonFunciton;
 
 import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.LayoutManager;
 
@@ -66,6 +67,8 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
         LayoutManager layoutManager = parent.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
             return  ((GridLayoutManager) layoutManager).getSpanCount();
+        }else if(layoutManager instanceof LinearLayoutManager){
+            return 1;
         }
         return 0;
     }
