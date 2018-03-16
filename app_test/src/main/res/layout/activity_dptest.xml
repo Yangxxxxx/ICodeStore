@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/tv_one_inch"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#567"
+                android:text="1 inch (densityDpi)" />
+
+            <TextView
+                android:id="@+id/tv_one_inch2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:background="#876"
+                android:text="1 inch (xdpi、ydpi)" />
+
+
+            <TextView
+                android:layout_width="315dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/black"
+                android:text="315dp"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/black"
+                android:text="320dp"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="355dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/black"
+                android:text="355dp"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/black"
+                android:text="360dp"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="475dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/black"
+                android:text="475dp"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="480dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/black"
+                android:text="480dp"
+                android:textColor="@android:color/white" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="@dimen/n178dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:background="#876"/>
+                <TextView
+                    android:layout_width="@dimen/n180dp"
+                    android:layout_height="50dp"
+                    android:background="#353"
+                    android:layout_gravity="right"/>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="q234567890M"
+                    android:textSize="@dimen/n27sp"
+                    android:gravity="center"
+                    android:background="#806"/>
+                <TextView
+                    android:layout_width="@dimen/n180dp"
+                    android:layout_height="50dp"
+                    android:background="#303"
+                    android:layout_gravity="right"/>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_next"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:background="#5819"
+                android:text="适配布局"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

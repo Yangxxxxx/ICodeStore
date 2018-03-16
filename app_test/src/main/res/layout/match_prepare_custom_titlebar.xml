@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.administrator.sometest.TmpActivity.FiftyFitfyLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:id="@+id/mt_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="200dp"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:background="#900"
+    >
+
+    <FrameLayout
+        android:background="#287"
+        android:id="@+id/fl_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="1000"
+            android:gravity="center"
+            android:drawableLeft="@drawable/icon_praise_arrow_up"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:background="#987"
+        android:id="@+id/fl_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="2000"
+            android:gravity="center"
+            android:drawableLeft="@drawable/icon_praise_arrow_up"/>
+
+    </FrameLayout>
+
+
+</com.example.administrator.sometest.TmpActivity.FiftyFitfyLayout>

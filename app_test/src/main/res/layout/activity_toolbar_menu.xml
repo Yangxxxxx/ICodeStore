@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:toolbar="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.administrator.sometest.ToolbarMenuTest.ToolbarMenuActivity">
+
+    <android.support.v7.widget.Toolbar
+        toolbar:titleTextAppearance="@mipmap/ic_launcher"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        toolbar:navigationIcon="@mipmap/ic_match_female"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="100dp"
+        android:background="#987"/>
+
+</RelativeLayout>

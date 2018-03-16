@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.administrator.sometest.ViewGragHelperTest.DragLayout
+        android:id="@+id/rl_rootlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#783364"
+            android:gravity="center"
+            android:text="aaaaaa"
+            />
+
+        <TextView
+            android:id="@+id/tv_center"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#738922"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:text="aaaaaa"
+            />
+
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#768392"
+            android:gravity="center"
+            android:text="aaaaaa"
+            android:layout_below="@+id/tv_center"
+            android:layout_alignLeft="@+id/tv_center"
+            />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#983724"
+            android:gravity="center"
+            android:text="aaaaaa"
+            />
+
+
+    </com.example.administrator.sometest.ViewGragHelperTest.DragLayout>
+
+</RelativeLayout>

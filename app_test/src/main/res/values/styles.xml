@@ -1,0 +1,78 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--&lt;!&ndash;<item name="android:fontFamily">serif-monospace</item>&ndash;&gt;-->
+        <!--<item name="android:textAlignment">viewStart</item>-->
+        <!--<item name="android:layoutDirection">locale</item>-->
+        <!--<item name="android:textDirection">locale</item>-->
+
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="overlayTest" parent="@style/Theme.AppCompat.Light">
+        <item name="android:windowContentOverlay">@mipmap/ic_launcher</item>
+
+    </style>
+
+    <style name="colorPrimaryTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#990000</item>
+        <item name="colorPrimaryDark">#44990000</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--自定义switch的按钮和轨迹颜色theme-->
+    <style name="mySwitch" parent="Theme.AppCompat.Light">
+        <!-- switch 打开时的按钮的颜色 轨迹颜色默认为30%（看效果就明白30%是怎么回事了）这个颜色 -->
+        <item name="colorControlActivated">#990000</item>
+        <!--  switch关闭时的按钮的颜色 -->
+        <item name="colorSwitchThumbNormal">#009900</item>
+        <!-- switch关闭时的轨迹的颜色 30%这个颜色 -->
+        <item name="android:colorForeground">#000099</item>
+
+    </style>
+
+    <style name="ProgressBarStyle">
+        <item name="android:indeterminateDrawable">@drawable/progressbar_circle</item>
+
+    </style>
+
+    <style name="DatePickerDialog" parent="@style/Theme.AppCompat.Dialog.Alert">
+        <item name="android:colorControlHighlight">#FFC214</item>
+        <item name="colorControlHighlight">#FFC214</item>
+        <item name="android:colorControlActivated">#FFC214</item>
+        <item name="colorControlActivated">#FFC214</item>
+        <item name="colorAccent">#FFC214</item>
+        <item name="android:colorAccent">#FFC214</item>
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
+
+    <style name="transWidow" parent="@style/Theme.AppCompat.Dialog">
+        <item name="android:colorPrimaryDark">#00000000</item>
+        <item name="colorPrimaryDark">#00000000</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+    </style>
+
+    <style name="PaddingRTL">
+        <item name="android:paddingStart">16dp</item>
+    </style>
+
+</resources>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:fontFamily="sans-serif"
+        android:textSize="12sp"
+        tool:text="https://www.facebook.com/LiveChatApp"/>
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.example.administrator.sometest.MeasureLayoutTest.ProfileNameLayout2
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="16.5dp">
+
+        <TextView
+            android:background="#918"
+            android:id="@+id/tv_name2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="#FF2A2A30"
+            android:textSize="20sp"
+            android:text="AJohnDoeabcedeffseefs12345678910245" />
+
+        <ImageView
+            android:id="@+id/tv_name_edit2"
+            android:minWidth="34dp"
+            android:minHeight="34dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_name2"
+            android:background="@drawable/ic_match_female"/>
+
+    </com.example.administrator.sometest.MeasureLayoutTest.ProfileNameLayout2>
+
+    <com.example.administrator.sometest.MeasureLayoutTest.ProfileNameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="16.5dp">
+
+        <TextView
+            android:background="#987"
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="#FF2A2A30"
+            android:textSize="20sp"
+            android:text="JohnDoeabcedef123456789" />
+
+        <ImageView
+            android:id="@+id/tv_name_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/tv_name"
+            android:background="@drawable/ic_match_female"
+            android:layout_toEndOf="@+id/tv_name"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp" />
+
+    </com.example.administrator.sometest.MeasureLayoutTest.ProfileNameLayout>
+
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="1234567890123456789012345"-->
+        <!--android:maxLength="20"-->
+        <!--android:background="#872"/>-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:text="你好吗啊你好吗啊你好吗啊你好吗啊你好吗啊你好吗啊你好吗啊你好吗啊"-->
+        <!--android:maxLength="20"-->
+        <!--android:background="#872"/>-->
+
+    <!--<FrameLayout-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:background="#987">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="30dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:background="#981"/>-->
+
+    <!--</FrameLayout>-->
+
+
+    <!--<FrameLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="#298">-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="47"-->
+            <!--android:textSize="60sp"-->
+            <!--android:gravity="center"-->
+            <!--android:background="@drawable/bg_card_profile"-->
+            <!--/>-->
+    <!--</FrameLayout>-->
+
+    <!--<FrameLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:background="#298">-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="47"-->
+            <!--android:textSize="60sp"-->
+            <!--android:gravity="center"-->
+            <!--android:background="@drawable/bg_card_profile_no9"-->
+            <!--/>-->
+    <!--</FrameLayout>-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="@dimen/n10dp"-->
+        <!--android:text="47"-->
+        <!--android:textSize="60sp"-->
+        <!--android:gravity="center"-->
+        <!--android:background="#298"-->
+        <!--android:paddingBottom="0dp"-->
+        <!--/>-->
+
+
+    <!--<TextView-->
+        <!--android:layout_width="300dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/match_prepare_title_bg"-->
+        <!--android:gravity="center"-->
+        <!--android:text="1234567"/>-->
+
+    <!--<TextView-->
+        <!--android:layout_width="250dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/match_prepare_title_bg2"-->
+        <!--android:gravity="center"-->
+        <!--android:text="1234567"/>-->
+
+
+</LinearLayout>

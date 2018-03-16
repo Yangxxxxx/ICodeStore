@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.administrator.sometest.patch9Test.Patch9Activity"
+    android:orientation="vertical"
+    android:background="#888"
+    android:layoutDirection="ltr">
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="@dimen/n50dp"
+        android:background="@drawable/patch9test_org"
+        android:text="1234567890abcefeabacafsfsefsefsefsfsefseffsf"
+        android:textSize="20sp"
+        android:textColor="#0f0"
+        android:layout_marginBottom="@dimen/n20dp"/>
+
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:text="1234567890abcefeabacafsfsefsefsefsfsefseffsefsef"
+        android:textSize="20sp"
+        android:textColor="#0f0"
+        android:background="@drawable/patch9test"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="123"
+        android:textSize="10sp"
+        android:textColor="#0f0"
+        android:background="@drawable/patch9test"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="10sp"
+        android:textColor="#0f0"
+        android:background="@drawable/patch9test"/>
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="10sp"
+        android:textColor="#0f0"
+        android:background="@drawable/bg_inset"/>
+
+    <FrameLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/patch9test">
+        <TextView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="#928"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="0dp"
+        android:paddingTop="0dp"
+        android:background="@drawable/patch9test">
+        <TextView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="#928"/>
+    </FrameLayout>
+
+</LinearLayout>

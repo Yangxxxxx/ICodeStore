@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.administrator.sometest">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:name=".IApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".HomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ActivityLaunchTest.MainActivity" />
+        <activity
+            android:name=".ActivityLaunchTest.Main2Activity"
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="new.task.test" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ActivityLaunchTest.Main3Activity"
+            android:label="@string/title_activity_main3"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".QCodeTest.QRCodeActivity" />
+        <activity android:name=".LifeCycleTest.LifeCycleActivity" />
+        <activity android:name=".ViewGragHelperTest.ViewDragActivity" />
+        <!-- <activity android:name=".QCodeTest.QRCodeActivity"></activity> -->
+        <activity android:name=".DPTest.DPTestActivity" />
+        <activity
+            android:name=".DPTest.DPTestActivity2"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".SystemBarTest.Activity1"
+            android:theme="@style/colorPrimaryTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".SystemBarTest.Activity2" />
+        <activity android:name=".SystemBarTest.Activity3" />
+        <activity android:name=".SystemBarTest.SystemBarMainActivity" />
+        <activity android:name=".TurnOnOffViewTest.TurnOnOffViewActivity" />
+        <activity
+            android:name=".liveUTest.SelectReasonActivity"
+            android:label="@string/title_activity_select_reason"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".liveUTest.SelectReasonActivity2"
+            android:label="@string/title_activity_select_reason"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".RatingBarTest.RatingBarActivity"
+            android:label="@string/title_activity_rating_bar" />
+        <activity android:name=".MaterialDesignTest.AppBarLayoutActivity" />
+        <activity android:name=".CameraTest.CameraActivity" />
+        <activity android:name=".fragmentTest.FragmentTestActivity" />
+        <activity android:name=".fragmentTest.FragmentTestActivity2" />
+        <activity android:name=".eglTest.EGLTestActivity" />
+        <activity android:name=".eglTest.EGLTestSimpleActivity" />
+        <activity android:name=".eglTest.EGLTestActivity2" />
+        <activity android:name=".eglTest.EGLTestActivity3" />
+        <activity
+            android:name=".ShowTextActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".LayoutChangeTest.LayoutChangeActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".RuntimePermissonTest.RuntimePermissionActivity" />
+        <activity android:name=".EditTextTest.EditTextActivity" />
+        <activity android:name=".TimeCountTest.TimeCountActivity" />
+        <activity
+            android:name=".OtherTest.NumCountActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".OtherTest.ScrollToolbarTestActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".OtherTest.OtherActivity" />
+        <activity android:name=".DrawableTest.ClipDrawableTestActivity" />
+        <activity android:name=".DatabindingTest.DataBindingTestActivity" />
+        <activity android:name=".ViewPagerTest.ViewPagerTestActivity" />
+        <activity android:name=".UintTest.Main4Activity" />
+        <activity android:name=".TmpActivity.TempActivity" />
+        <activity android:name=".KotlinTest.KotlinTestActivity" />
+        <activity
+            android:name=".ToolbarMenuTest.ToolbarMenuActivity"
+            android:label="fsdfs"
+            android:logo="@mipmap/ic_launcher"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".RTLTest.RTLTestActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".patch9Test.Patch9Activity"></activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,6 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="n175">175dp</dimen>
+    <dimen name="n315">201dp</dimen>
+</resources>

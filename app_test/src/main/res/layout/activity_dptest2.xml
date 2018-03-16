@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="@dimen/n179dp"
+            android:layout_height="@dimen/n50dp"
+            android:background="#652"
+            />
+
+        <TextView
+            android:layout_width="@dimen/n180dp"
+            android:layout_height="@dimen/n50dp"
+            android:layout_gravity="right"
+            android:background="#652"
+            />
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="@dimen/n80dp"
+            android:layout_height="@dimen/n50dp"
+            android:background="#652"
+            />
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123abMN你好吗，em"
+            android:textSize="@dimen/n20sp"
+            android:background="#987"/>
+
+        <TextView
+            android:layout_width="@dimen/n80dp"
+            android:layout_height="@dimen/n50dp"
+            android:layout_gravity="right"
+            android:background="#652"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="#987"/>
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/n56dp"
+            android:background="#287"/>
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

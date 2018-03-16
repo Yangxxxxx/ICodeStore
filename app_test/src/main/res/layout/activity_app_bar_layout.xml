@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:title="发现"
+            />
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+       
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:background="#859"
+            />
+        
+    </ScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>
+
+<!--<android.support.design.widget.CoordinatorLayout-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:id="@+id/coordinator_layout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:id="@+id/appbar_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:fitsSystemWindows="true">-->
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/toolBar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--android:background="#30469b"-->
+            <!--app:layout_scrollFlags="scroll|enterAlways" />-->
+
+    <!--</android.support.design.widget.AppBarLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical"-->
+        <!--android:scrollbars="none"-->
+        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+        <!--android:gravity="center_vertical"-->
+        <!--&gt;-->
+        <!--&lt;!&ndash; content view .....&ndash;&gt;-->
+
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+
+        <!--</android.support.v7.widget.RecyclerView>-->
+
+
+    <!--</LinearLayout>-->
+
+<!--</android.support.design.widget.CoordinatorLayout>-->
+
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--xmlns:design="http://schemas.android.com/apk/res-auto"-->
+    <!--&gt;-->
+
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--design:elevation="0dp"-->
+        <!--&gt;-->
+
+        <!--<FrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--design:layout_scrollFlags="scroll|enterAlways"-->
+            <!--&gt;-->
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="70dp"-->
+                <!--/>-->
+
+        <!--</FrameLayout>-->
+
+
+    <!--</android.support.design.widget.AppBarLayout>-->
+
+    <!--<FrameLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--design:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+        <!--&gt;-->
+
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="#875"-->
+            <!--/>-->
+    <!--</FrameLayout>-->
+
+
+<!--</android.support.design.widget.CoordinatorLayout>-->

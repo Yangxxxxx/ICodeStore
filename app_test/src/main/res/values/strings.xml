@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">SomeTest</string>
+    <string name="title_activity_main3">Main3Activity</string>
+    <string name="title_activity_select_reason">SelectReasonActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_rating_bar">RatingBarActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="folder_name">values</string>
+
+    <string name="test">fjlsfjfsdlskdf</string>
+    <string name="fsf2"><font color='#88592B'>abackefgesf</font></string>
+    <string name="fsf">By using Live Chat, you agree to the <a href='http://clause.rcplatformhk.com/LiveChat_termsofservice.html'>Terms of Use</a> And <a href='http://clause.rcplatformhk.com/LiveChat_privacy.html'>Privacy Policy</a></string>
+    <string name="test1">北京市发布霾黄色预警，<font color='#ffff00'><a href='http://www.baidu.com'>外出携带好</a></font>口罩</string>
+    <string name="test2"><![CDATA[
+    北京市发布霾黄色预警，<font color=\'#00ff00\'><a href=\'http://www.baidu.com\'>外出携带好</a></font>口罩
+    ]]></string>
+
+    <string name="link_to_livechat_facebook"> <![CDATA[
+        <font color=\'#2E8AFD\'><a href=\'https://www.facebook.com/LiveChatApp\'>https://www.facebook.com/LiveChatApp</a></font>
+    ]]></string>
+</resources>

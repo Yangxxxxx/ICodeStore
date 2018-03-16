@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gender Preference"
+        android:textColor="#FF2A2A30"
+        android:textSize="20sp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_both"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="36dp"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:duplicateParentState="true"
+            android:background="@drawable/bg_test"
+            />
+        
+        <ImageView
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginLeft="26dp"
+            android:background="@mipmap/ic_match_both"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Both"
+            android:textColor="#FF2A2A30"
+            android:textSize="18sp"
+            android:layout_marginLeft="15dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(Free)"
+            android:textColor="#FF99A9BD"
+            android:textSize="14sp"
+            android:layout_marginLeft="8dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_male"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="36dp"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:duplicateParentState="true"
+            android:background="@drawable/bg_test"
+            />
+
+        <ImageView
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginLeft="26dp"
+            android:background="@mipmap/ic_match_male"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Both"
+            android:textColor="#FF2A2A30"
+            android:textSize="18sp"
+            android:layout_marginLeft="15dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_female"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="36dp"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:duplicateParentState="true"
+            android:background="@drawable/bg_test"
+            />
+
+        <ImageView
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginLeft="26dp"
+            android:background="@mipmap/ic_match_female"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Both"
+            android:textColor="#FF2A2A30"
+            android:textSize="18sp"
+            android:layout_marginLeft="15dp"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

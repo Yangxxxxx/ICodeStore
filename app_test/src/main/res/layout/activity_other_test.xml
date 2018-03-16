@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.sometest.OtherTest.NumCountActivity"
+    android:background="#888"
+    android:id="@+id/root"
+    >
+
+    <TextView
+        android:id="@+id/tv_text_bord"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#ddd"
+        android:elevation="20dp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="start"
+        android:onClick="click1"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="cancle"
+        android:onClick="click2"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="pause"
+        android:onClick="click3"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="resume"
+        android:onClick="click4"
+        />
+
+
+</LinearLayout>
+
+
+
+
+
+    <!--<com.example.administrator.sometest.OtherTest.CircleLayout-->
+    <!--android:layout_margin="20dp"-->
+    <!--android:layout_width="100dp"-->
+    <!--android:layout_height="100dp"-->
+    <!--android:background="#678">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@mipmap/icon_bg"-->
+    <!--/>-->
+
+    <!--</com.example.administrator.sometest.OtherTest.CircleLayout>-->
