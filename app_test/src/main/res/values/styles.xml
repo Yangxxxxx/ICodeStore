@@ -2,6 +2,8 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <!--<item name="android:textViewStyle">@style/DefaultTextView</item>-->
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -11,6 +13,12 @@
         <!--<item name="android:layoutDirection">locale</item>-->
         <!--<item name="android:textDirection">locale</item>-->
 
+    </style>
+
+    <style name="DefaultTextView" parent="android:Widget.TextView">
+        <item name="android:gravity">start</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">#f00</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

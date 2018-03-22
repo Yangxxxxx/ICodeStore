@@ -108,7 +108,10 @@
         <activity
             android:name=".RTLTest.RTLTestActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".patch9Test.Patch9Activity"></activity>
+        <activity android:name=".patch9Test.Patch9Activity" />
+        <activity
+
+            android:name=".OverlayGuideTest.GuideActivity" />
     </application>
 
 </manifest>

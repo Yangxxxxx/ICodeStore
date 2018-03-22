@@ -3,6 +3,7 @@ package com.example.administrator.sometest.TmpActivity;
 import android.Manifest;
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -47,17 +48,21 @@ public class TempActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temp);
-        StringRequest r;
-        JsonObjectRequest i;
-        List<String> list = new ArrayList<>();
 
         ValueAnimator valueAnimator = new ValueAnimator();
         valueAnimator.setInterpolator(new AccelerateInterpolator());
 
 
         TextView tvContactUsEmpty = (TextView) findViewById(R.id.tv);
-        tvContactUsEmpty.setText(Html.fromHtml(getString(R.string.link_to_livechat_facebook)));
-        tvContactUsEmpty.setMovementMethod(LinkMovementMethod.getInstance());
+
+        tvContactUsEmpty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(TempActivity.this).setTitle("fsljf").show();
+            }
+        });
+//        tvContactUsEmpty.setText("123456789abcedfg");
+//        tvContactUsEmpty.setMovementMethod(LinkMovementMethod.getInstance());
 
         TextView textView1 = (TextView) findViewById(R.id.tv2);
         textView1.setText(Html.fromHtml(getString(R.string.test2)));
@@ -68,5 +73,4 @@ public class TempActivity extends AppCompatActivity {
         String text2 = String.format("nihao %1$s", 5);
 
     }
-
 }

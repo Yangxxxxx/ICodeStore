@@ -13,6 +13,7 @@ import com.example.administrator.sometest.DrawableTest.ClipDrawableTestActivity;
 import com.example.administrator.sometest.KotlinTest.KotlinTestActivity;
 import com.example.administrator.sometest.OtherTest.OtherActivity;
 import com.example.administrator.sometest.OtherTest.ScrollToolbarTestActivity;
+import com.example.administrator.sometest.OverlayGuideTest.GuideActivity;
 import com.example.administrator.sometest.RTLTest.RTLTestActivity;
 import com.example.administrator.sometest.SystemBarTest.SystemBarMainActivity;
 import com.example.administrator.sometest.TmpActivity.TempActivity;
@@ -28,6 +29,7 @@ public class HomeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        addButton("GuideActivity", GuideActivity.class);
         addButton("Patch9Activity", Patch9Activity.class);
         addButton("RTLTestActivity", RTLTestActivity.class);
 
