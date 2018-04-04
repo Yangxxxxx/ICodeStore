@@ -1,4 +1,4 @@
-package com.example.administrator.sometest.ActivityLaunchTest;
+package com.example.administrator.sometest.ActivityLaunchModeTest;
 
 import android.content.Intent;
 import android.os.Bundle;

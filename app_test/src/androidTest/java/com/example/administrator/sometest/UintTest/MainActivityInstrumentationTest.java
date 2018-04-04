@@ -4,7 +4,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.example.administrator.sometest.ActivityLaunchTest.MainActivity;
+import com.example.administrator.sometest.ActivityLaunchModeTest.LaunchModeActivity;
 import com.example.administrator.sometest.R;
 
 import org.junit.Rule;
@@ -26,8 +26,8 @@ public class MainActivityInstrumentationTest {
     private static final String STRING_TO_BE_TYPED = "Peter";
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
-            MainActivity.class);
+    public ActivityTestRule<LaunchModeActivity> mActivityRule = new ActivityTestRule<>(
+            LaunchModeActivity.class);
 
     @Test
     public void sayHello(){

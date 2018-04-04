@@ -25,9 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityLaunchTest.MainActivity" />
+        <activity android:name=".ActivityLaunchModeTest.LaunchModeActivity" />
         <activity
-            android:name=".ActivityLaunchTest.Main2Activity"
+            android:name=".ActivityLaunchModeTest.Main2Activity"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="new.task.test" />
@@ -36,8 +36,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ActivityLaunchTest.Main3Activity"
+            android:name=".ActivityLaunchModeTest.Main3Activity"
             android:label="@string/title_activity_main3"
+            android:taskAffinity="haha.heihei"
             android:theme="@style/AppTheme" />
         <activity android:name=".QCodeTest.QRCodeActivity" />
         <activity android:name=".LifeCycleTest.LifeCycleActivity" />
@@ -109,9 +110,21 @@
             android:name=".RTLTest.RTLTestActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".patch9Test.Patch9Activity" />
-        <activity
+        <activity android:name=".OverlayGuideTest.GuideActivity" />
+        <activity android:name=".AnimTest.AnimActivity" />
+        <activity android:name=".BrodcastReceiverTest.ReceiverActivity" />
 
-            android:name=".OverlayGuideTest.GuideActivity" />
+        <receiver
+            android:name=".BrodcastReceiverTest.StaticReceivr"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.haha.action2" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".BrodcastReceiverTest.SomeTestService" />
+
+        <activity android:name=".TouchEventTest.TouchEventActivity"></activity>
     </application>
 
 </manifest>

@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.example.administrator.sometest.ActivityLaunchModeTest.LaunchModeActivity;
+import com.example.administrator.sometest.AnimTest.AnimActivity;
+import com.example.administrator.sometest.BrodcastReceiverTest.ReceiverActivity;
 import com.example.administrator.sometest.DPTest.DPTestActivity;
 import com.example.administrator.sometest.DatabindingTest.DataBindingTestActivity;
 import com.example.administrator.sometest.DrawableTest.ClipDrawableTestActivity;
@@ -18,6 +21,7 @@ import com.example.administrator.sometest.RTLTest.RTLTestActivity;
 import com.example.administrator.sometest.SystemBarTest.SystemBarMainActivity;
 import com.example.administrator.sometest.TmpActivity.TempActivity;
 import com.example.administrator.sometest.ToolbarMenuTest.ToolbarMenuActivity;
+import com.example.administrator.sometest.TouchEventTest.TouchEventActivity;
 import com.example.administrator.sometest.ViewPagerTest.ViewPagerTestActivity;
 import com.example.administrator.sometest.patch9Test.Patch9Activity;
 
@@ -29,6 +33,10 @@ public class HomeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        addButton("TouchEventActivity", TouchEventActivity.class);
+        addButton("LaunchModeActivity", LaunchModeActivity.class);
+        addButton("ReceiverActivity", ReceiverActivity.class);
+        addButton("AnimActivity", AnimActivity.class);
         addButton("GuideActivity", GuideActivity.class);
         addButton("Patch9Activity", Patch9Activity.class);
         addButton("RTLTestActivity", RTLTestActivity.class);
