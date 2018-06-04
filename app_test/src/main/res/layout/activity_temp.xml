@@ -6,11 +6,31 @@
     xmlns:tool="http://schemas.android.com/tools"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/bt1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="#986"
+        android:visibility="invisible"
+        android:text="bt1"/>
+
+    <TextView
+        android:id="@+id/bt2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="#986"
+        android:layout_marginTop="20dp"
+        android:text="bt2"/>
+
+
+
+
     <EditText
         android:id="@+id/et1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"
+        android:maxLength="10"
         android:imeOptions="actionSearch"/>
 
     <TextView

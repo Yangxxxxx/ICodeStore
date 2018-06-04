@@ -24,7 +24,4 @@
     <string name="link_to_livechat_facebook"> <![CDATA[
         <font color=\'#2E8AFD\'><a href=\'https://www.facebook.com/LiveChatApp\'>https://www.facebook.com/LiveChatApp</a></font>
     ]]></string>
-
-
-    <string name="lan_test">values-zh-deafult</string>
 </resources>

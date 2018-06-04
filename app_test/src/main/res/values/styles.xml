@@ -5,9 +5,10 @@
 
         <!--<item name="android:textViewStyle">@style/DefaultTextView</item>-->
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">#876</item>
+        <item name="colorPrimaryDark">#452</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar">true</item>
         <!--&lt;!&ndash;<item name="android:fontFamily">serif-monospace</item>&ndash;&gt;-->
         <!--<item name="android:textAlignment">viewStart</item>-->
         <!--<item name="android:layoutDirection">locale</item>-->

@@ -58,12 +58,12 @@
         <activity android:name=".TurnOnOffViewTest.TurnOnOffViewActivity" />
         <activity
             android:name=".liveUTest.SelectReasonActivity"
-            android:label="@string/title_activity_select_reason"
+            android:label="@string/title_activity_select_reasontit"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".liveUTest.SelectReasonActivity2"
-            android:label="@string/title_activity_select_reason"
+            android:label="@string/title_activity_select_reasontit"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />
         <activity
@@ -99,7 +99,9 @@
         <activity android:name=".DatabindingTest.DataBindingTestActivity" />
         <activity android:name=".ViewPagerTest.ViewPagerTestActivity" />
         <activity android:name=".UintTest.Main4Activity" />
-        <activity android:name=".TmpActivity.TempActivity" />
+        <activity
+            android:theme="@style/AppTheme"
+            android:name=".TmpActivity.TempActivity" />
         <activity android:name=".KotlinTest.KotlinTestActivity" />
         <activity
             android:name=".ToolbarMenuTest.ToolbarMenuActivity"
