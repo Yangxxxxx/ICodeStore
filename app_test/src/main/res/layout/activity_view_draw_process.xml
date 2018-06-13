@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.administrator.sometest.ViewDrawProcessTest.RelativeLayoutTest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#849"
+    tools:context="com.example.administrator.sometest.ViewDrawProcessTest.ViewDrawProcessActivity">
+
+    <com.example.administrator.sometest.ViewDrawProcessTest.RelativeLayoutTest
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#796">
+
+        <com.example.administrator.sometest.ViewDrawProcessTest.RelativeLayoutTest
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#557">
+
+        </com.example.administrator.sometest.ViewDrawProcessTest.RelativeLayoutTest>
+
+    </com.example.administrator.sometest.ViewDrawProcessTest.RelativeLayoutTest>
+
+</com.example.administrator.sometest.ViewDrawProcessTest.RelativeLayoutTest>

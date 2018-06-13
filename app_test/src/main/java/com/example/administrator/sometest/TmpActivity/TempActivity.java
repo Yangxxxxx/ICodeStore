@@ -2,7 +2,10 @@ package com.example.administrator.sometest.TmpActivity;
 
 import android.Manifest;
 import android.animation.ValueAnimator;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -70,7 +73,35 @@ public class TempActivity extends AppCompatActivity {
 //        tvContactUsEmpty.setMovementMethod(LinkMovementMethod.getInstance());
 
         TextView textView1 = (TextView) findViewById(R.id.tv2);
-        textView1.setText(R.string.lan_test);
+//        textView1.setText(R.string.lan_test);
+        textView1.setText(cutText("12345678901234567890123"));
+//        textView1.setText(cutText("你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好"));
+
+
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                while (true){
+                    ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+                    ComponentName cn = activityManager.getRunningTasks(1).get(0).topActivity;
+                    Log.e("yang", "running task: " + cn.getPackageName() + "::" + cn.getClassName());
+                    try {
+                        sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
+
+
+    }
+
+    private String cutText(String text){
+        final int MaxTextLen = 18;
+        if(text.length() <= MaxTextLen) return text;
+        return text.substring(0, MaxTextLen) + "...";
     }
 
     private void calulate(String[] args){

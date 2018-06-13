@@ -22,6 +22,7 @@ import com.example.administrator.sometest.SystemBarTest.SystemBarMainActivity;
 import com.example.administrator.sometest.TmpActivity.TempActivity;
 import com.example.administrator.sometest.ToolbarMenuTest.ToolbarMenuActivity;
 import com.example.administrator.sometest.TouchEventTest.TouchEventActivity;
+import com.example.administrator.sometest.ViewDrawProcessTest.ViewDrawProcessActivity;
 import com.example.administrator.sometest.ViewPagerTest.ViewPagerTestActivity;
 import com.example.administrator.sometest.patch9Test.Patch9Activity;
 
@@ -33,6 +34,7 @@ public class HomeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        addButton("ViewDrawProcessActivity", ViewDrawProcessActivity.class);
         addButton("TouchEventActivity", TouchEventActivity.class);
         addButton("LaunchModeActivity", LaunchModeActivity.class);
         addButton("ReceiverActivity", ReceiverActivity.class);

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.administrator.sometest">
 
+    <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -100,8 +101,8 @@
         <activity android:name=".ViewPagerTest.ViewPagerTestActivity" />
         <activity android:name=".UintTest.Main4Activity" />
         <activity
-            android:theme="@style/AppTheme"
-            android:name=".TmpActivity.TempActivity" />
+            android:name=".TmpActivity.TempActivity"
+            android:theme="@style/AppTheme" />
         <activity android:name=".KotlinTest.KotlinTestActivity" />
         <activity
             android:name=".ToolbarMenuTest.ToolbarMenuActivity"
@@ -126,7 +127,8 @@
 
         <service android:name=".BrodcastReceiverTest.SomeTestService" />
 
-        <activity android:name=".TouchEventTest.TouchEventActivity"></activity>
+        <activity android:name=".TouchEventTest.TouchEventActivity" />
+        <activity android:name=".ViewDrawProcessTest.ViewDrawProcessActivity"></activity>
     </application>
 
 </manifest>
