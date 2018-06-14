@@ -12,6 +12,6 @@ public class INoteApplication extends Application{
     public void onCreate() {
         super.onCreate();
 
-        Model.getInstance().init();
+        Model.getInstance().init(this);
     }
 }

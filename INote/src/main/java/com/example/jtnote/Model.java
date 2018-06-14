@@ -1,6 +1,10 @@
 package com.example.jtnote;
 
+import android.content.Context;
+
 import com.example.jtnote.bean.NoteItem;
+import com.example.jtnote.db.DBUsageInterface;
+import com.example.jtnote.db.DBUsageimpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +16,7 @@ import java.util.List;
 public class Model {
     private List<NoteItem> noteItemList = new ArrayList<>();
     private List<OnNoteChangeListener> onNoteChangeListeners = new ArrayList<>();
+    private DBUsageInterface dbUsageInterface;
 
     private static Model model = new Model();
     private Model(){
@@ -20,17 +25,22 @@ public class Model {
         return model;
     }
 
-    public void init(){
+    public void init(Context context){
 //        getNoteContent_debug();
+        dbUsageInterface = new DBUsageimpl(context);
+
+        noteItemList.addAll(dbUsageInterface.queryAllNotes());
     }
 
     public void insertNote(NoteItem noteItem){
         noteItemList.add(noteItem);
+        dbUsageInterface.insertNote(noteItem);
         invokeNoteChangeListener();
     }
 
     public void deleteNote(NoteItem noteItem){
         noteItemList.remove(noteItem);
+        dbUsageInterface.removeNote(noteItem);
         invokeNoteChangeListener();
     }
 
