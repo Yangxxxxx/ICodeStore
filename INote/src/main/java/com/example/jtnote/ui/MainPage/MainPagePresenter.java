@@ -2,8 +2,8 @@ package com.example.jtnote.ui.MainPage;
 
 import com.example.jtnote.Model;
 import com.example.jtnote.bean.NoteItem;
-import com.example.jtnote.ui.KeyboardActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,11 +13,14 @@ import java.util.List;
 public class MainPagePresenter implements MainPageContract.Presenter, Model.OnNoteChangeListener{
     private MainPageContract.View view;
     private Model model;
+    private List<NoteItem> selectNotes = new ArrayList<>();
+    private boolean isDeleteMode;
 
     public MainPagePresenter(MainPageContract.View view){
         this.view = view;
         model = Model.getInstance();
         model.addNoteChangeListener(this);
+        view.turnNormalMode();
     }
 
     @Override
@@ -27,6 +30,53 @@ public class MainPagePresenter implements MainPageContract.Presenter, Model.OnNo
     @Override
     public void newTextContent(String content) {
         model.insertNote(new NoteItem(content, 0));
+    }
+
+    @Override
+    public void noteItemClick(NoteItem noteItem) {
+        if(isDeleteMode){
+            if(selectNotes.contains(noteItem)){
+                selectNotes.remove(noteItem);
+            }else {
+                selectNotes.add(noteItem);
+            }
+            view.selecteNotesChange(selectNotes);
+        }else {
+
+        }
+    }
+
+    @Override
+    public void deleteSelectNotes() {
+        for (NoteItem noteItem: selectNotes){
+            model.deleteNote(noteItem);
+        }
+        selectNotes.clear();
+        view.turnNormalMode();
+    }
+
+    @Override
+    public void turnDeleteMode() {
+        if(isDeleteMode) return;
+        isDeleteMode = true;
+        selectNotes.clear();
+        view.turnDeleteMode();
+        view.selecteNotesChange(selectNotes);
+    }
+
+    @Override
+    public boolean isNoteSelected(NoteItem noteItem) {
+        return selectNotes.contains(noteItem);
+    }
+
+    @Override
+    public boolean onBackPress() {
+        if(!isDeleteMode) return false;
+        isDeleteMode = false;
+        selectNotes.clear();
+        view.turnNormalMode();
+        view.selecteNotesChange(selectNotes);
+        return true;
     }
 
     @Override

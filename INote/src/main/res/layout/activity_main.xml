@@ -17,18 +17,35 @@
     </android.support.v7.widget.RecyclerView>
 
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="48dp">
 
         <TextView
-            android:id="@+id/tv_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:background="#987"
-            android:text="TEXT"/>
+            android:id="@+id/tv_delete"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:background="#eee"
+            android:text="DELETE"/>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_func_layout"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:id="@+id/tv_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:background="#eee"
+                android:gravity="center"
+                android:text="TEXT"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
 
 </LinearLayout>

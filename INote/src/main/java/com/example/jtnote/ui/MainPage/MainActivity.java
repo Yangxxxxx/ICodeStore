@@ -2,14 +2,11 @@ package com.example.jtnote.ui.MainPage;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -27,7 +24,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private List<NoteItem> noteItemList = new ArrayList<>();
     private RecyclerView recyclerView;
+    private View funcLayout;
+    private View deleteLayout;
     private MainPageContract.Presenter presenter;
+    private List<NoteItem> selectedList = new ArrayList<>();
+    private boolean isDeleteMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                presenter.textEntryClick();
                 KeyboardActivity.start(this, KEYBOARD_ACTIVITY_REQUESTCODE);
                 break;
+            case R.id.tv_delete:
+                presenter.deleteSelectNotes();
+                break;
         }
     }
 
@@ -52,6 +56,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         noteItemList.clear();
         noteItemList.addAll(noteList);
         recyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public void selecteNotesChange(List<NoteItem> noteItemList) {
+        recyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public void turnDeleteMode() {
+        deleteLayout.setVisibility(View.VISIBLE);
+        funcLayout.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void turnNormalMode() {
+        deleteLayout.setVisibility(View.INVISIBLE);
+        funcLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(presenter.onBackPress()) return;
+        super.onBackPressed();
     }
 
     @Override
@@ -70,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private class NoteContentAdapter extends RecyclerView.Adapter<NoteContentAdapter.NoteContentHolder>{
+    private class NoteContentAdapter extends RecyclerView.Adapter<NoteContentAdapter.NoteContentHolder> implements View.OnClickListener, View.OnLongClickListener{
 
 
         @Override
@@ -83,11 +110,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onBindViewHolder(NoteContentHolder holder, int position) {
             NoteItem noteItem = noteItemList.get(position);
             holder.textContent.setText(noteItem.getTextContent());
+
+            holder.itemView.setSelected(presenter.isNoteSelected(noteItem));
+            holder.itemView.setOnClickListener(this);
+            holder.itemView.setOnLongClickListener(this);
+            holder.itemView.setTag(noteItem);
         }
 
         @Override
         public int getItemCount() {
             return noteItemList.size();
+        }
+
+        @Override
+        public void onClick(View v) {
+            presenter.noteItemClick((NoteItem)v.getTag());
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            presenter.turnDeleteMode();
+            presenter.noteItemClick((NoteItem)v.getTag());
+            return true;
         }
 
         public class NoteContentHolder extends RecyclerView.ViewHolder{
@@ -105,7 +149,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new NoteContentAdapter());
 
-        findViewById(R.id.tv_text).setOnClickListener(this);
+        funcLayout = findViewById(R.id.tv_text);
+        deleteLayout = findViewById(R.id.tv_delete);
+        funcLayout.setOnClickListener(this);
+        deleteLayout.setOnClickListener(this);
     }
 
     private void initData(){

@@ -1,16 +1,13 @@
 package com.example.jtnote.ui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -28,11 +25,11 @@ public class KeyboardActivity extends AppCompatActivity implements View.OnClickL
     public static void start(Activity activity, int requestCode){
         Intent intent = new Intent(activity, KeyboardActivity.class);
         activity.startActivityForResult(intent, requestCode);
-        activity.overridePendingTransition(0, 0);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        overridePendingTransition(0, 0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keyboard);
 
@@ -41,6 +38,7 @@ public class KeyboardActivity extends AppCompatActivity implements View.OnClickL
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         bottomAreaLayout = findViewById(R.id.ll_bottom_area);
+        bottomAreaLayout.setAlpha(0);
         editText = findViewById(R.id.et_input);
         rootView = findViewById(R.id.rl_root);
         rootView.setOnSystemWindowsChangeListener(this);
@@ -54,8 +52,7 @@ public class KeyboardActivity extends AppCompatActivity implements View.OnClickL
         Intent intent = new Intent();
         intent.putExtra(Constants.KEY_INPUT_CONTENT, inputStr);
         setResult(RESULT_OK, intent);
-        finish();
-        overridePendingTransition(0, 0);
+        onBackPressed();
     }
 
     @Override
@@ -65,18 +62,23 @@ public class KeyboardActivity extends AppCompatActivity implements View.OnClickL
             finish();
         }else {
             showingKeyboard = insets.bottom > 0;
-            changeBottomLayoutPos(insets);
+            if(showingKeyboard){
+                changeBottomLayoutPos(insets);
+            }
         }
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    public void finish() {
+        super.finish();
+        overridePendingTransition(0, 0);
     }
 
     private void changeBottomLayoutPos(Rect insets){
+//        bottomAreaLayout.setAlpha(1);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) bottomAreaLayout.getLayoutParams();
         layoutParams.bottomMargin = insets.bottom;
         bottomAreaLayout.setLayoutParams(layoutParams);
+        bottomAreaLayout.animate().alpha(1).setDuration(500).start();
     }
 }
