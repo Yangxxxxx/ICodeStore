@@ -12,10 +12,18 @@ public class MainPageContract {
     public interface Presenter{
         void textEntryClick();
         void newTextContent(String content);
+        void noteItemClick(NoteItem noteItem);
+        void deleteSelectNotes();
+        void turnDeleteMode();
+        boolean isNoteSelected(NoteItem noteItem);
+        boolean onBackPress();
         void onDestory();
     }
 
     public interface View{
         void notesChange(List<NoteItem> noteItemList);
+        void selecteNotesChange(List<NoteItem> noteItemList);
+        void turnNormalMode();
+        void turnDeleteMode();
     }
 }
