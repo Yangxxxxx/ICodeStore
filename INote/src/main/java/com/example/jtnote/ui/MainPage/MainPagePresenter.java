@@ -41,6 +41,10 @@ public class MainPagePresenter implements MainPageContract.Presenter, Model.OnNo
                 selectNotes.add(noteItem);
             }
             view.selecteNotesChange(selectNotes);
+            if(selectNotes.size() == 0){
+                turnNormalMode();
+            }
+
         }else {
 
         }
@@ -51,8 +55,7 @@ public class MainPagePresenter implements MainPageContract.Presenter, Model.OnNo
         for (NoteItem noteItem: selectNotes){
             model.deleteNote(noteItem);
         }
-        selectNotes.clear();
-        view.turnNormalMode();
+        turnNormalMode();
     }
 
     @Override
@@ -61,7 +64,6 @@ public class MainPagePresenter implements MainPageContract.Presenter, Model.OnNo
         isDeleteMode = true;
         selectNotes.clear();
         view.turnDeleteMode();
-        view.selecteNotesChange(selectNotes);
     }
 
     @Override
@@ -72,10 +74,7 @@ public class MainPagePresenter implements MainPageContract.Presenter, Model.OnNo
     @Override
     public boolean onBackPress() {
         if(!isDeleteMode) return false;
-        isDeleteMode = false;
-        selectNotes.clear();
-        view.turnNormalMode();
-        view.selecteNotesChange(selectNotes);
+        turnNormalMode();
         return true;
     }
 
@@ -87,5 +86,12 @@ public class MainPagePresenter implements MainPageContract.Presenter, Model.OnNo
     @Override
     public void onNoteChanged(List<NoteItem> noteItemList) {
         view.notesChange(noteItemList);
+    }
+
+    private void turnNormalMode(){
+        isDeleteMode = false;
+        selectNotes.clear();
+        view.turnNormalMode();
+        view.selecteNotesChange(selectNotes);
     }
 }
