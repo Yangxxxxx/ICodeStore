@@ -18,6 +18,7 @@ import com.example.administrator.sometest.OtherTest.OtherActivity;
 import com.example.administrator.sometest.OtherTest.ScrollToolbarTestActivity;
 import com.example.administrator.sometest.OverlayGuideTest.GuideActivity;
 import com.example.administrator.sometest.RTLTest.RTLTestActivity;
+import com.example.administrator.sometest.RoomTest.RoomTestActivity;
 import com.example.administrator.sometest.ServiceTest.ServiceTestActivity;
 import com.example.administrator.sometest.SystemBarTest.SystemBarMainActivity;
 import com.example.administrator.sometest.TmpActivity.TempActivity;
@@ -35,6 +36,7 @@ public class HomeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        addButton("RoomTestActivity", RoomTestActivity.class);
         addButton("ServiceTestActivity", ServiceTestActivity.class);
         addButton("ViewDrawProcessActivity", ViewDrawProcessActivity.class);
         addButton("TouchEventActivity", TouchEventActivity.class);

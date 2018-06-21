@@ -14,6 +14,7 @@ import java.util.List;
  * Created by Administrator on 2018/6/14 0014.
  */
 
+@Deprecated
 public class DBUsageimpl implements DBUsageInterface{
     private NoteDBHelper noteDBHelper;
 

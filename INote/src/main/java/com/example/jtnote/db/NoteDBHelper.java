@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by Administrator on 2018/6/14 0014.
  */
 
+@Deprecated
 public class NoteDBHelper extends SQLiteOpenHelper{
     private static final String DB_NAME = "INote_DB";
     private static final int DB_VERSION = 1;

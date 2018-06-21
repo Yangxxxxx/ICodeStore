@@ -129,10 +129,11 @@
 
         <activity android:name=".TouchEventTest.TouchEventActivity" />
         <activity android:name=".ViewDrawProcessTest.ViewDrawProcessActivity" />
-        <activity android:name=".ServiceTest.ServiceTestActivity"></activity>
+        <activity android:name=".ServiceTest.ServiceTestActivity" />
 
-        <service android:name=".ServiceTest.CountService"></service>
+        <service android:name=".ServiceTest.CountService" />
 
+        <activity android:name=".RoomTest.RoomTestActivity"></activity>
     </application>
 
 </manifest>

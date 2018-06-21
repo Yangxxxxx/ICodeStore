@@ -24,7 +24,7 @@ public class CountService extends Service{
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e("yang", "onStartCommand");
+        Log.e("yang", "CountService onStartCommand");
         Timer timer = new Timer();
 
         TimerTask timerTask = new TimerTask() {
@@ -37,5 +37,11 @@ public class CountService extends Service{
         timer.schedule(timerTask, 0, 1000);
 
         return START_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e("yang", "CountService onDestroy");
     }
 }

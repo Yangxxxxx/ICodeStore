@@ -1,10 +1,11 @@
 package com.example.jtnote;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import com.example.jtnote.bean.NoteItem;
+import com.example.jtnote.db.DBUsageImplNew;
 import com.example.jtnote.db.DBUsageInterface;
-import com.example.jtnote.db.DBUsageimpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.List;
  */
 
 public class Model {
+    private final String DB_NAME = "INote_DB";
+
     private List<NoteItem> noteItemList = new ArrayList<>();
     private List<OnNoteChangeListener> onNoteChangeListeners = new ArrayList<>();
     private DBUsageInterface dbUsageInterface;
@@ -27,7 +30,13 @@ public class Model {
 
     public void init(Context context){
 //        getNoteContent_debug();
-        dbUsageInterface = new DBUsageimpl(context);
+
+//        dbUsageInterface = new DBUsageimpl(context);
+        dbUsageInterface = Room.databaseBuilder(context, DBUsageImplNew.class, DB_NAME)
+                .addMigrations(DBUsageImplNew.migration1_2)
+                .fallbackToDestructiveMigration()
+                .allowMainThreadQueries()
+                .build();
 
         noteItemList.addAll(dbUsageInterface.queryAllNotes());
     }
