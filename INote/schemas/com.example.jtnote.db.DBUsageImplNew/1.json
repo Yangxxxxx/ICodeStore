@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "65cf29d3282472135f3778653957a788",
+    "entities": [
+      {
+        "tableName": "NoteItemTable",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `text_content` TEXT, `audio_content` TEXT, `image_content` TEXT, `video_content` TEXT, `alarm_time` INTEGER NOT NULL, `create_time` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "textContent",
+            "columnName": "text_content",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "audioContent",
+            "columnName": "audio_content",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "imageContent",
+            "columnName": "image_content",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "videoContent",
+            "columnName": "video_content",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "alarmTime",
+            "columnName": "alarm_time",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creatTime",
+            "columnName": "create_time",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"65cf29d3282472135f3778653957a788\")"
+    ]
+  }
+}

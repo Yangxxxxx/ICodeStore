@@ -45,7 +45,7 @@ public class RoomTestActivity extends AppCompatActivity {
                 Person person = new Person("bbb", count++);
                 person.setFirstWork(new Work("HX", "beijing"));
 
-                personDatabase.getPersonDao().insert(new Person("bbb", count++));
+                personDatabase.getPersonDao().insert(person);
             }
         });
     }

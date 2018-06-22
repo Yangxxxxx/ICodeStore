@@ -1,5 +1,7 @@
 package com.example.administrator.sometest.RoomTest;
 
+import android.arch.persistence.room.Entity;
+
 /**
  * Created by Administrator on 2018/6/21 0021.
  */
