@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initData(){
-        presenter = new MainPagePresenter(this);
+        presenter = new MainPagePresenter(this, this);
     }
 
 }

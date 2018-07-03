@@ -1,7 +1,10 @@
 package com.example.jtnote.ui.MainPage;
 
+import android.content.Context;
+
 import com.example.jtnote.Model;
 import com.example.jtnote.bean.NoteItem;
+import com.example.jtnote.ui.DetailPage.DetialActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +14,15 @@ import java.util.List;
  */
 
 public class MainPagePresenter implements MainPageContract.Presenter, Model.OnNoteChangeListener{
+    private Context context;
     private MainPageContract.View view;
     private Model model;
     private List<NoteItem> selectNotes = new ArrayList<>();
     private boolean isDeleteMode;
 
-    public MainPagePresenter(MainPageContract.View view){
+    public MainPagePresenter(Context context, MainPageContract.View view){
         this.view = view;
+        this.context = context;
         model = Model.getInstance();
         model.addNoteChangeListener(this);
         view.turnNormalMode();
@@ -46,7 +51,7 @@ public class MainPagePresenter implements MainPageContract.Presenter, Model.OnNo
             }
 
         }else {
-
+            DetialActivity.start(context, noteItem);
         }
     }
 

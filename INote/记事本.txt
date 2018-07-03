@@ -1,0 +1,10 @@
+代办：
+数据库不能删除一个新建的item（因为没有生成_ID）
+
+
+
+其他：
+fragment 怎么获取到iiservice的实例的
+bingserveice后的unbind操作
+bindservice 时会不会调用onstartcommand，以及其调用时机
+livechat activity想fragmnet传递参数的方法
