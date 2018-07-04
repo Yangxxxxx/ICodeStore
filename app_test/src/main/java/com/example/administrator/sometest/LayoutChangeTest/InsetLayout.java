@@ -6,6 +6,8 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
+import android.view.WindowInsets;
 import android.widget.RelativeLayout;
 
 /**
@@ -30,18 +32,18 @@ public class InsetLayout extends RelativeLayout {
 
     @TargetApi(Build.VERSION_CODES.KITKAT_WATCH)
     private void init() {
-//        if(Build.VERSION.SDK_INT >= 20) {
-//            setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
-//                @Override
-//                public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
-//                    Log.e("yang", "insets: " + insets.getSystemWindowInsetLeft() + " " +
-//                            insets.getSystemWindowInsetTop() + " " +
-//                            insets.getSystemWindowInsetRight() + " " +
-//                            insets.getSystemWindowInsetBottom());
-//                    return null;
-//                }
-//            });
-//        }
+        if(Build.VERSION.SDK_INT >= 20) {
+            setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+                @Override
+                public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
+                    Log.e("yang", "insets: " + insets.getSystemWindowInsetLeft() + " " +
+                            insets.getSystemWindowInsetTop() + " " +
+                            insets.getSystemWindowInsetRight() + " " +
+                            insets.getSystemWindowInsetBottom());
+                    return insets;
+                }
+            });
+        }
     }
 
     @Override
