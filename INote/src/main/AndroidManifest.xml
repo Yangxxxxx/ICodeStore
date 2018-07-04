@@ -12,8 +12,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.MainPage.MainActivity"
-            android:windowSoftInputMode="adjustNothing"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,9 +21,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.KeyboardActivity"
             android:theme="@style/KeyboardPageTheme"
-            android:windowSoftInputMode="adjustResize"
-            android:name=".ui.KeyboardActivity"/>
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.DetailPage.DetialActivity"/>
+        <service android:name=".service.NoteService"/>
     </application>
 
 </manifest>
