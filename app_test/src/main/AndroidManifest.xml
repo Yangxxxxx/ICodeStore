@@ -133,7 +133,8 @@
 
         <service android:name=".ServiceTest.CountService" />
 
-        <activity android:name=".RoomTest.RoomTestActivity"></activity>
+        <activity android:name=".RoomTest.RoomTestActivity" />
+        <activity android:name=".HttpUrlConnectionTest.HttpUrlConnectionActivity"></activity>
     </application>
 
 </manifest>
