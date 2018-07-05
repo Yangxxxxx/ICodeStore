@@ -15,7 +15,7 @@ import java.io.Serializable;
 
 @Entity(tableName = DBTables.NoteItemTable.TABLE_NAME)
 public class NoteItem implements Serializable{
-    @ColumnInfo(name = DBTables.NoteItemTable._ID) @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = DBTables.NoteItemTable._ID) @PrimaryKey
     int id;
 
     @ColumnInfo(name = DBTables.NoteItemTable.TEXT_CONTENT)
@@ -41,7 +41,8 @@ public class NoteItem implements Serializable{
     }
 
     @Ignore
-    public NoteItem(String textContent, long creatTime){
+    public NoteItem(int id, String textContent, long creatTime){
+        this.id = id;
         this.textContent = textContent;
         this.creatTime = creatTime;
     }

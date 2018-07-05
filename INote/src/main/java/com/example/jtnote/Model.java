@@ -41,6 +41,10 @@ public class Model {
         noteItemList.addAll(dbUsageInterface.queryAllNotes());
     }
 
+    public List<NoteItem> getAllNotes(){
+        return noteItemList;
+    }
+
     public void insertNote(NoteItem noteItem){
         noteItemList.add(noteItem);
         dbUsageInterface.insertNote(noteItem);
@@ -53,6 +57,21 @@ public class Model {
         invokeNoteChangeListener();
     }
 
+    public void updateNote(NoteItem noteItem){
+        NoteItem oldItem = null;
+        for(NoteItem item: noteItemList){
+            if(item.getId() == noteItem.getId()){
+                oldItem = item;
+            }
+        }
+        if(oldItem != null){
+            noteItemList.remove(oldItem);
+            noteItemList.add(noteItem);
+            dbUsageInterface.updateNote(noteItem);
+            invokeNoteChangeListener();
+        }
+    }
+
     public void addNoteChangeListener(OnNoteChangeListener listener){
         onNoteChangeListeners.add(listener);
         invokeNoteChangeListener();
@@ -62,18 +81,18 @@ public class Model {
         onNoteChangeListeners.remove(listener);
     }
 
+    public int genUniqueID(){
+        int currMaxId = 0;
+        for(NoteItem noteItem: noteItemList){
+            if(noteItem.getId() > currMaxId) currMaxId = noteItem.getId();
+        }
+        return currMaxId + 1;
+    }
+
     private void invokeNoteChangeListener(){
         for(OnNoteChangeListener listener: onNoteChangeListeners){
             listener.onNoteChanged(noteItemList);
         }
-    }
-
-    private void getNoteContent_debug(){
-        noteItemList.add(new NoteItem("aaaaaaaaa", 1));
-        noteItemList.add(new NoteItem("bbbbbbbbb", 2));
-        noteItemList.add(new NoteItem("ccccccccc", 3));
-        noteItemList.add(new NoteItem("ddddddddd", 4));
-        noteItemList.add(new NoteItem("eeeeeeeee", 5));
     }
 
     public interface OnNoteChangeListener{

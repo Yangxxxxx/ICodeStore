@@ -32,6 +32,11 @@ public abstract class DBUsageImplNew extends RoomDatabase implements DBUsageInte
         getNoteItemDao().deleteNote(noteItem);
     }
 
+    @Override
+    public void updateNote(NoteItem noteItem) {
+        getNoteItemDao().updateNote(noteItem);
+    }
+
     public static Migration migration1_2 = new Migration(1, 2) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {

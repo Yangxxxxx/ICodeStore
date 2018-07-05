@@ -4,5 +4,6 @@
 
 
 其他：
+onStartCommand 再重启的时候执行了两边
 
 livechat activity想fragmnet传递参数的方法

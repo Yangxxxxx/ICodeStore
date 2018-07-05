@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "65cf29d3282472135f3778653957a788",
+    "identityHash": "5c53d5bb529a60b2a56c24d6143fd68f",
     "entities": [
       {
         "tableName": "NoteItemTable",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `text_content` TEXT, `audio_content` TEXT, `image_content` TEXT, `video_content` TEXT, `alarm_time` INTEGER NOT NULL, `create_time` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER NOT NULL, `text_content` TEXT, `audio_content` TEXT, `image_content` TEXT, `video_content` TEXT, `alarm_time` INTEGER NOT NULL, `create_time` INTEGER NOT NULL, PRIMARY KEY(`_id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -55,7 +55,7 @@
           "columnNames": [
             "_id"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
         "indices": [],
         "foreignKeys": []
@@ -63,7 +63,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"65cf29d3282472135f3778653957a788\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"5c53d5bb529a60b2a56c24d6143fd68f\")"
     ]
   }
 }

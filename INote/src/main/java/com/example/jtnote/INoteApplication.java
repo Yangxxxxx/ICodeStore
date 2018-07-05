@@ -3,6 +3,7 @@ package com.example.jtnote;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Handler;
+import android.util.Log;
 
 import com.example.jtnote.service.NoteService;
 
@@ -21,6 +22,7 @@ public class INoteApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.e("yang", "enter onCreate");
         iNoteApplication = this;
 
         mainHandler = new Handler(getMainLooper());

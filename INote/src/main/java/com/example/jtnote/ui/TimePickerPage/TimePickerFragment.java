@@ -6,21 +6,36 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
+import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.jtnote.Constants;
+import com.example.jtnote.Model;
 import com.example.jtnote.R;
 import com.example.jtnote.UsageInterface.InoteService;
 import com.example.jtnote.bean.NoteItem;
 import com.example.jtnote.service.NoteService;
 
-public class TimePickerFragment extends Fragment{
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+public class TimePickerFragment extends Fragment implements View.OnClickListener{
     private NoteItem noteItem;
     private InoteService inoteService;
+
+    private CalendarView calendarView;
+    private TimePicker timePicker;
+    private TextView timeBoard;
+
+    private Calendar calendar = Calendar.getInstance();
 
     public static TimePickerFragment newInstance(NoteItem noteItem) {
 
@@ -39,6 +54,7 @@ public class TimePickerFragment extends Fragment{
         if(bundle != null){
             noteItem = (NoteItem) bundle.getSerializable(Constants.KEY_NOTEITEM_PARAM);
         }
+        calendar.set(Calendar.SECOND, 0);
         getContext().bindService(new Intent(getContext(), NoteService.class), serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
@@ -51,11 +67,50 @@ public class TimePickerFragment extends Fragment{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.tv_alarm).setOnClickListener(new View.OnClickListener() {
+        initView(view);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id){
+            case R.id.tv_alarm:
+
+                long alarmTime = calendar.getTimeInMillis() - System.currentTimeMillis();
+                if(alarmTime > 0) {
+                    noteItem.setAlarmTime(calendar.getTimeInMillis());
+                    inoteService.newAlarmtask(noteItem);
+                    Model.getInstance().updateNote(noteItem);
+                    Toast.makeText(getContext(), "alarm start after " + alarmTime + " ms", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(), "uncorrect time", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
+
+    private void initView(View view){
+        timeBoard = view.findViewById(R.id.tv_alarm);
+        calendarView = view.findViewById(R.id.calendar_view);
+        timePicker = view.findViewById(R.id.time_picker);
+
+        timeBoard.setOnClickListener(this);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onClick(View v) {
-                noteItem.setAlarmTime(System.currentTimeMillis() + 1000*20);
-                inoteService.newAlarmtask(noteItem);
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                calendar.set(year, month, dayOfMonth);
+
+                timeBoard.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(calendar.getTimeInMillis()));
+            }
+        });
+
+        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                calendar.set(Calendar.MINUTE, minute);
+
+                timeBoard.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(calendar.getTimeInMillis()));
             }
         });
     }

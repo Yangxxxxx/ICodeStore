@@ -34,7 +34,7 @@ public class MainPagePresenter implements MainPageContract.Presenter, Model.OnNo
 
     @Override
     public void newTextContent(String content) {
-        model.insertNote(new NoteItem(content, 0));
+        model.insertNote(new NoteItem(model.genUniqueID(), content, 0));
     }
 
     @Override

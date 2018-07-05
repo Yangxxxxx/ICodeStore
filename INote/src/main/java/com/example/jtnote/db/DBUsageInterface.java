@@ -12,4 +12,5 @@ public interface DBUsageInterface {
     List<NoteItem> queryAllNotes();
     void insertNote(NoteItem noteItem);
     void removeNote(NoteItem noteItem);
+    void updateNote(NoteItem noteItem);
 }

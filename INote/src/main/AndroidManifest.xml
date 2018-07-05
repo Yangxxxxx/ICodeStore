@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jtnote">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:name=".INoteApplication"
         android:allowBackup="true"
@@ -24,8 +25,12 @@
             android:name=".ui.KeyboardActivity"
             android:theme="@style/KeyboardPageTheme"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.DetailPage.DetialActivity"/>
-        <service android:name=".service.NoteService"/>
+        <activity android:name=".ui.DetailPage.DetialActivity" />
+
+        <service android:name=".service.NoteService" />
+
+        <activity android:name=".ui.AlarmRingPage.AlarmRingActivity"
+            android:excludeFromRecents="true"></activity>
     </application>
 
 </manifest>

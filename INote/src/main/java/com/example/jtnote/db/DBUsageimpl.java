@@ -56,6 +56,11 @@ public class DBUsageimpl implements DBUsageInterface{
         }
     }
 
+    @Override
+    public void updateNote(NoteItem noteItem) {
+
+    }
+
     private ContentValues buildNoteItemValue(NoteItem noteItem){
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBTables.NoteItemTable.TEXT_CONTENT, noteItem.getTextContent());
