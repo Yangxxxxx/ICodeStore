@@ -1,9 +1,17 @@
 代办：
-数据库不能删除一个新建的item（因为没有生成_ID）
+设置闹钟后，排序到最后一个
+取消闹钟逻辑确认
+过时的闹钟加上下划线
+只显示一行，多余一行的显示省略号
+文字输入界面美化
+闹钟界面UI重新设计
 
+优化：
+onStartCommand 再重启的时候执行了两边
 
 
 其他：
-onStartCommand 再重启的时候执行了两边
-
+livechat中点亮屏幕的操作
+List<Integer> 中 list.remove(int) 是删内容还是删坐标
 livechat activity想fragmnet传递参数的方法
+interface中声明变量

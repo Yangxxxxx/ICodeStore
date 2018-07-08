@@ -2,22 +2,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/note_item_bg_selector">
 
     <TextView
         android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"/>
+        android:layout_marginStart="16dp"
+        android:textSize="18sp"
+        android:layout_centerVertical="true"
+        tools:text="i am content"/>
 
     <TextView
+        android:id="@+id/tv_alarm_hint"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:drawableStart="@drawable/ic_alarm_hint"
+        android:drawablePadding="8dp"
+        android:textSize="10sp"
+        android:gravity="center"
+        tools:text="2018-7-9"/>
+
+    <View
+        android:id="@+id/view_expire"
+        android:layout_width="wrap_content"
+        android:layout_height="0.5dp"
+        android:layout_alignStart="@+id/tv_alarm_hint"
+        android:layout_alignEnd="@id/tv_alarm_hint"
+        android:layout_marginTop="13dp"
+        android:background="#a00"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_alignParentBottom="true"
-        android:background="#ccc"/>
+        android:background="#ddd"/>
 
 </RelativeLayout>

@@ -58,18 +58,25 @@ public class Model {
     }
 
     public void updateNote(NoteItem noteItem){
-        NoteItem oldItem = null;
-        for(NoteItem item: noteItemList){
-            if(item.getId() == noteItem.getId()){
-                oldItem = item;
+        int index = -1;
+
+        for (int i = 0; i < noteItemList.size(); i++){
+            if(noteItemList.get(i).getId() == noteItem.getId()){
+                index = i;
+                break;
             }
         }
-        if(oldItem != null){
-            noteItemList.remove(oldItem);
-            noteItemList.add(noteItem);
+
+        if(index != -1){
+            noteItemList.remove(index);
+            noteItemList.add(index, noteItem);
             dbUsageInterface.updateNote(noteItem);
             invokeNoteChangeListener();
         }
+    }
+
+    public void noteStateChanged(){
+        invokeNoteChangeListener();
     }
 
     public void addNoteChangeListener(OnNoteChangeListener listener){

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.jtnote.Constants;
+import com.example.jtnote.Model;
 import com.example.jtnote.R;
 import com.example.jtnote.bean.NoteItem;
 
@@ -16,6 +17,8 @@ public class AlarmRingActivity extends AppCompatActivity implements View.OnClick
     private TextView contentView;
 
     private NoteItem noteItem;
+
+    Vibrator vibrator;
 
     public static void start(Context context, NoteItem noteItem){
         Intent intent = new Intent(context, AlarmRingActivity.class);
@@ -42,6 +45,14 @@ public class AlarmRingActivity extends AppCompatActivity implements View.OnClick
     }
 
     @Override
+    protected void onPause() {
+        if(vibrator != null){
+            vibrator.cancel();
+        }
+        super.onPause();
+    }
+
+    @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id){
@@ -51,9 +62,17 @@ public class AlarmRingActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Model.getInstance().noteStateChanged();
+        super.onBackPressed();
+    }
+
     private void vibrationHint(){
-        Vibrator vibrator = (Vibrator)this.getSystemService(this.VIBRATOR_SERVICE);
-        long[] patter = {1000, 1000, 1000, 1000, 1000, 1000};
-        vibrator.vibrate(patter, -1);
+        vibrator = (Vibrator)this.getSystemService(this.VIBRATOR_SERVICE);
+        if(vibrator != null) {
+            long[] patter = {1000, 1000, 1000, 1000, 1000, 1000};
+            vibrator.vibrate(patter, -1);
+        }
     }
 }

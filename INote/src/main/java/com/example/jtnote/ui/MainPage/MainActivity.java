@@ -16,11 +16,13 @@ import com.example.jtnote.R;
 import com.example.jtnote.bean.NoteItem;
 import com.example.jtnote.ui.KeyboardActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, MainPageContract.View{
     private static final int KEYBOARD_ACTIVITY_REQUESTCODE = 100;
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     private List<NoteItem> noteItemList = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -111,6 +113,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             NoteItem noteItem = noteItemList.get(position);
             holder.textContent.setText(noteItem.getTextContent());
 
+            if(noteItem.getAlarmTime() == 0){
+                holder.alarmHint.setVisibility(View.INVISIBLE);
+                holder.expireView.setVisibility(View.INVISIBLE);
+            }else {
+                boolean noExpire = noteItem.getAlarmTime() > System.currentTimeMillis();
+                holder.alarmHint.setVisibility(View.VISIBLE );
+                holder.alarmHint.setText(simpleDateFormat.format(noteItem.getAlarmTime()));
+                holder.expireView.setVisibility(noExpire ? View.INVISIBLE : View.VISIBLE);
+            }
+
             holder.itemView.setSelected(presenter.isNoteSelected(noteItem));
             holder.itemView.setOnClickListener(this);
             holder.itemView.setOnLongClickListener(this);
@@ -136,10 +148,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         public class NoteContentHolder extends RecyclerView.ViewHolder{
             private TextView textContent;
+            private TextView alarmHint;
+            private View expireView;
 
             public NoteContentHolder(View itemView) {
                 super(itemView);
                 textContent = itemView.findViewById(R.id.tv_content);
+                alarmHint = itemView.findViewById(R.id.tv_alarm_hint);
+                expireView = itemView.findViewById(R.id.view_expire);
             }
         }
     }

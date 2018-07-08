@@ -25,11 +25,14 @@
             android:name=".ui.KeyboardActivity"
             android:theme="@style/KeyboardPageTheme"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.DetailPage.DetialActivity" />
+        <activity
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".ui.DetailPage.DetialActivity" />
 
         <service android:name=".service.NoteService" />
 
         <activity android:name=".ui.AlarmRingPage.AlarmRingActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:excludeFromRecents="true"></activity>
     </application>
 

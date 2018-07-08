@@ -3,8 +3,6 @@ package com.example.jtnote.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
-import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -13,20 +11,17 @@ import com.example.jtnote.Model;
 import com.example.jtnote.UsageInterface.InoteService;
 import com.example.jtnote.bean.NoteItem;
 import com.example.jtnote.ui.AlarmRingPage.AlarmRingActivity;
+import com.example.jtnote.utils.HandlerTimer;
+import com.example.jtnote.utils.ITimer;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class NoteService extends Service{
-    private HashMap<Integer, Runnable> alarmTaskMap = new HashMap<>();
-    private Handler handler;
+    private ITimer timer = new HandlerTimer();
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e("yang", " enter onStartCommand");
-        HandlerThread handlerThread = new HandlerThread("NoteServiceThread");
-        handlerThread.start();
-        handler = new Handler(handlerThread.getLooper());
         startTotalAlarm();
         return START_STICKY;
     }
@@ -41,16 +36,22 @@ public class NoteService extends Service{
 
         @Override
         public void newAlarmtask(NoteItem noteItem) {
-            if(noteItem.getAlarmTime() <= System.currentTimeMillis()) return;
-            if(alarmTaskMap.containsKey(noteItem.getId())){
-                Runnable runnable = alarmTaskMap.get(noteItem);
-                handler.removeCallbacks(runnable);
-            }
-            alarmTaskMap.put(noteItem.getId(), startAlarmTask(noteItem));
+            startAlarmTask(noteItem);
+        }
+
+        @Override
+        public void cancleAlarmtask(NoteItem noteItem) {
+            timer.cancleTask(noteItem.getId());
         }
     }
 
-    private Runnable startAlarmTask(final NoteItem noteItem){
+    private void startAlarmTask(NoteItem noteItem){
+        long delayTime = noteItem.getAlarmTime() - System.currentTimeMillis();
+        timer.cancleTask(noteItem.getId());
+        timer.scheduleTask(noteItem.getId(), genAlarmTask(noteItem), delayTime);
+    }
+
+    private Runnable genAlarmTask(final NoteItem noteItem){
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -58,7 +59,6 @@ public class NoteService extends Service{
                 AlarmRingActivity.start(getApplicationContext(), noteItem);
             }
         };
-        handler.postDelayed(runnable, noteItem.getAlarmTime() - System.currentTimeMillis());
         return runnable;
     }
 

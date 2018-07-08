@@ -9,6 +9,7 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,18 +76,16 @@ public class TimePickerFragment extends Fragment implements View.OnClickListener
         int id = v.getId();
         switch (id){
             case R.id.tv_alarm:
-
-                long alarmTime = calendar.getTimeInMillis() - System.currentTimeMillis();
-                if(alarmTime > 0) {
-                    noteItem.setAlarmTime(calendar.getTimeInMillis());
-                    inoteService.newAlarmtask(noteItem);
-                    Model.getInstance().updateNote(noteItem);
-                    Toast.makeText(getContext(), "alarm start after " + alarmTime + " ms", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(getContext(), "uncorrect time", Toast.LENGTH_SHORT).show();
-                }
+                cancleAlarm();
+                showSelectedTime(0);
                 break;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getContext().unbindService(serviceConnection);
     }
 
     private void initView(View view){
@@ -98,21 +97,53 @@ public class TimePickerFragment extends Fragment implements View.OnClickListener
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                Log.e("yang", "onselectedDay");
                 calendar.set(year, month, dayOfMonth);
 
-                timeBoard.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(calendar.getTimeInMillis()));
+                showSelectedTime(calendar.getTimeInMillis());
+                alarmNewTime(calendar.getTimeInMillis());
             }
         });
 
+        timePicker.setIs24HourView(true);
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                Log.e("yang", "onTimeChange");
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 calendar.set(Calendar.MINUTE, minute);
 
-                timeBoard.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(calendar.getTimeInMillis()));
+                showSelectedTime(calendar.getTimeInMillis());
+                alarmNewTime(calendar.getTimeInMillis());
             }
         });
+        showSelectedTime(noteItem.getAlarmTime());
+    }
+
+
+    private void alarmNewTime(long time){
+        long alarmTime = time - System.currentTimeMillis();
+        if(alarmTime >= 0) {
+            noteItem.setAlarmTime(time);
+            inoteService.newAlarmtask(noteItem);
+            Model.getInstance().updateNote(noteItem);
+        }else {
+            Toast.makeText(getContext(), "uncorrect time", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void cancleAlarm(){
+        noteItem.setAlarmTime(0);
+        inoteService.cancleAlarmtask(noteItem);
+        Model.getInstance().updateNote(noteItem);
+    }
+
+    private void showSelectedTime(long time){
+        if(time == 0){
+            timeBoard.setText("---- -- -- -- --");
+        }else {
+            timeBoard.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(time));
+        }
     }
 
     private ServiceConnection serviceConnection = new ServiceConnection() {
