@@ -7,6 +7,8 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.example.jtnote.Constants;
+import com.example.jtnote.INoteSharePreference;
 import com.example.jtnote.Model;
 import com.example.jtnote.UsageInterface.InoteService;
 import com.example.jtnote.bean.NoteItem;
@@ -15,12 +17,26 @@ import com.example.jtnote.utils.HandlerTimer;
 import com.example.jtnote.utils.ITimer;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class NoteService extends Service{
     private ITimer timer = new HandlerTimer();
+    private String debugInfoKey = "debugInfoKey";
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if(intent == null) {
+            Log.e("yang", "intent == null: onstartcommand");
+            INoteSharePreference.getInstance().appendString(debugInfoKey, "onStartCommand at: " + Constants.COMMON_DATE_FORMAT.format(System.currentTimeMillis()));
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    INoteSharePreference.getInstance().appendString(debugInfoKey, "i am alive at: "+ Constants.COMMON_DATE_FORMAT.format(System.currentTimeMillis()));
+                }
+            }, 0, 1000*60*30);
+        }
+
         Log.e("yang", " enter onStartCommand");
         startTotalAlarm();
         return START_STICKY;

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.jtnote.Constants;
 import com.example.jtnote.R;
+import com.example.jtnote.TestCode.TestInfoActivity;
 import com.example.jtnote.bean.NoteItem;
 import com.example.jtnote.ui.KeyboardActivity;
 
@@ -169,6 +170,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         deleteLayout = findViewById(R.id.tv_delete);
         funcLayout.setOnClickListener(this);
         deleteLayout.setOnClickListener(this);
+
+        //testcode
+        funcLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                startActivity(new Intent(MainActivity.this, TestInfoActivity.class));
+                return true;
+            }
+        });
     }
 
     private void initData(){

@@ -27,6 +27,7 @@ public class INoteApplication extends Application{
 
         mainHandler = new Handler(getMainLooper());
 
+        INoteSharePreference.getInstance().init(this);
         Model.getInstance().init(this);
         startService(new Intent(this, NoteService.class));
     }

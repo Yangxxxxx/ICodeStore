@@ -3,6 +3,7 @@
     package="com.example.jtnote">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:name=".INoteApplication"
         android:allowBackup="true"
@@ -26,14 +27,16 @@
             android:theme="@style/KeyboardPageTheme"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:name=".ui.DetailPage.DetialActivity" />
+            android:name=".ui.DetailPage.DetialActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <service android:name=".service.NoteService" />
 
-        <activity android:name=".ui.AlarmRingPage.AlarmRingActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:excludeFromRecents="true"></activity>
+        <activity
+            android:name=".ui.AlarmRingPage.AlarmRingActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".TestCode.TestInfoActivity"></activity>
     </application>
 
 </manifest>
