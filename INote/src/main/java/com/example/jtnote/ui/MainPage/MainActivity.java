@@ -15,6 +15,7 @@ import com.example.jtnote.Constants;
 import com.example.jtnote.R;
 import com.example.jtnote.TestCode.TestInfoActivity;
 import com.example.jtnote.bean.NoteItem;
+import com.example.jtnote.service.NoteService;
 import com.example.jtnote.ui.KeyboardActivity;
 
 import java.text.SimpleDateFormat;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initView();
         initData();
+        startService(new Intent(this, NoteService.class));
     }
 
     @Override

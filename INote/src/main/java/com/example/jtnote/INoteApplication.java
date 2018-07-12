@@ -29,7 +29,6 @@ public class INoteApplication extends Application{
 
         INoteSharePreference.getInstance().init(this);
         Model.getInstance().init(this);
-        startService(new Intent(this, NoteService.class));
     }
 
     public void runOnUiThread(Runnable runnable){
