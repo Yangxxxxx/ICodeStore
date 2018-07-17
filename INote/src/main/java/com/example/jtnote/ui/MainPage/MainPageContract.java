@@ -11,7 +11,7 @@ import java.util.List;
 public class MainPageContract {
     public interface Presenter{
         void textEntryClick();
-        void newTextContent(String content);
+        void newTextContent(String content, boolean goMorePage);
         void noteItemClick(NoteItem noteItem);
         void deleteSelectNotes();
         void turnDeleteMode();

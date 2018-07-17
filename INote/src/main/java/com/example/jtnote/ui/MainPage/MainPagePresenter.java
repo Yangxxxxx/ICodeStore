@@ -33,8 +33,12 @@ public class MainPagePresenter implements MainPageContract.Presenter, Model.OnNo
     }
 
     @Override
-    public void newTextContent(String content) {
-        model.insertNote(new NoteItem(model.genUniqueID(), content, 0));
+    public void newTextContent(String content, boolean goMorePage) {
+        NoteItem noteItem = new NoteItem(model.genUniqueID(), content, 0);
+        model.insertNote(noteItem);
+        if(goMorePage){
+            DetialActivity.start(context, noteItem);
+        }
     }
 
     @Override

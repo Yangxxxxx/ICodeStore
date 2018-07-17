@@ -43,14 +43,20 @@ public class KeyboardActivity extends AppCompatActivity implements View.OnClickL
         rootView = findViewById(R.id.rl_root);
         rootView.setOnSystemWindowsChangeListener(this);
         findViewById(R.id.tv_confirm).setOnClickListener(this);
+        findViewById(R.id.tv_more).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
+        int id = v.getId();
+
         String inputStr = editText.getText().toString();
         if(TextUtils.isEmpty(inputStr)) return;
         Intent intent = new Intent();
         intent.putExtra(Constants.KEY_INPUT_CONTENT, inputStr);
+        if(id == R.id.tv_more){
+            intent.putExtra(Constants.KEY_GO_MORE_PAGE, true);
+        }
         setResult(RESULT_OK, intent);
         onBackPressed();
     }
