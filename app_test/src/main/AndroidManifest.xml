@@ -134,7 +134,11 @@
         <service android:name=".ServiceTest.CountService" />
 
         <activity android:name=".RoomTest.RoomTestActivity" />
-        <activity android:name=".HttpUrlConnectionTest.HttpUrlConnectionActivity"></activity>
+        <activity android:name=".HttpUrlConnectionTest.HttpUrlConnectionActivity" />
+        <activity
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".SocketTest.SocketActivity"></activity>
     </application>
 
 </manifest>
