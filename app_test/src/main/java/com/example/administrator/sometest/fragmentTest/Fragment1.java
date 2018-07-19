@@ -2,10 +2,12 @@ package com.example.administrator.sometest.fragmentTest;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.sometest.R;
@@ -44,6 +46,13 @@ public class Fragment1 extends Fragment implements View.OnClickListener{
         rootView.findViewById(R.id.bt2).setOnClickListener(this);
         rootView.findViewById(R.id.bt3).setOnClickListener(this);
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        final TextView textView = view.findViewById(R.id.tv_content);
+        textView.setText(Fragment1.this.toString());
     }
 
     public void click1(View view) {

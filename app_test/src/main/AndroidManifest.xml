@@ -134,7 +134,9 @@
         <service android:name=".ServiceTest.CountService" />
 
         <activity android:name=".RoomTest.RoomTestActivity" />
-        <activity android:name=".HttpUrlConnectionTest.HttpUrlConnectionActivity"></activity>
+        <activity android:name=".HttpUrlConnectionTest.HttpUrlConnectionActivity" />
+        <activity android:name=".MeasureLayoutTest.MeasureLayoutActivity" />
+        <activity android:name=".SavedInstanceStateTest.SavedInstanceStateActivity"></activity>
     </application>
 
 </manifest>

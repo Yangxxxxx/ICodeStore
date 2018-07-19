@@ -16,11 +16,13 @@ import com.example.administrator.sometest.DrawableTest.ClipDrawableTestActivity;
 import com.example.administrator.sometest.HttpUrlConnectionTest.HttpUrlConnectionActivity;
 import com.example.administrator.sometest.KotlinTest.KotlinTestActivity;
 import com.example.administrator.sometest.LayoutChangeTest.LayoutChangeActivity;
+import com.example.administrator.sometest.MeasureLayoutTest.MeasureLayoutActivity;
 import com.example.administrator.sometest.OtherTest.OtherActivity;
 import com.example.administrator.sometest.OtherTest.ScrollToolbarTestActivity;
 import com.example.administrator.sometest.OverlayGuideTest.GuideActivity;
 import com.example.administrator.sometest.RTLTest.RTLTestActivity;
 import com.example.administrator.sometest.RoomTest.RoomTestActivity;
+import com.example.administrator.sometest.SavedInstanceStateTest.SavedInstanceStateActivity;
 import com.example.administrator.sometest.ServiceTest.ServiceTestActivity;
 import com.example.administrator.sometest.SystemBarTest.SystemBarMainActivity;
 import com.example.administrator.sometest.TmpActivity.TempActivity;
@@ -28,6 +30,7 @@ import com.example.administrator.sometest.ToolbarMenuTest.ToolbarMenuActivity;
 import com.example.administrator.sometest.TouchEventTest.TouchEventActivity;
 import com.example.administrator.sometest.ViewDrawProcessTest.ViewDrawProcessActivity;
 import com.example.administrator.sometest.ViewPagerTest.ViewPagerTestActivity;
+import com.example.administrator.sometest.fragmentTest.FragmentTestActivity;
 import com.example.administrator.sometest.patch9Test.Patch9Activity;
 
 public class HomeActivity extends AppCompatActivity{
@@ -38,6 +41,8 @@ public class HomeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        addButton("SavedInstanceStateActivity", SavedInstanceStateActivity.class);
+        addButton("MeasureLayoutActivity", MeasureLayoutActivity.class);
         addButton("HttpUrlConnectionActivity", HttpUrlConnectionActivity.class);
         addButton("LayoutChangeActivity", LayoutChangeActivity.class);
         addButton("RoomTestActivity", RoomTestActivity.class);
@@ -60,6 +65,7 @@ public class HomeActivity extends AppCompatActivity{
         addButton("OtherTest", OtherActivity.class);
         addButton("DPTest", DPTestActivity.class);
         addButton("ScrollToolbar", ScrollToolbarTestActivity.class);
+        addButton("FragmentTestActivity", FragmentTestActivity.class);
         addButton("TempActivity", TempActivity.class);
     }
 
