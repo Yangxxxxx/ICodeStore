@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
  */
 
 public class Constants {
+    public static final String KEY_GO_MORE_PAGE = "key_go_more_page";
     public static final String KEY_INPUT_CONTENT = "key_input_content";
     public static final String KEY_NOTEITEM_PARAM = "key_noteitem_param";
 

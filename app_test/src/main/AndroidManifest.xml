@@ -135,8 +135,13 @@
 
         <activity android:name=".RoomTest.RoomTestActivity" />
         <activity android:name=".HttpUrlConnectionTest.HttpUrlConnectionActivity" />
+        <activity
+            android:name=".SocketTest.SocketActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".MeasureLayoutTest.MeasureLayoutActivity" />
-        <activity android:name=".SavedInstanceStateTest.SavedInstanceStateActivity"></activity>
+        <activity android:name=".SavedInstanceStateTest.SavedInstanceStateActivity" />
+        <activity android:name=".TaskQueueTest.TaskQueueActivity"></activity>
     </application>
 
 </manifest>

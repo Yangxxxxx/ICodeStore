@@ -6,6 +6,110 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
+    <!--<FrameLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/btn_recharge_pressed">-->
+
+    <!--</FrameLayout>-->
+
+
+    <TextView
+        android:id="@+id/tv100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tv100"
+        android:textSize="20sp"
+        android:background="#487"/>
+
+
+    <TextView
+        android:id="@+id/tv101"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tv101"
+        android:textSize="20sp"
+        android:background="#987"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="30dp"
+        android:background="#387">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:background="#985"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:text="fsfesfsfsefsefsefesfsefsfesfesfsfsefesfesfesfsfs"
+            android:gravity="left"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="fsefesfesfseffsef"
+            android:background="#985"/>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#387">
+
+        <ImageView
+            android:id="@+id/iv1"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:background="#985"/>
+
+        <TextView
+            android:layout_toStartOf="@+id/iv2"
+            android:layout_toEndOf="@+id/iv1"
+            android:layout_width="match_parent"
+            android:text="fsfesfsfsefsefsefesfsefsfesfesfsfsefesfesfesfsfs"
+            android:gravity="left"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/iv2"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:text="fsefesfesf"
+            android:background="#985"/>
+
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_goddess_not_enough_coin"
+        android:drawablePadding="6dp"
+        android:gravity="center"
+        android:background="@drawable/btn_recharge_pressed"
+        android:text="recharfsdfsfsfsefsefsefesfesge"
+        android:textColor="#000"
+        android:textSize="14sp"
+        />
+
+    <!--<RelativeLayout-->
+        <!--android:clickable="true"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:background="@drawable/selector_button_start_match">-->
+
+    <!--</RelativeLayout>-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="400dp"

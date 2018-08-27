@@ -1,13 +1,6 @@
 package com.example.jtnote.utils;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
-import android.os.PowerManager;
-import android.util.Log;
-
-import com.example.jtnote.Constants;
-import com.example.jtnote.INoteApplication;
 
 /**
  * Created by Administrator on 2018/7/12 0012.
@@ -37,4 +30,5 @@ public class CommonUtils {
 //        wl.acquire(1000);
 //        wl.release();
     }
+
 }

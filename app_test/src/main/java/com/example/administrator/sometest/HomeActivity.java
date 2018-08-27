@@ -1,8 +1,11 @@
 package com.example.administrator.sometest;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -24,7 +27,12 @@ import com.example.administrator.sometest.RTLTest.RTLTestActivity;
 import com.example.administrator.sometest.RoomTest.RoomTestActivity;
 import com.example.administrator.sometest.SavedInstanceStateTest.SavedInstanceStateActivity;
 import com.example.administrator.sometest.ServiceTest.ServiceTestActivity;
+import com.example.administrator.sometest.SocketTest.SocketActivity;
+import com.example.administrator.sometest.SocketTest.SocketActivity;
 import com.example.administrator.sometest.SystemBarTest.SystemBarMainActivity;
+import com.example.administrator.sometest.TaskQueueTest.ExclusiveTask;
+import com.example.administrator.sometest.TaskQueueTest.ExclusiveTaskManager;
+import com.example.administrator.sometest.TaskQueueTest.TaskQueueActivity;
 import com.example.administrator.sometest.TmpActivity.TempActivity;
 import com.example.administrator.sometest.ToolbarMenuTest.ToolbarMenuActivity;
 import com.example.administrator.sometest.TouchEventTest.TouchEventActivity;
@@ -41,6 +49,8 @@ public class HomeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        addButton("TaskQueueActivity", TaskQueueActivity.class);
+        addButton("SocketActivity", SocketActivity.class);
         addButton("SavedInstanceStateActivity", SavedInstanceStateActivity.class);
         addButton("MeasureLayoutActivity", MeasureLayoutActivity.class);
         addButton("HttpUrlConnectionActivity", HttpUrlConnectionActivity.class);
@@ -60,13 +70,16 @@ public class HomeActivity extends AppCompatActivity{
         addButton("SystemBarMainActivity", SystemBarMainActivity.class);
         addButton("KotlinTestActivity", KotlinTestActivity.class);
         addButton("ViewPagerTestActivity", ViewPagerTestActivity.class);
-        addButton("databindingTest", DataBindingTestActivity.class);
+        addButton("DataBindingTestActivity", DataBindingTestActivity.class);
         addButton("clipDrawableTest", ClipDrawableTestActivity.class);
         addButton("OtherTest", OtherActivity.class);
         addButton("DPTest", DPTestActivity.class);
         addButton("ScrollToolbar", ScrollToolbarTestActivity.class);
         addButton("FragmentTestActivity", FragmentTestActivity.class);
         addButton("TempActivity", TempActivity.class);
+
+        ExclusiveTaskManager.getInstance().addTask(exclusiveTask2);
+//        ExclusiveTaskManager.getInstance().addTask(exclusiveTask);
     }
 
     private void addButton(String buttonText, final Class activityClass){
@@ -82,4 +95,35 @@ public class HomeActivity extends AppCompatActivity{
         linearLayout.addView(button);
     }
 
+    private ExclusiveTask exclusiveTask = new ExclusiveTask() {
+        @Override
+        public void excute() {
+            Log.e("yang", "HomeActivity dialog");
+            new AlertDialog.Builder(HomeActivity.this)
+                    .setTitle("HomeActivity")
+                    .setMessage("this is HomeActivity")
+                    .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            finishTask();
+                        }
+                    })
+                    .show();
+            stayTaskRunning();
+        }
+    };
+
+
+    private ExclusiveTask exclusiveTask2 = new ExclusiveTask() {
+        @Override
+        public void excute() {
+            Log.e("yang", "HomeActivity exclusiveTask2 running");
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        ExclusiveTaskManager.getInstance().finish();
+        super.onDestroy();
+    }
 }

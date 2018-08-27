@@ -3,6 +3,8 @@ package com.example.administrator.sometest;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 /**
@@ -10,6 +12,8 @@ import android.util.Log;
  */
 
 public class IApplication extends Application implements Application.ActivityLifecycleCallbacks{
+    private static Handler mUiHandler = new Handler(Looper.getMainLooper());
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -56,5 +60,9 @@ public class IApplication extends Application implements Application.ActivityLif
     public void onActivityDestroyed(Activity activity) {
         Log.e("yang", "onActivityDestroyed " + activity.toString());
 
+    }
+
+    public static Handler getMainHandler(){
+        return mUiHandler;
     }
 }

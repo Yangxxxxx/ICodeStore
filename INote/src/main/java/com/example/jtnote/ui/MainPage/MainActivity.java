@@ -24,7 +24,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, MainPageContract.View{
     private static final int KEYBOARD_ACTIVITY_REQUESTCODE = 100;
-    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd HH:mm");
 
     private List<NoteItem> noteItemList = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -97,8 +97,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == KEYBOARD_ACTIVITY_REQUESTCODE && resultCode == RESULT_OK && data != null){
             String inputStr = data.getStringExtra(Constants.KEY_INPUT_CONTENT);
+            boolean goMorePage = data.getBooleanExtra(Constants.KEY_GO_MORE_PAGE, false);
             if(TextUtils.isEmpty(inputStr)) return;
-            presenter.newTextContent(inputStr);
+            presenter.newTextContent(inputStr, goMorePage);
         }
     }
 
