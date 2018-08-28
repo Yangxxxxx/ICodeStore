@@ -1,30 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_alarm"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:gravity="center"
-        android:textSize="20sp"
-        android:background="#867"
-        android:text="alarm"/>
+        android:orientation="vertical">
 
-    <CalendarView
-        android:id="@+id/calendar_view"
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/tv_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#757575"
+                android:textSize="25sp"
+                tool:text="2018" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:text="-"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@drawable/time_button_bg_selector"
+                android:textColor="@drawable/time_text_color_selector"
+                android:textSize="25sp"
+                tool:text="08" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:text="-"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@drawable/time_button_bg_selector"
+                android:textColor="@drawable/time_text_color_selector"
+                android:textSize="25sp"
+                tool:text="27" />
+
+            <TextView
+                android:id="@+id/tv_hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@drawable/time_button_bg_selector"
+                android:textColor="@drawable/time_text_color_selector"
+                android:layout_marginStart="15dp"
+                android:textSize="25sp"
+                tool:text="16" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:text=":"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_minute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@drawable/time_button_bg_selector"
+                android:textColor="@drawable/time_text_color_selector"
+                android:textSize="25sp"
+                tool:text="18" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="未选择日期" />
+
+            <ImageButton
+                android:id="@+id/tv_reset"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_toEndOf="@+id/tv_hint"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_remove_alarm"
+                android:background="@null"
+                android:gravity="center"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+
+    <com.example.jtnote.widget.TimePanel
+        android:id="@+id/time_panel"
         android:layout_width="match_parent"
-        android:layout_height="300dp"/>
-
-    <TimePicker
-        android:id="@+id/time_picker"
-        android:layout_width="match_parent"
-        android:layout_height="300dp">
-
-    </TimePicker>
-
-
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp" />
 </LinearLayout>

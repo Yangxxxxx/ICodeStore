@@ -87,6 +87,10 @@ public class NoteItem implements Serializable{
         this.alarmTime = alarmTime;
     }
 
+    public void removeAlarm(){
+        setAlarmTime(0);
+    }
+
     public long getCreatTime() {
         return creatTime;
     }

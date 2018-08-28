@@ -20,6 +20,7 @@ import com.example.administrator.sometest.HttpUrlConnectionTest.HttpUrlConnectio
 import com.example.administrator.sometest.KotlinTest.KotlinTestActivity;
 import com.example.administrator.sometest.LayoutChangeTest.LayoutChangeActivity;
 import com.example.administrator.sometest.MeasureLayoutTest.MeasureLayoutActivity;
+import com.example.administrator.sometest.NumberPickerTest.NumberPickerActivity;
 import com.example.administrator.sometest.OtherTest.OtherActivity;
 import com.example.administrator.sometest.OtherTest.ScrollToolbarTestActivity;
 import com.example.administrator.sometest.OverlayGuideTest.GuideActivity;
@@ -49,6 +50,7 @@ public class HomeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        addButton("NumberPickerActivity", NumberPickerActivity.class);
         addButton("TaskQueueActivity", TaskQueueActivity.class);
         addButton("SocketActivity", SocketActivity.class);
         addButton("SavedInstanceStateActivity", SavedInstanceStateActivity.class);
