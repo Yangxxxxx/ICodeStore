@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="25dp"
         android:layout_alignParentBottom="true"
-        android:background="#88000000"
+        android:background="@color/dialog_transparent"
         android:orientation="vertical">
 
         <EditText
