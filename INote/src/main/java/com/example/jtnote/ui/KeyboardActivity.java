@@ -18,7 +18,7 @@ import com.example.jtnote.widget.InsetableRelativeLayout;
 public class KeyboardActivity extends AppCompatActivity implements View.OnClickListener, InsetableRelativeLayout.OnSystemWindowsChangeListener{
     private EditText editText;
     private InsetableRelativeLayout rootView;
-    private LinearLayout bottomAreaLayout;
+    private RelativeLayout bottomAreaLayout;
 
     private boolean showingKeyboard;
 
@@ -85,6 +85,6 @@ public class KeyboardActivity extends AppCompatActivity implements View.OnClickL
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) bottomAreaLayout.getLayoutParams();
         layoutParams.bottomMargin = insets.bottom;
         bottomAreaLayout.setLayoutParams(layoutParams);
-        bottomAreaLayout.animate().alpha(1).setDuration(500).start();
+        bottomAreaLayout.animate().alpha(1).setDuration(300).start();
     }
 }

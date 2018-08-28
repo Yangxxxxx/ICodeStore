@@ -5,25 +5,32 @@
     android:id="@+id/rl_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#88000000"
     tools:context="com.example.jtnote.ui.KeyboardActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ll_bottom_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="25dp"
         android:layout_alignParentBottom="true"
-        android:background="#ddd"
+        android:background="#88000000"
         android:orientation="vertical">
 
         <EditText
             android:id="@+id/et_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingStart="16dp"
+            android:layout_above="@+id/ll_button_area"
+            android:background="#ddd"/>
 
         <LinearLayout
+            android:id="@+id/ll_button_area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#ddd"
+            android:layout_alignParentBottom="true"
             android:orientation="horizontal">
 
             <TextView
@@ -45,6 +52,6 @@
                 android:textSize="20sp"/>
 
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 </com.example.jtnote.widget.InsetableRelativeLayout>

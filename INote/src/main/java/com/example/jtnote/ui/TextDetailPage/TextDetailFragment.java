@@ -3,6 +3,7 @@ package com.example.jtnote.ui.TextDetailPage;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ public class TextDetailFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         textContentView = view.findViewById(R.id.tv_content);
-
         textContentView.setText(noteItem.getTextContent());
+        textContentView.setMovementMethod(ScrollingMovementMethod.getInstance());
     }
 }
