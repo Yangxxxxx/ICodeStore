@@ -103,10 +103,15 @@ public class TimePickerFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onCalenderChanged(Calendar calendar) {
-        alarmNewTime(calendar.getTimeInMillis());
-        showSelectedTime(calendar);
-        showHintInfo();
-        showRemoveButton();
+        boolean legalTime = calendar.getTimeInMillis() - System.currentTimeMillis() > 0;
+        if(legalTime) {
+            alarmNewTime(calendar.getTimeInMillis());
+            showSelectedTime(calendar);
+            showHintInfo();
+            showRemoveButton();
+        }else {
+            Toast.makeText(getContext(), "uncorrect time", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -171,14 +176,9 @@ public class TimePickerFragment extends Fragment implements View.OnClickListener
 
 
     private void alarmNewTime(long time){
-        long alarmTime = time - System.currentTimeMillis();
-        if(alarmTime >= 0) {
-            noteItem.setAlarmTime(time);
-            inoteService.newAlarmtask(noteItem);
-            Model.getInstance().updateNote(noteItem);
-        }else {
-            Toast.makeText(getContext(), "uncorrect time", Toast.LENGTH_SHORT).show();
-        }
+        noteItem.setAlarmTime(time);
+        inoteService.newAlarmtask(noteItem);
+        Model.getInstance().updateNote(noteItem);
     }
 
     private void cancleAlarm(){

@@ -5,8 +5,8 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#FFF"
+    android:orientation="vertical"
     tools:context="com.example.jtnote.ui.MainPage.MainActivity">
 
     <android.support.v7.widget.RecyclerView
@@ -20,32 +20,22 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="52dp"
+        android:background="@drawable/navigate_divider_line_bg">
 
-        <TextView
+        <ImageButton
             android:id="@+id/tv_delete"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:gravity="center"
-            android:background="@color/main_button_bg"
-            android:text="DELETE"/>
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_delete"
+            android:background="@null"/>
 
-        <LinearLayout
-            android:id="@+id/ll_func_layout"
+        <ImageButton
+            android:id="@+id/tv_text"
             android:layout_width="match_parent"
-            android:layout_height="48dp">
-
-            <TextView
-                android:id="@+id/tv_text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:background="@color/main_button_bg"
-                android:gravity="center"
-                android:foreground="@drawable/forceground_press_bg_selector"
-                android:text="TEXT"/>
-
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_create"
+            android:background="@null"/>
 
     </FrameLayout>
 

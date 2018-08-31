@@ -6,6 +6,7 @@
     
     <color name="dialog_transparent">#88000000</color>
     <color name="main_page_bg">#fff</color>
-    <color name="main_divider">#ccc</color>
+    <color name="main_navigate_divider">#80C7CCCF</color>
     <color name="main_button_bg">#ddd</color>
+    <color name="main_adapter_view_divider">#eee</color>
 </resources>
