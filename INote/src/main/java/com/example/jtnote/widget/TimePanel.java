@@ -44,29 +44,38 @@ public class TimePanel extends NumberPanel implements NumberPanel.NumberSelectLi
     public void turnMonthPanel(){
         if(calendar == null) return;
         panelMode = MONTH_PANEL;
-        setRange(calendar.getActualMinimum(Calendar.MONTH) + 1, calendar.getActualMaximum(Calendar.MONTH) + 1);
+        int minNum = getRangeMinNum(calendar, Calendar.MONTH) + 1;
+        int maxNum = calendar.getActualMaximum(Calendar.MONTH) + 1;
+        setRange(minNum, maxNum);
         setSelectNumberIndex(calendar.get(Calendar.MONTH) + 1);
     }
 
     public void turnDayPanel(){
         if(calendar == null) return;
         panelMode = DAY_PANEL;
-        setRange(calendar.getActualMinimum(Calendar.DAY_OF_MONTH), calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        int minNum = getRangeMinNum(calendar, Calendar.DAY_OF_MONTH);//calendar.getActualMinimum(Calendar.DAY_OF_MONTH);
+        int maxNum = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        setRange(minNum, maxNum);
         setSelectNumberIndex(calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     public void turnHourPanel(){
         if(calendar == null) return;
         panelMode = HOUR_PANEL;
-        setRange(calendar.getActualMinimum(Calendar.HOUR_OF_DAY), calendar.getActualMaximum(Calendar.HOUR_OF_DAY));
+        int minNum = getRangeMinNum(calendar, Calendar.HOUR_OF_DAY);//calendar.getActualMinimum(Calendar.HOUR_OF_DAY);
+        int maxNum = calendar.getActualMaximum(Calendar.HOUR_OF_DAY);
+        setRange(minNum, maxNum);
         setSelectNumberIndex(calendar.get(Calendar.HOUR_OF_DAY));
     }
 
     public void turnMinutePanel(){
         if(calendar == null) return;
         panelMode = MINUTE_PANEL;
+        int minNum = getRangeMinNum(calendar, Calendar.MINUTE);//calendar.getActualMinimum(Calendar.MINUTE)
+        int maxNum = calendar.getActualMaximum(Calendar.MINUTE);
+        setRange(minNum, maxNum);
         setSelectNumberIndex(calendar.get(Calendar.MINUTE));
-        setRange(calendar.getActualMinimum(Calendar.MINUTE), calendar.getActualMaximum(Calendar.MINUTE));
     }
 
     @Override
@@ -88,6 +97,28 @@ public class TimePanel extends NumberPanel implements NumberPanel.NumberSelectLi
                 break;
         }
         calenderChangeListener.onCalenderChanged(calendar);
+    }
+
+
+    private int getRangeMinNum(Calendar calendar, int field){
+        Calendar calendarNow = Calendar.getInstance();
+        boolean sameMonth = calendarNow.get(Calendar.MONTH) == calendar.get(Calendar.MONTH);
+        boolean sameDay = calendarNow.get(Calendar.DAY_OF_MONTH) == calendar.get(Calendar.DAY_OF_MONTH);
+        boolean sameHour = calendarNow.get(Calendar.HOUR_OF_DAY) == calendar.get(Calendar.HOUR_OF_DAY);
+
+        int minNum = calendar.getActualMinimum(field);
+        int currNum = calendarNow.get(field);
+
+        if(field == Calendar.MONTH){
+            return currNum;
+        }else if(field == Calendar.DAY_OF_MONTH){
+            return sameMonth ? currNum : minNum;
+        }else if(field == Calendar.HOUR_OF_DAY){
+            return sameMonth && sameDay ? currNum : minNum;
+        }else if(field == Calendar.MINUTE){
+            return sameMonth && sameDay && sameHour ? currNum : minNum;
+        }
+        return minNum;
     }
 
     public interface CalenderChangeListener{

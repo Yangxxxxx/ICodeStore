@@ -21,7 +21,6 @@ import com.example.jtnote.R;
 import com.example.jtnote.UsageInterface.InoteService;
 import com.example.jtnote.bean.NoteItem;
 import com.example.jtnote.service.NoteService;
-import com.example.jtnote.ui.MainPage.MainPageContract;
 import com.example.jtnote.utils.CommonUtils;
 import com.example.jtnote.widget.TimePanel;
 
@@ -103,15 +102,20 @@ public class TimePickerFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onCalenderChanged(Calendar calendar) {
-        boolean legalTime = calendar.getTimeInMillis() - System.currentTimeMillis() > 0;
+        long timeInterval = calendar.getTimeInMillis() - System.currentTimeMillis();
+        boolean legalTime = timeInterval > 0;
         if(legalTime) {
             alarmNewTime(calendar.getTimeInMillis());
-            showSelectedTime(calendar);
-            showHintInfo();
-            showRemoveButton();
+            showAlarmHintInfo();
+            setRemoveButtonVisible(noteItem.hasAlarm());
         }else {
-            Toast.makeText(getContext(), "uncorrect time", Toast.LENGTH_SHORT).show();
+            cancleAlarm();
+            showSelectTimeErrorHint();
+            setRemoveButtonVisible(true);
+//            Toast.makeText(getContext(), "uncorrect time", Toast.LENGTH_SHORT).show();
         }
+
+        showSelectedTime(calendar);
     }
 
     @Override
@@ -144,8 +148,8 @@ public class TimePickerFragment extends Fragment implements View.OnClickListener
         numberPanel.attachCalendar(calendar);
         numberPanel.setRange(-1, -1);
         showSelectedTime(calendar);
-        showHintInfo();
-        showRemoveButton();
+        showAlarmHintInfo();
+        setRemoveButtonVisible(noteItem.hasAlarm());
     }
 
     private void showSelectedTime(Calendar calendar){
@@ -156,22 +160,26 @@ public class TimePickerFragment extends Fragment implements View.OnClickListener
         minuteView.setText(String.format("%02d", calendar.get(Calendar.MINUTE)));
     }
 
-    private void showHintInfo(){
-        if(noteItem.getAlarmTime() == 0){
+
+    private void showSelectTimeErrorHint(){
+        hintView.setText("过期的时间");
+    }
+
+    private void showAlarmHintInfo(){
+        if(!noteItem.hasAlarm()){
             hintView.setText("点击选择日期");
             return;
         }
 
-        long timeInterval = calendar.getTimeInMillis() - System.currentTimeMillis();
-        if(timeInterval < 0){
+        if(noteItem.getTimeIntervalMilli() < 0){
             hintView.setText("闹钟已过期");
         }else {
-            hintView.setText(CommonUtils.getDuration(timeInterval) + " 后提示");
+            hintView.setText(CommonUtils.getDuration(noteItem.getTimeIntervalMilli()) + " 后提示");
         }
     }
 
-    private void showRemoveButton(){
-        resetButton.setVisibility(noteItem.getAlarmTime() == 0 ? View.INVISIBLE : View.VISIBLE);
+    private void setRemoveButtonVisible(boolean visible){
+        resetButton.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
     }
 
 
@@ -188,12 +196,12 @@ public class TimePickerFragment extends Fragment implements View.OnClickListener
     }
 
     private void removeAlarm(){
-        cancleAlarm();
-        showHintInfo();
         calendar.setTimeInMillis(System.currentTimeMillis());
         showSelectedTime(calendar);
+        cancleAlarm();
+        showAlarmHintInfo();
         numberPanel.setRange(-1, -1);
-        showRemoveButton();
+        setRemoveButtonVisible(noteItem.hasAlarm());
     }
 
     private void hightlightSelectedView(View timeView){

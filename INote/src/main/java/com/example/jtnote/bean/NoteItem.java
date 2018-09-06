@@ -91,6 +91,18 @@ public class NoteItem implements Serializable{
         setAlarmTime(0);
     }
 
+    public boolean hasAlarm(){
+        return alarmTime > 0;
+    }
+
+    /**
+     * 返回闹钟距离当前的时间间隔
+     * @return
+     */
+    public long getTimeIntervalMilli(){
+        return alarmTime - System.currentTimeMillis();
+    }
+
     public long getCreatTime() {
         return creatTime;
     }
