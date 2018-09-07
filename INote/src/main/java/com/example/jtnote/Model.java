@@ -2,6 +2,9 @@ package com.example.jtnote;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.util.Log;
 
 import com.example.jtnote.bean.NoteItem;
 import com.example.jtnote.db.DBUsageImplNew;
@@ -17,28 +20,46 @@ import java.util.List;
 public class Model {
     private final String DB_NAME = "INote_DB";
 
+    private HandlerThread handlerThread;
+    private Handler workHanlder;
+
     private List<NoteItem> noteItemList = new ArrayList<>();
     private List<OnNoteChangeListener> onNoteChangeListeners = new ArrayList<>();
     private DBUsageInterface dbUsageInterface;
 
     private static Model model = new Model();
     private Model(){
+        initData();
     }
     public static Model getInstance(){
         return model;
     }
 
-    public void init(Context context){
-//        getNoteContent_debug();
+    public void initModel(final Context context){
+        runOnWorkThread(new Runnable() {
+            @Override
+            public void run() {
+                dbUsageInterface = Room.databaseBuilder(context, DBUsageImplNew.class, DB_NAME)
+                        .addMigrations(DBUsageImplNew.migration1_2)
+                        .fallbackToDestructiveMigration()
+                        .allowMainThreadQueries()
+                        .build();
+                noteItemList.addAll(dbUsageInterface.queryAllNotes());
+                INoteApplication.getInstance().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        invokeNoteChangeListener();
+                    }
+                });
+            }
+        });
 
-//        dbUsageInterface = new DBUsageimpl(context);
-        dbUsageInterface = Room.databaseBuilder(context, DBUsageImplNew.class, DB_NAME)
-                .addMigrations(DBUsageImplNew.migration1_2)
-                .fallbackToDestructiveMigration()
-                .allowMainThreadQueries()
-                .build();
+    }
 
-        noteItemList.addAll(dbUsageInterface.queryAllNotes());
+    public void initData(){
+        handlerThread = new HandlerThread("workThread");
+        handlerThread.start();
+        workHanlder = new Handler(handlerThread.getLooper());
     }
 
     public List<NoteItem> getAllNotes(){
@@ -104,5 +125,9 @@ public class Model {
 
     public interface OnNoteChangeListener{
         void onNoteChanged(List<NoteItem> noteItemList);
+    }
+
+    private void runOnWorkThread(Runnable runnable){
+        workHanlder.post(runnable);
     }
 }

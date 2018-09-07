@@ -22,13 +22,13 @@ public class INoteApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e("yang", "enter onCreate");
+        long preTime = System.currentTimeMillis();
         iNoteApplication = this;
 
         mainHandler = new Handler(getMainLooper());
 
         INoteSharePreference.getInstance().init(this);
-        Model.getInstance().init(this);
+        Model.getInstance().initModel(this);
     }
 
     public void runOnUiThread(Runnable runnable){
