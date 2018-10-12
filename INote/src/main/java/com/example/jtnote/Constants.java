@@ -19,4 +19,6 @@ public class Constants {
     public static final boolean ABOVE_M = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     public static final boolean ABOVE_O = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     public static final boolean ABOVE_KITKAT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+
+    public static final int KEYBOARD_ACTIVITY_REQUESTCODE = 100;
 }

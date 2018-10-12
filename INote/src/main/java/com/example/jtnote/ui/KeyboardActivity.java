@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.example.jtnote.R;
 import com.example.jtnote.widget.InsetableRelativeLayout;
 
 public class KeyboardActivity extends AppCompatActivity implements View.OnClickListener, InsetableRelativeLayout.OnSystemWindowsChangeListener{
+    private final static String KEY_ORG_TEXT = "key_org_text";
+
     private EditText editText;
     private InsetableRelativeLayout rootView;
     private RelativeLayout bottomAreaLayout;
@@ -25,6 +28,12 @@ public class KeyboardActivity extends AppCompatActivity implements View.OnClickL
     public static void start(Activity activity, int requestCode){
         Intent intent = new Intent(activity, KeyboardActivity.class);
         activity.startActivityForResult(intent, requestCode);
+    }
+
+    public static void start(Fragment fragment, String orgText, int requestCode){
+        Intent intent = new Intent(fragment.getContext(), KeyboardActivity.class);
+        intent.putExtra(KEY_ORG_TEXT, orgText);
+        fragment.startActivityForResult(intent, requestCode);
     }
 
     @Override
@@ -44,6 +53,11 @@ public class KeyboardActivity extends AppCompatActivity implements View.OnClickL
         rootView.setOnSystemWindowsChangeListener(this);
         findViewById(R.id.tv_confirm).setOnClickListener(this);
         findViewById(R.id.tv_more).setOnClickListener(this);
+
+        if(getIntent() != null){
+            String ortStr = getIntent().getStringExtra(KEY_ORG_TEXT);
+            editText.setText(ortStr);
+        }
     }
 
     @Override
