@@ -30,6 +30,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -92,22 +93,22 @@ public class TempActivity extends AppCompatActivity {
 //        textView1.setText(cutText("你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好"));
 
 
-        new Thread() {
-            @Override
-            public void run() {
-                super.run();
-                while (true) {
-                    ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-                    ComponentName cn = activityManager.getRunningTasks(1).get(0).topActivity;
-                    Log.e("yang", "running task: " + cn.getPackageName() + "::" + cn.getClassName());
-                    try {
-                        sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }.start();
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                super.run();
+//                while (true) {
+//                    ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+//                    ComponentName cn = activityManager.getRunningTasks(1).get(0).topActivity;
+//                    Log.e("yang", "running task: " + cn.getPackageName() + "::" + cn.getClassName());
+//                    try {
+//                        sleep(2000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }.start();
 
         TextView textView = findViewById(R.id.tv100);
 
@@ -144,6 +145,25 @@ public class TempActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.tv_first).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(TempActivity.this, "first click", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        Log.e("yang", "dispatchTouchEvent : " + ev.getAction());
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Log.e("yang", "onTouchEvent : " + event.getAction());
+        return super.onTouchEvent(event);
     }
 
     private String cutText(String text) {
