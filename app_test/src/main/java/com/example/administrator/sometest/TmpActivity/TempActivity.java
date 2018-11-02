@@ -145,12 +145,12 @@ public class TempActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.tv_first).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(TempActivity.this, "first click", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        findViewById(R.id.tv_first).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(TempActivity.this, "first click", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
     }
 
