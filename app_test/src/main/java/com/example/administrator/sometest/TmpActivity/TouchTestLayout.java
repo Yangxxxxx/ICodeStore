@@ -28,7 +28,7 @@ public class TouchTestLayout extends LinearLayout implements GestureDetector.OnG
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         gestureDetector.onTouchEvent(event);
-        Log.e(TAG, "onTouchEvent: " + event.getAction());
+        Log.e(TAG, "onTouchEvent: " + event.getX() + " " + event.getY() + " " + event.getSize());
         return true;
     }
 
