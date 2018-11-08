@@ -1,6 +1,9 @@
 package com.example.administrator.sometest.TmpActivity;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -11,6 +14,12 @@ import android.widget.LinearLayout;
 public class TouchTestLayout extends LinearLayout implements GestureDetector.OnGestureListener {
     private static final String TAG = "TouchTestLayout";
     private GestureDetector gestureDetector;
+    private float pointx;
+    private float pointy;
+    private Paint paint;
+
+    private float size;
+
 
     public TouchTestLayout(Context context) {
         this(context, null);
@@ -28,8 +37,22 @@ public class TouchTestLayout extends LinearLayout implements GestureDetector.OnG
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         gestureDetector.onTouchEvent(event);
-        Log.e(TAG, "onTouchEvent: " + event.getX() + " " + event.getY() + " " + event.getSize());
+        Log.e(TAG, "onTouchEvent: " + event.getX() + " " + event.getY() + " " + event.getEdgeFlags() +" ");
+        pointx = event.getX();
+        pointy = event.getY();
+        size = event.getSize();
         return true;
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        float offset = (1080 * size) / 2;
+
+
+        canvas.drawCircle(pointx, pointy, offset, paint);
+        canvas.drawLine(0, 0, 20, 20, paint);
     }
 
     @Override
@@ -67,6 +90,7 @@ public class TouchTestLayout extends LinearLayout implements GestureDetector.OnG
     @Override
     public void onLongPress(MotionEvent e) {
         Log.e(TAG, "onLongPress");
+        invalidate();
     }
 
     @Override
@@ -75,6 +99,10 @@ public class TouchTestLayout extends LinearLayout implements GestureDetector.OnG
     }
 
     private void init(){
+        paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setStrokeWidth(10);
         gestureDetector = new GestureDetector(getContext(), this);
+        setWillNotDraw(false);
     }
 }

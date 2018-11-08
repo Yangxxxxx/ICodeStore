@@ -18,6 +18,7 @@ import com.example.jtnote.TestCode.TestInfoActivity;
 import com.example.jtnote.bean.NoteItem;
 import com.example.jtnote.service.NoteService;
 import com.example.jtnote.ui.KeyboardActivity;
+import com.example.jtnote.widget.GestureDetectLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, MainPageContract.View{
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd HH:mm");
+    private final int VIEW_HOLDER_TAG_KEY = R.id.view_holder_tag_key;
 
     private List<NoteItem> noteItemList = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private class NoteContentAdapter extends RecyclerView.Adapter<NoteContentAdapter.NoteContentHolder> implements View.OnClickListener, View.OnLongClickListener{
+    private class NoteContentAdapter extends RecyclerView.Adapter<NoteContentAdapter.NoteContentHolder> implements GestureDetectLayout.OnGestureListener {
 
 
         @Override
@@ -128,10 +130,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 holder.expireView.setVisibility(noExpire ? View.INVISIBLE : View.VISIBLE);
             }
 
-            holder.itemView.setSelected(presenter.isNoteSelected(noteItem));
-            holder.itemView.setOnClickListener(this);
-            holder.itemView.setOnLongClickListener(this);
-            holder.itemView.setTag(noteItem);
+            holder.gestureDetectLayout.setSelected(presenter.isNoteSelected(noteItem));
+            holder.gestureDetectLayout.setOnGestureListener(this);
+            holder.gestureDetectLayout.setTag(noteItem);
+            holder.gestureDetectLayout.setTag(VIEW_HOLDER_TAG_KEY, holder);
         }
 
         @Override
@@ -145,27 +147,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         @Override
-        public boolean onLongClick(View v) {
-            presenter.turnDeleteMode();
-            presenter.noteItemClick((NoteItem)v.getTag());
-            return true;
+        public void onLongClick(View v, boolean pressOnBorder) {
+            if(pressOnBorder){
+                Object object = v.getTag(VIEW_HOLDER_TAG_KEY);
+                if(object instanceof RecyclerView.ViewHolder){
+                    itemTouchHelper.startDrag((RecyclerView.ViewHolder)object);
+                }
+            }else {
+                presenter.turnDeleteMode();
+                presenter.noteItemClick((NoteItem)v.getTag());
+            }
         }
 
         public class NoteContentHolder extends RecyclerView.ViewHolder{
             private TextView textContent;
             private TextView alarmHint;
             private View expireView;
+            private GestureDetectLayout gestureDetectLayout;
 
             public NoteContentHolder(View itemView) {
                 super(itemView);
                 textContent = itemView.findViewById(R.id.tv_content);
                 alarmHint = itemView.findViewById(R.id.tv_alarm_hint);
                 expireView = itemView.findViewById(R.id.view_expire);
+                gestureDetectLayout = itemView.findViewById(R.id.item_root);
             }
         }
     }
 
-    ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+    ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
         @Override
         public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
             //首先回调的方法 返回int表示是否监听该方向
@@ -194,8 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public boolean isLongPressDragEnabled() {
-            //是否可拖拽
-            return true;
+            return false;
         }
     });
 
@@ -204,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView = findViewById(R.id.rc_note_board);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new NoteContentAdapter());
-        helper.attachToRecyclerView(recyclerView);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
         funcLayout = findViewById(R.id.tv_text);
         deleteLayout = findViewById(R.id.tv_delete);

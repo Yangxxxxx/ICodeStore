@@ -1,6 +1,7 @@
 package com.example.jtnote.utils;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
 
 /**
  * Created by Administrator on 2018/7/12 0012.
@@ -54,6 +55,11 @@ public class CommonUtils {
             timeStr += minute + "分钟";
         }
         return timeStr;
+    }
+
+    public static float dp2Px(Context context, int dp){
+        float density = context.getResources().getDisplayMetrics().density;
+        return density * dp;
     }
 
 }
