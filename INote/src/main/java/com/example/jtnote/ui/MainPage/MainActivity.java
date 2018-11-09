@@ -18,6 +18,7 @@ import com.example.jtnote.TestCode.TestInfoActivity;
 import com.example.jtnote.bean.NoteItem;
 import com.example.jtnote.service.NoteService;
 import com.example.jtnote.ui.KeyboardActivity;
+import com.example.jtnote.utils.SingleViewHelper;
 import com.example.jtnote.widget.GestureDetectLayout;
 
 import java.text.SimpleDateFormat;
@@ -33,9 +34,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView recyclerView;
     private View funcLayout;
     private View deleteLayout;
+    private View dragHintLayout;
     private MainPageContract.Presenter presenter;
-    private List<NoteItem> selectedList = new ArrayList<>();
-    private boolean isDeleteMode;
+    private SingleViewHelper singleViewHelper = new SingleViewHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,14 +74,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void turnDeleteMode() {
-        deleteLayout.setVisibility(View.VISIBLE);
-        funcLayout.setVisibility(View.INVISIBLE);
+//        deleteLayout.setVisibility(View.VISIBLE);
+//        funcLayout.setVisibility(View.INVISIBLE);
+        singleViewHelper.show(deleteLayout);
     }
 
     @Override
     public void turnNormalMode() {
-        deleteLayout.setVisibility(View.INVISIBLE);
-        funcLayout.setVisibility(View.VISIBLE);
+//        deleteLayout.setVisibility(View.INVISIBLE);
+//        funcLayout.setVisibility(View.VISIBLE);
+        singleViewHelper.show(funcLayout);
     }
 
     @Override
@@ -180,8 +183,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
             //首先回调的方法 返回int表示是否监听该方向
             int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;//线性排列时监听到的为上下动作则为：拖拽排序
-            int swipeFlags = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;//线性排列时监听到的为左右动作时则为：侧滑删除
-            return makeMovementFlags(dragFlags, swipeFlags);
+//            int swipeFlags = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;//线性排列时监听到的为左右动作时则为：侧滑删除
+            return makeMovementFlags(dragFlags, 0);
         }
 
         @Override
@@ -196,15 +199,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-            //侧滑事件
-            noteItemList.remove(viewHolder.getAdapterPosition());
-            //刷新adapter
-            recyclerView.getAdapter().notifyItemRemoved(viewHolder.getAdapterPosition());
+//            //侧滑事件
+//            noteItemList.remove(viewHolder.getAdapterPosition());
+//            //刷新adapter
+//            recyclerView.getAdapter().notifyItemRemoved(viewHolder.getAdapterPosition());
         }
 
         @Override
         public boolean isLongPressDragEnabled() {
             return false;
+        }
+
+        @Override
+        public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+            super.onSelectedChanged(viewHolder, actionState);
+            singleViewHelper.show(dragHintLayout);
+        }
+
+        @Override
+        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            super.clearView(recyclerView, viewHolder);
+            singleViewHelper.show(funcLayout);
         }
     });
 
@@ -217,8 +232,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         funcLayout = findViewById(R.id.tv_text);
         deleteLayout = findViewById(R.id.tv_delete);
+        dragHintLayout = findViewById(R.id.tv_drag_hint);
         funcLayout.setOnClickListener(this);
         deleteLayout.setOnClickListener(this);
+        singleViewHelper.add(funcLayout);
+        singleViewHelper.add(deleteLayout);
+        singleViewHelper.add(dragHintLayout);
 
         //testcode
         funcLayout.setOnLongClickListener(new View.OnLongClickListener() {

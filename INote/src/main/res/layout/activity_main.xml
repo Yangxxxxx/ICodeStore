@@ -37,6 +37,13 @@
             android:src="@drawable/ic_create"
             android:background="@null"/>
 
+        <TextView
+            android:id="@+id/tv_drag_hint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="上下拖拽，移动位置"/>
+
     </FrameLayout>
 
 
