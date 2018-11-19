@@ -93,6 +93,11 @@ public class MainPagePresenter implements MainPageContract.Presenter, Model.OnNo
     }
 
     @Override
+    public void onItemPosChange(int orgPos, int targetPos) {
+        model.onItemPosChange(orgPos, targetPos);
+    }
+
+    @Override
     public void onNoteChanged(List<NoteItem> noteItemList) {
         view.notesChange(noteItemList);
     }

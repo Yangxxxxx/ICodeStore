@@ -18,6 +18,7 @@ public class MainPageContract {
         boolean isNoteSelected(NoteItem noteItem);
         boolean onBackPress();
         void onDestory();
+        void onItemPosChange(int orgPos, int targetPos);
     }
 
     public interface View{

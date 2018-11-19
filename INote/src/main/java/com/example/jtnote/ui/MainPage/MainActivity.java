@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_DRAG;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, MainPageContract.View{
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd HH:mm");
     private final int VIEW_HOLDER_TAG_KEY = R.id.view_holder_tag_key;
@@ -37,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private View dragHintLayout;
     private MainPageContract.Presenter presenter;
     private SingleViewHelper singleViewHelper = new SingleViewHelper();
+    private int dragPos;
+    private int targetPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,12 +218,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
             super.onSelectedChanged(viewHolder, actionState);
-            singleViewHelper.show(dragHintLayout);
+            if(actionState == ACTION_STATE_DRAG) {
+                singleViewHelper.show(dragHintLayout);
+                dragPos = viewHolder.getAdapterPosition();
+            }
         }
 
         @Override
         public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
             super.clearView(recyclerView, viewHolder);
+            targetPos = viewHolder.getAdapterPosition();
+            presenter.onItemPosChange(dragPos, targetPos);
             singleViewHelper.show(funcLayout);
         }
     });

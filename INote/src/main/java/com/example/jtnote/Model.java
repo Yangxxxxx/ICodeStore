@@ -11,6 +11,9 @@ import com.example.jtnote.db.DBUsageImplNew;
 import com.example.jtnote.db.DBUsageInterface;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -26,6 +29,7 @@ public class Model {
     private List<NoteItem> noteItemList = new ArrayList<>();
     private List<OnNoteChangeListener> onNoteChangeListeners = new ArrayList<>();
     private DBUsageInterface dbUsageInterface;
+    private INoteSharePreference iNoteSharePreference;
 
     private static Model model = new Model();
     private Model(){
@@ -45,6 +49,7 @@ public class Model {
                         .allowMainThreadQueries()
                         .build();
                 noteItemList.addAll(dbUsageInterface.queryAllNotes());
+                sortNoteList();
                 INoteApplication.getInstance().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -60,6 +65,7 @@ public class Model {
         handlerThread = new HandlerThread("workThread");
         handlerThread.start();
         workHanlder = new Handler(handlerThread.getLooper());
+        iNoteSharePreference = INoteSharePreference.getInstance();
     }
 
     public List<NoteItem> getAllNotes(){
@@ -69,12 +75,14 @@ public class Model {
     public void insertNote(NoteItem noteItem){
         noteItemList.add(noteItem);
         dbUsageInterface.insertNote(noteItem);
+        iNoteSharePreference.setNoteListOrder(noteItemList);
         invokeNoteChangeListener();
     }
 
     public void deleteNote(NoteItem noteItem){
         noteItemList.remove(noteItem);
         dbUsageInterface.removeNote(noteItem);
+        iNoteSharePreference.setNoteListOrder(noteItemList);
         invokeNoteChangeListener();
     }
 
@@ -123,11 +131,32 @@ public class Model {
         }
     }
 
+    public void onItemPosChange(int orgPos, int targetPos) {
+        NoteItem orgItem = noteItemList.remove(orgPos);
+        noteItemList.add(targetPos, orgItem);
+        iNoteSharePreference.setNoteListOrder(noteItemList);
+    }
+
     public interface OnNoteChangeListener{
         void onNoteChanged(List<NoteItem> noteItemList);
     }
 
     private void runOnWorkThread(Runnable runnable){
         workHanlder.post(runnable);
+    }
+
+    private void sortNoteList(){
+        String[] orderArr = INoteSharePreference.getInstance().getNoteListOrder();
+        final HashMap<String, Integer> orderMap = new HashMap<>();
+        for (int i = 0; i < orderArr.length; i++){
+            orderMap.put(orderArr[i], i);
+        }
+
+        Collections.sort(noteItemList, new Comparator<NoteItem>() {
+            @Override
+            public int compare(NoteItem o1, NoteItem o2) {
+                return orderMap.get(String.valueOf(o1.getId())) - orderMap.get(String.valueOf(o2.getId()));
+            }
+        });
     }
 }
