@@ -11,15 +11,32 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:tabMode="scrollable"
-        app:tabMinWidth="150dp"
-        ></android.support.design.widget.TabLayout>
+        app:tabMinWidth="150dp" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp01"
-        android:layout_below="@+id/tl"
+
+    <com.example.administrator.sometest.ViewPagerTest.GestureFramlayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v4.view.ViewPager>
+        <ScrollView
+            android:id="@+id/view02"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                android:text="afsegseggggggggggggggggggggggggggggseggsegsegsgsegjfesljgliesjgljalgjslkejilsjhliesjigjesilgjseligjesiljglsiajlgesijglisjglisjglisjglisjgl"/>
+        </ScrollView>
+
+        <com.example.administrator.sometest.ViewPagerTest.GestureViewPager
+            android:id="@+id/vp01"
+            android:layout_below="@+id/tl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.example.administrator.sometest.ViewPagerTest.GestureViewPager>
+
+    </com.example.administrator.sometest.ViewPagerTest.GestureFramlayout>
+
 
 </RelativeLayout>

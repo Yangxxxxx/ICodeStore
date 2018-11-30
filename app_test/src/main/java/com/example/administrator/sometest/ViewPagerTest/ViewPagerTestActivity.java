@@ -26,6 +26,7 @@ public class ViewPagerTestActivity extends AppCompatActivity {
         initView();
     }
 
+
     private void initView(){
         pagerItems.add(getItem(1));
         pagerItems.add(getItem(2));
@@ -35,7 +36,6 @@ public class ViewPagerTestActivity extends AppCompatActivity {
         pagerItems.add(getItem(6));
         pagerItems.add(getItem(7));
         pagerItems.add(getItem(8));
-
 
         viewPager = (ViewPager)findViewById(R.id.vp01);
         viewPager.setAdapter(new IPagerAdapter());

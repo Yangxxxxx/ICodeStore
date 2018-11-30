@@ -1,1 +1,1 @@
-include ':app', ':qrcodecore', ':zxing', ':app_test', ':java_test', ':INote'
+include ':app', ':qrcodecore', ':zxing', ':app_test', ':java_test', ':INote', ':relaxword'

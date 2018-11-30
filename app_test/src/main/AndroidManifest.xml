@@ -142,7 +142,8 @@
         <activity android:name=".MeasureLayoutTest.MeasureLayoutActivity" />
         <activity android:name=".SavedInstanceStateTest.SavedInstanceStateActivity" />
         <activity android:name=".TaskQueueTest.TaskQueueActivity" />
-        <activity android:name=".NumberPickerTest.NumberPickerActivity"></activity>
+        <activity android:name=".NumberPickerTest.NumberPickerActivity" />
+        <activity android:name=".TmpActivity.NARActivity"></activity>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package com.example.administrator.sometest.TmpActivity;
 
 import android.Manifest;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.ComponentName;
@@ -152,6 +153,24 @@ public class TempActivity extends AppCompatActivity {
 //            }
 //        });
 
+        findViewById(R.id.tv01).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(TempActivity.this, NARActivity.class));
+                isTopActivity(NARActivity.class);
+            }
+        });
+
+    }
+
+    private boolean isTopActivity(Class activity) {
+        ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
+        boolean isTop = cn.getClassName().contains(activity.getName());
+
+        Log.e("yang", "cn.getClassName() " + cn.getClassName() + " " + isTop);
+
+        return isTop;
     }
 
     @Override

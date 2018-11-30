@@ -6,6 +6,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tv01"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#987"/>
+
 
     <com.example.administrator.sometest.TmpActivity.TouchTestLayout
         android:layout_width="match_parent"
