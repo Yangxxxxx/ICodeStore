@@ -1,32 +1,29 @@
 package com.example.relaxword.ui.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabItem;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.TextView;
 
 import com.example.relaxword.R;
-import com.example.relaxword.ui.CustomSystemWidget.TabLayoutLocal;
+import com.example.relaxword.ui.Contract.WordNetInfoContract;
+import com.example.relaxword.ui.Widget.CustomSystemWidget.TabLayoutLocal;
+import com.example.relaxword.ui.Widget.SimpleWebView;
+import com.example.relaxword.ui.presenter.WordNetInfoPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WordNetInfoFragment extends Fragment {
+public class WordNetInfoFragment extends Fragment implements WordNetInfoContract.View {
     private ViewPager viewPager;
+    private WordNetInfoContract.Presenter presenter;
 
-    private List<WebView> webViewList = new ArrayList<>();
+    private List<SimpleWebView> webViewList = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,41 +41,26 @@ public class WordNetInfoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+        presenter.start(getContext());
+
+        //test code
+        presenter.updateWord("contract");
     }
 
-    private void initView(View view){
-        viewPager = view.findViewById(R.id.vp_content);
+    @Override
+    public void onDestroyView() {
+        for (SimpleWebView item: webViewList){
+            item.clearCache();
+        }
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onLoadWebView(List<SimpleWebView> simpleWebViews) {
+        webViewList.clear();
+        webViewList.addAll(simpleWebViews);
         viewPager.setAdapter(new ContentAdapter());
-
-        TabLayoutLocal tabLayout = view.findViewById(R.id.tablayout);
-        tabLayout.setupWithViewPager(viewPager);
-//        tabLayout.setTabMode(TabLayoutLocal.MODE_SCROLLABLE);
     }
-
-    private void initData(){
-        webViewList.add(genWebView());
-        webViewList.add(genWebView());
-        webViewList.add(genWebView());
-
-        String word = "hello";
-
-        webViewList.get(0).loadUrl(String.format("https://m.baidu.com/sf_fanyi/#en/zh/%1$s", word));
-        webViewList.get(1).loadUrl(String.format("https://cn.bing.com/dict/search?q=%1$s&FORM=HDRSC6", word));
-        webViewList.get(2).loadUrl(String.format("http://fanyi.sogou.com/#en/zh-CHS/%1$s", word));
-    }
-
-    private WebView genWebView(){
-        WebView webView = new WebView(getContext());
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient(){
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-            }
-        });
-        return webView;
-    }
-
 
     class ContentAdapter extends PagerAdapter{
 
@@ -112,4 +94,15 @@ public class WordNetInfoFragment extends Fragment {
         }
     }
 
+
+    private void initView(View view){
+        viewPager = view.findViewById(R.id.vp_content);
+
+        TabLayoutLocal tabLayout = view.findViewById(R.id.tablayout);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private void initData(){
+        presenter = new WordNetInfoPresenter(this);
+    }
 }

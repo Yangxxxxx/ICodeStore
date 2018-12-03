@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/tablayout"/>
 
-    <com.example.relaxword.ui.CustomSystemWidget.TabLayoutLocal
+    <com.example.relaxword.ui.Widget.CustomSystemWidget.TabLayoutLocal
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="48dp"

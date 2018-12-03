@@ -1,4 +1,4 @@
-package com.example.relaxword.ui.CustomSystemWidget;
+package com.example.relaxword.ui.Widget.CustomSystemWidget;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_DRAGGING;

@@ -1,4 +1,4 @@
-package com.example.relaxword.ui.CustomSystemWidget;
+package com.example.relaxword.ui.Widget.CustomSystemWidget;
 
 import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;

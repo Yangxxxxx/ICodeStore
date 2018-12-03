@@ -1,4 +1,4 @@
-package com.example.relaxword.ui.CustomSystemWidget;
+package com.example.relaxword.ui.Widget.CustomSystemWidget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
