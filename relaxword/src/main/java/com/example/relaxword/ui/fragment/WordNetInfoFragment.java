@@ -11,10 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.relaxword.R;
+import com.example.relaxword.ui.Constants;
 import com.example.relaxword.ui.Contract.WordNetInfoContract;
 import com.example.relaxword.ui.Widget.CustomSystemWidget.TabLayoutLocal;
 import com.example.relaxword.ui.Widget.SimpleWebView;
-import com.example.relaxword.ui.presenter.WordNetInfoPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +25,17 @@ public class WordNetInfoFragment extends Fragment implements WordNetInfoContract
 
     private List<SimpleWebView> webViewList = new ArrayList<>();
 
+    public static WordNetInfoFragment newInstance() {
+        return new WordNetInfoFragment();
+    }
+
+    public void backPress(){
+        viewPager.setCurrentItem(0);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initData();
     }
 
     @Override
@@ -42,9 +49,11 @@ public class WordNetInfoFragment extends Fragment implements WordNetInfoContract
         super.onViewCreated(view, savedInstanceState);
         initView(view);
         presenter.start(getContext());
+    }
 
-        //test code
-        presenter.updateWord("contract");
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -53,6 +62,11 @@ public class WordNetInfoFragment extends Fragment implements WordNetInfoContract
             item.clearCache();
         }
         super.onDestroyView();
+    }
+
+    @Override
+    public void setPresenter(WordNetInfoContract.Presenter presenter) {
+        this.presenter = presenter;
     }
 
     @Override
@@ -90,7 +104,7 @@ public class WordNetInfoFragment extends Fragment implements WordNetInfoContract
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Title";
+            return Constants.WEB_NAME[position];
         }
     }
 
@@ -100,9 +114,5 @@ public class WordNetInfoFragment extends Fragment implements WordNetInfoContract
 
         TabLayoutLocal tabLayout = view.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
-    }
-
-    private void initData(){
-        presenter = new WordNetInfoPresenter(this);
     }
 }

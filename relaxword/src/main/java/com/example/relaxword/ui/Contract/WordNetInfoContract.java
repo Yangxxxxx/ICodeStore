@@ -14,5 +14,6 @@ public class WordNetInfoContract {
 
     public interface View{
         void onLoadWebView(List<SimpleWebView> simpleWebViews);
+        void setPresenter(WordNetInfoContract.Presenter presenter);
     }
 }

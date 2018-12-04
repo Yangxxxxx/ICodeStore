@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.relaxword.ui.Widget.GestureFramlayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gesture_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activity.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rc_word_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <fragment
+        android:id="@+id/Word_Card_Fragment"
+        android:name="com.example.relaxword.ui.fragment.WordCardFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-    </android.support.v7.widget.RecyclerView>
-
-
-</RelativeLayout>
+    <fragment
+        android:id="@+id/Scroll_Horizontal_Fragment"
+        android:name="com.example.relaxword.ui.fragment.ScrollHorizontalFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</com.example.relaxword.ui.Widget.GestureFramlayout>

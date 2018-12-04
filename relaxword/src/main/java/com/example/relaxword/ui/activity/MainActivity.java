@@ -1,74 +1,47 @@
 package com.example.relaxword.ui.activity;
 
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.example.relaxword.R;
+import com.example.relaxword.ui.Widget.GestureFramlayout;
+import com.example.relaxword.ui.fragment.ScrollHorizontalFragment;
+import com.example.relaxword.ui.fragment.WordCardFragment;
 
-public class MainActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
+public class MainActivity extends AppCompatActivity implements GestureFramlayout.ScrollHorizontalListener, ScrollHorizontalFragment.BlankPageVisibilityListener {
+    private WordCardFragment wordCardFragment;
+    private ScrollHorizontalFragment scrollHorizontalFragment;
+    private GestureFramlayout gestureFramlayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        initData();
     }
 
     private void initView(){
-        recyclerView = findViewById(R.id.rc_word_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new WordListAdapter());
-        new PagerSnapHelper().attachToRecyclerView(recyclerView);
+        wordCardFragment = (WordCardFragment) getSupportFragmentManager().findFragmentById(R.id.Word_Card_Fragment);
+        scrollHorizontalFragment = (ScrollHorizontalFragment)getSupportFragmentManager().findFragmentById(R.id.Scroll_Horizontal_Fragment);
+        gestureFramlayout = findViewById(R.id.gesture_layout);
+        gestureFramlayout.setScrollHorizontalListener(this);
     }
 
-    private void initData(){
-
+    @Override
+    public void onScrollHorizontalDetected() {
+        scrollHorizontalFragment.updateWord(wordCardFragment.getShowingWord());
+        Log.e("yang", "onScrollHorizontalDetected");
     }
 
-    class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordListHolder>{
+    @Override
+    public void onBlankPageVisibilityChange(boolean isVisible) {
+        gestureFramlayout.setGestureDetectEnable(isVisible);
+    }
 
-
-        @NonNull
-        @Override
-        public WordListHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_main_activity_list, viewGroup, false);
-            return new WordListHolder(itemView);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull WordListHolder wordListHolder, int i) {
-            wordListHolder.wordContent.setText(String.valueOf(i));
-
-            wordListHolder.wordContent.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(MainActivity.this, WordNetInfoActivity.class));
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return 10;
-        }
-
-        class WordListHolder extends RecyclerView.ViewHolder{
-            private TextView wordContent;
-            public WordListHolder(@NonNull View itemView) {
-                super(itemView);
-                wordContent = itemView.findViewById(R.id.tv_word);
-            }
-        }
+    @Override
+    public void onBackPressed() {
+        if(scrollHorizontalFragment.backPress()) return;
+        super.onBackPressed();
     }
 }

@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/word_netinfo_fragment"
-        android:name="com.example.relaxword.ui.fragment.WordNetInfoFragment"
+        android:name="com.example.relaxword.ui.fragment.ScrollHorizontalFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
