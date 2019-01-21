@@ -143,7 +143,9 @@
         <activity android:name=".SavedInstanceStateTest.SavedInstanceStateActivity" />
         <activity android:name=".TaskQueueTest.TaskQueueActivity" />
         <activity android:name=".NumberPickerTest.NumberPickerActivity" />
-        <activity android:name=".TmpActivity.NARActivity"></activity>
+        <activity android:name=".TmpActivity.NARActivity" />
+        <activity android:name=".TmpActivity.WebViewActivity" />
+        <activity android:name=".DialTest.DialTestActivity"></activity>
     </application>
 
 </manifest>

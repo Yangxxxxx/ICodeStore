@@ -38,6 +38,9 @@ import android.widget.Toast;
 import com.example.administrator.sometest.R;
 import com.example.administrator.sometest.TimeCountTest.TimeCountActivity;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,114 +56,34 @@ public class TempActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setDarkStatusIcon(false);
-
         setContentView(R.layout.activity_temp);
 
-        ValueAnimator valueAnimator = new ValueAnimator();
-        valueAnimator.setInterpolator(new AccelerateInterpolator());
-
-        TextView tvContactUsEmpty = (TextView) findViewById(R.id.tv);
-
-        findViewById(R.id.bt1).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.iv_lucky_draw_entery).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                new AlertDialog.Builder(TempActivity.this).setTitle("fsljffsegsgjlsejgoisejglsjeglsjeglsiejglsejgl").show();
-                Toast.makeText(TempActivity.this, "R.id.bt1", Toast.LENGTH_SHORT).show();
-//                Log.e("yang", "bt1 clicked");
-//                findViewById(R.id.v_layer).setVisibility(View.VISIBLE);
-//                try {
-//                    Thread.sleep(4*1000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                findViewById(R.id.v_layer).setVisibility(View.GONE);
-            }
-        });
-        findViewById(R.id.bt2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Log.e("yang", "bt2 clicked");
-                Toast.makeText(TempActivity.this, "R.id.bt2", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(TempActivity.this, WebViewActivity.class));
             }
         });
 
-//        tvContactUsEmpty.setText("123456789abcedfg");
-//        tvContactUsEmpty.setMovementMethod(LinkMovementMethod.getInstance());
+    }
 
-        TextView textView1 = (TextView) findViewById(R.id.tv2);
-//        textView1.setText(R.string.lan_test);
-        textView1.setText(cutText("12345678901234567890123"));
-//        textView1.setText(cutText("你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好"));
-
-
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                super.run();
-//                while (true) {
-//                    ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-//                    ComponentName cn = activityManager.getRunningTasks(1).get(0).topActivity;
-//                    Log.e("yang", "running task: " + cn.getPackageName() + "::" + cn.getClassName());
-//                    try {
-//                        sleep(2000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        }.start();
-
-        TextView textView = findViewById(R.id.tv100);
-
-        String test = "nihao#ma";
-        int index = test.indexOf("#");
-        SpannableString spannableString = new SpannableString(test);
-        Drawable drawable = getResources().getDrawable(R.drawable.ic_launcher);
-        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-        CenteredImageSpan imageSpan = new CenteredImageSpan(drawable);
-        CenteredImageSpan3 imageSpan3 = new CenteredImageSpan3(this, R.drawable.ic_launcher);
-//        CenteredImageSpan2 imageSpan = new CenteredImageSpan2(drawable);
-//        ImageSpan imageSpan = new ImageSpan(drawable);
-
-        ImageSpan imageSpan1 = new ImageSpan(this, R.drawable.ic_launcher, DynamicDrawableSpan.ALIGN_BOTTOM);
-
-        spannableString.setSpan(imageSpan3, index, index + "#".length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        textView.setText(spannableString);
-//        val imageIndex = text.indexOf(iconTake)
-//        val spannableString = SpannableString(text)
-////            val drawable = resources.getDrawable(R.drawable.ic_goddess_price_icon)
-////            drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
-////            val imageSpan = ImageSpan(drawable)
-//        val imageSpan = ImageSpan(this, R.drawable.icon_incoming_call_coin, DynamicDrawableSpan.ALIGN_BOTTOM)
-//        spannableString.setSpan(imageSpan, imageIndex, imageIndex + 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-//        layoutEarning.text = spannableString
-
-
-        TextView textView101 = findViewById(R.id.tv101);
-        textView101.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                goBatterySettingPage();
-                goHUAWEIPage();
+    public void shellExec() {
+        Runtime mRuntime = Runtime.getRuntime();
+        try {
+            //Process中封装了返回的结果和执行错误的结果
+            Process mProcess = mRuntime.exec("top -m 5 -n 1 -s cpu");
+            BufferedReader mReader = new BufferedReader(new InputStreamReader(mProcess.getInputStream()));
+            StringBuffer mRespBuff = new StringBuffer();
+            char[] buff = new char[1024];
+            int ch = 0;
+            while ((ch = mReader.read(buff)) != -1) {
+                Log.e("yang", "cmd: " + new String(buff));
             }
-        });
-
-//        findViewById(R.id.tv_first).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(TempActivity.this, "first click", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-        findViewById(R.id.tv01).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(TempActivity.this, NARActivity.class));
-                isTopActivity(NARActivity.class);
-            }
-        });
-
+            mReader.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     private boolean isTopActivity(Class activity) {

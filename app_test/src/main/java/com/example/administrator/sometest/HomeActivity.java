@@ -15,10 +15,12 @@ import com.example.administrator.sometest.AnimTest.AnimActivity;
 import com.example.administrator.sometest.BrodcastReceiverTest.ReceiverActivity;
 import com.example.administrator.sometest.DPTest.DPTestActivity;
 import com.example.administrator.sometest.DatabindingTest.DataBindingTestActivity;
+import com.example.administrator.sometest.DialTest.DialTestActivity;
 import com.example.administrator.sometest.DrawableTest.ClipDrawableTestActivity;
 import com.example.administrator.sometest.HttpUrlConnectionTest.HttpUrlConnectionActivity;
 import com.example.administrator.sometest.KotlinTest.KotlinTestActivity;
 import com.example.administrator.sometest.LayoutChangeTest.LayoutChangeActivity;
+import com.example.administrator.sometest.LifeCycleTest.LifeCycleActivity;
 import com.example.administrator.sometest.MeasureLayoutTest.MeasureLayoutActivity;
 import com.example.administrator.sometest.NumberPickerTest.NumberPickerActivity;
 import com.example.administrator.sometest.OtherTest.OtherActivity;
@@ -50,7 +52,9 @@ public class HomeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        addButton("DialTestActivity", DialTestActivity.class);
         addButton("NumberPickerActivity", NumberPickerActivity.class);
+        addButton("LifeCycleActivity", LifeCycleActivity.class);
         addButton("TaskQueueActivity", TaskQueueActivity.class);
         addButton("SocketActivity", SocketActivity.class);
         addButton("SavedInstanceStateActivity", SavedInstanceStateActivity.class);
