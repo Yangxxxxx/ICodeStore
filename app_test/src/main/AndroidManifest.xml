@@ -145,7 +145,11 @@
         <activity android:name=".NumberPickerTest.NumberPickerActivity" />
         <activity android:name=".TmpActivity.NARActivity" />
         <activity android:name=".TmpActivity.WebViewActivity" />
-        <activity android:name=".DialTest.DialTestActivity"></activity>
+        <activity android:name=".DialTest.DialTestActivity" />
+        <activity android:name=".ShellTopActivity.ShelltopActivity"
+            android:screenOrientation="landscape">
+
+        </activity>
     </application>
 
 </manifest>

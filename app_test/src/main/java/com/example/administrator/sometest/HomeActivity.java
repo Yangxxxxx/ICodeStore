@@ -30,6 +30,7 @@ import com.example.administrator.sometest.RTLTest.RTLTestActivity;
 import com.example.administrator.sometest.RoomTest.RoomTestActivity;
 import com.example.administrator.sometest.SavedInstanceStateTest.SavedInstanceStateActivity;
 import com.example.administrator.sometest.ServiceTest.ServiceTestActivity;
+import com.example.administrator.sometest.ShellTopActivity.ShelltopActivity;
 import com.example.administrator.sometest.SocketTest.SocketActivity;
 import com.example.administrator.sometest.SocketTest.SocketActivity;
 import com.example.administrator.sometest.SystemBarTest.SystemBarMainActivity;
@@ -52,6 +53,7 @@ public class HomeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        addButton("ShelltopActivity", ShelltopActivity.class);
         addButton("DialTestActivity", DialTestActivity.class);
         addButton("NumberPickerActivity", NumberPickerActivity.class);
         addButton("LifeCycleActivity", LifeCycleActivity.class);

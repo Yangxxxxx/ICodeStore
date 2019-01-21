@@ -43,6 +43,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -57,14 +59,6 @@ public class TempActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        setDarkStatusIcon(false);
         setContentView(R.layout.activity_temp);
-
-        findViewById(R.id.iv_lucky_draw_entery).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(TempActivity.this, WebViewActivity.class));
-            }
-        });
-
     }
 
     public void shellExec() {

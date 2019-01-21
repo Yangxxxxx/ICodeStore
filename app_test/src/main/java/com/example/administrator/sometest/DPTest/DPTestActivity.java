@@ -61,7 +61,7 @@ public class DPTestActivity extends AppCompatActivity {
                 + "width dp:  " + screenWidth/displayMetrics.density  + "  " + screenHeight/displayMetrics.density + "\n"
                 + "screenWidthDp smallestScreenWidthDp :  " + configuration.screenWidthDp + " " + configuration.smallestScreenWidthDp + "\n"
                         + "navigation :  " + configuration.navigation + " " + configuration.navigationHidden + "\n"
-                + "res folder: " + getString(R.string.folder_name) + "\n"
+                + "res folder~: " + getString(R.string.folder_name) + "\n"
                 + " screen size(inch) w: " + String.format("%1$.2f", with) + "  h: " + String.format("%1$.2f", height) + " size: " + String.format("%1$.2f", screenSize)
         );
 
