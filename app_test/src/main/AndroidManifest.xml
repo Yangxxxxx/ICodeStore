@@ -146,10 +146,10 @@
         <activity android:name=".TmpActivity.NARActivity" />
         <activity android:name=".TmpActivity.WebViewActivity" />
         <activity android:name=".DialTest.DialTestActivity" />
-        <activity android:name=".ShellTopActivity.ShelltopActivity"
-            android:screenOrientation="landscape">
-
-        </activity>
+        <activity
+            android:name=".ShellTopActivity.ShelltopActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".RecyclerViewTest.RecyclerViewTestActivity"></activity>
     </application>
 
 </manifest>

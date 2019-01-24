@@ -27,6 +27,7 @@ import com.example.administrator.sometest.OtherTest.OtherActivity;
 import com.example.administrator.sometest.OtherTest.ScrollToolbarTestActivity;
 import com.example.administrator.sometest.OverlayGuideTest.GuideActivity;
 import com.example.administrator.sometest.RTLTest.RTLTestActivity;
+import com.example.administrator.sometest.RecyclerViewTest.RecyclerViewTestActivity;
 import com.example.administrator.sometest.RoomTest.RoomTestActivity;
 import com.example.administrator.sometest.SavedInstanceStateTest.SavedInstanceStateActivity;
 import com.example.administrator.sometest.ServiceTest.ServiceTestActivity;
@@ -54,6 +55,7 @@ public class HomeActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         addButton("ShelltopActivity", ShelltopActivity.class);
+        addButton("RecyclerViewTestActivity", RecyclerViewTestActivity.class);
         addButton("DialTestActivity", DialTestActivity.class);
         addButton("NumberPickerActivity", NumberPickerActivity.class);
         addButton("LifeCycleActivity", LifeCycleActivity.class);
