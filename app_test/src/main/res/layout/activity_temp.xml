@@ -28,7 +28,7 @@
         <TextView
             android:id="@+id/tv_first"
             android:layout_width="match_parent"
-            android:layout_height="200dp"/>
+            android:layout_height="50dp"/>
 
     </com.example.administrator.sometest.TmpActivity.TouchTestLayout>
 

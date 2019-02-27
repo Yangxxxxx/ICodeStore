@@ -9,6 +9,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -27,6 +28,8 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -59,13 +62,38 @@ public class TempActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        setDarkStatusIcon(false);
         setContentView(R.layout.activity_temp);
+//        shellExec("wm density 240");
+//        saveScreenBrightness(255);
+        setScreenBrightness(255);
+    }
+
+    private void saveScreenBrightness(int paramInt){
+        try{
+            Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, paramInt);
+        }
+        catch (Exception localException){
+            localException.printStackTrace();
+        }
+    }
+
+    private void setScreenBrightness(int paramInt){
+        Window localWindow = getWindow();
+        WindowManager.LayoutParams localLayoutParams = localWindow.getAttributes();
+        float f = paramInt / 255.0F;
+        localLayoutParams.screenBrightness = f;
+        localLayoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+        localWindow.setAttributes(localLayoutParams);
     }
 
     public void shellExec() {
+        shellExec("top -m 5 -n 1 -s cpu");
+    }
+
+    private void shellExec(String cmd){
         Runtime mRuntime = Runtime.getRuntime();
         try {
             //Process中封装了返回的结果和执行错误的结果
-            Process mProcess = mRuntime.exec("top -m 5 -n 1 -s cpu");
+            Process mProcess = mRuntime.exec(cmd);
             BufferedReader mReader = new BufferedReader(new InputStreamReader(mProcess.getInputStream()));
             StringBuffer mRespBuff = new StringBuffer();
             char[] buff = new char[1024];

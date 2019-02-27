@@ -56,7 +56,7 @@ public class DPTestActivity extends AppCompatActivity {
                         + " real size: " + RealPoint.x + " "+ RealPoint.y +"\n"
                 + " densityDpi: " + displayMetrics.densityDpi+"\n"
                 + " xdpi: " + displayMetrics.xdpi+"\n"
-                + " ydpi: " + displayMetrics.xdpi+"\n"
+                + " ydpi: " + displayMetrics.ydpi+"\n"
                 + " density: " + displayMetrics.density+"\n"
                 + "width dp:  " + screenWidth/displayMetrics.density  + "  " + screenHeight/displayMetrics.density + "\n"
                 + "screenWidthDp smallestScreenWidthDp :  " + configuration.screenWidthDp + " " + configuration.smallestScreenWidthDp + "\n"
