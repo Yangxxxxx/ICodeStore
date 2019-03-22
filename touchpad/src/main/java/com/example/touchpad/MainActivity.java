@@ -36,9 +36,21 @@ public class MainActivity extends AppCompatActivity{
         gestureDetector  = new GestureDetector(this, simpleOnGestureListener);
     }
 
+
+    float preX;
+    float PreY;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.e("yang", "onTouchEvent " + event.getX() + " " + event.getY());
+
+        float offsetX = Math.abs(event.getX() - preX);
+        float offsetY = Math.abs(event.getY()-PreY);
+
+        if(offsetX > 1 || offsetY >1) {
+            Log.e("yang", "onTouchEvent " + offsetX + " " + offsetY);
+        }
+
+        preX = event.getX();
+        PreY = event.getY();
         gestureDetector.onTouchEvent(event);
         if(event.getPointerCount() != currPointerCount){
             currPointerCount = event.getPointerCount();
@@ -74,7 +86,7 @@ public class MainActivity extends AppCompatActivity{
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            Log.e("yang", "onScroll " + e2.getPointerCount());
+//            Log.e("yang", "onScroll " + distanceX + " " + distanceY);
             return super.onScroll(e1, e2, distanceX, distanceY);
         }
 
