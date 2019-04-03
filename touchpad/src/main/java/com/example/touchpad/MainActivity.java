@@ -44,13 +44,13 @@ public class MainActivity extends AppCompatActivity{
 
         float offsetX = Math.abs(event.getX() - preX);
         float offsetY = Math.abs(event.getY()-PreY);
+        preX = event.getX();
+        PreY = event.getY();
 
         if(offsetX > 1 || offsetY >1) {
             Log.e("yang", "onTouchEvent " + offsetX + " " + offsetY);
         }
 
-        preX = event.getX();
-        PreY = event.getY();
         gestureDetector.onTouchEvent(event);
         if(event.getPointerCount() != currPointerCount){
             currPointerCount = event.getPointerCount();
@@ -62,8 +62,10 @@ public class MainActivity extends AppCompatActivity{
 
         switch (event.getAction()){
             case MotionEvent.ACTION_MOVE:
-                int coorValue = (int) event.getX() * 10000 + (int) event.getY();
-                myClient.writeInt(coorValue);
+                if(offsetX > 1 || offsetY >1) {
+                    int coorValue = (int) event.getX() * 10000 + (int) event.getY();
+                    myClient.writeInt(coorValue);
+                }
                 break;
 
             case MotionEvent.ACTION_CANCEL:
