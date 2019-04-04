@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import com.youdao.sdk.ydtranslatedemo.translate.TranslateLibActivity;
+
 import java.lang.reflect.Method;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;

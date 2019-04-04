@@ -46,7 +46,7 @@
             android:theme="@style/XiaoYouStyle" />
 
         <activity
-            android:name=".TranslateLibActivity"
+            android:name=".translate.TranslateLibActivity"
             android:theme="@style/XiaoYouStyle" />
 
         <activity
