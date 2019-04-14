@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.example.relaxword.R;
 import com.example.relaxword.ui.Model;
+import com.example.relaxword.ui.bean.Translation;
+import com.example.relaxword.ui.bean.WebMeaning;
 import com.example.relaxword.ui.bean.Word;
 
 import java.util.ArrayList;
@@ -40,12 +42,12 @@ public class WordCardFragment extends Fragment {
         initView(view);
     }
 
-    public String getShowingWord(){
+    public String getShowingWord() {
         int pos = linearLayoutManager.findFirstVisibleItemPosition();
         return wordList.get(pos).getSpell();
     }
 
-    private void initData(){
+    private void initData() {
         wordList.clear();
         wordList.addAll(Model.getInstance().getAllWord());
     }
@@ -71,7 +73,13 @@ public class WordCardFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull WordListAdapter.WordListHolder wordListHolder, int i) {
+            Word word = wordList.get(i);
+            Translation translation = word.getTranslation();
             wordListHolder.wordContent.setText(wordList.get(i).getSpell());
+            wordListHolder.phoneticUS.setText("美：[" + translation.getPhoneticUS() + "]");
+            wordListHolder.phoneticUK.setText("英：[" + translation.getPhoneticUK() + "]");
+            wordListHolder.meaning.setText(formatMeaning(translation.getMeanings(), "\n"));
+            wordListHolder.webMeaning.setText(formatWebMeaning(translation.getWebMeanings()));
         }
 
         @Override
@@ -81,11 +89,42 @@ public class WordCardFragment extends Fragment {
 
         class WordListHolder extends RecyclerView.ViewHolder {
             private TextView wordContent;
+            private TextView phoneticUS;
+            private TextView phoneticUK;
+            private TextView meaning;
+            private TextView webMeaning;
 
             public WordListHolder(@NonNull View itemView) {
                 super(itemView);
                 wordContent = itemView.findViewById(R.id.tv_word);
+                phoneticUK = itemView.findViewById(R.id.tv_phonetic_uk);
+                phoneticUS = itemView.findViewById(R.id.tv_phonetic_us);
+                meaning = itemView.findViewById(R.id.tv_meanning);
+                webMeaning = itemView.findViewById(R.id.tv_web_meanning);
             }
+        }
+
+        private String formatMeaning(List<String> list, String seprator) {
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < list.size(); i++) {
+                result.append(list.get(i));
+                if(i != list.size() - 1) result.append(seprator);
+            }
+            return result.toString();
+        }
+
+        private String formatWebMeaning(List<WebMeaning> list) {
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < list.size(); i++) {
+                result.append(String.valueOf(i + 1));
+                result.append(".");
+                result.append(list.get(i).getKey());
+                result.append(":\n   ");
+                result.append(formatMeaning(list.get(i).getMeanings(), "; "));
+                result.append(":\n");
+                if (i != list.size() - 1) result.append("\n");
+            }
+            return result.toString();
         }
     }
 }
