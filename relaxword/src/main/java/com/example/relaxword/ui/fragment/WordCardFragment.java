@@ -1,7 +1,6 @@
 package com.example.relaxword.ui.fragment;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,10 +14,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.relaxword.R;
+import com.example.relaxword.ui.Model;
+import com.example.relaxword.ui.bean.Word;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WordCardFragment extends Fragment {
-    private static final String[] test_words = new String[]{"hello", "widget", "fragment", "bundle", "instance", "layout", "manager", "recycle"};
+//    private static final String[] test_words = new String[]{"hello", "widget", "fragment", "bundle", "instance", "layout", "manager", "recycle"};
 
+    private List<Word> wordList = new ArrayList<>();
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
 
@@ -31,11 +36,18 @@ public class WordCardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initData();
         initView(view);
     }
 
     public String getShowingWord(){
-        return test_words[linearLayoutManager.findFirstVisibleItemPosition()];
+        int pos = linearLayoutManager.findFirstVisibleItemPosition();
+        return wordList.get(pos).getSpell();
+    }
+
+    private void initData(){
+        wordList.clear();
+        wordList.addAll(Model.getInstance().getAllWord());
     }
 
     private void initView(View view) {
@@ -59,12 +71,12 @@ public class WordCardFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull WordListAdapter.WordListHolder wordListHolder, int i) {
-            wordListHolder.wordContent.setText(test_words[i]);
+            wordListHolder.wordContent.setText(wordList.get(i).getSpell());
         }
 
         @Override
         public int getItemCount() {
-            return test_words.length;
+            return wordList.size();
         }
 
         class WordListHolder extends RecyclerView.ViewHolder {
