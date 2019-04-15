@@ -75,8 +75,7 @@ public class Translation {
 
     @Override
     public boolean equals(Object obj) {
-        boolean hasWord = obj instanceof String && word.equals((String)obj);
-        boolean sameWord = obj instanceof Translation && word.equals(((Translation)obj).getWord());
-        return hasWord || sameWord;
+        boolean sameWord = obj instanceof Word && ((Word)obj).getSpell().equals(word);
+        return super.equals(obj) || sameWord;
     }
 }

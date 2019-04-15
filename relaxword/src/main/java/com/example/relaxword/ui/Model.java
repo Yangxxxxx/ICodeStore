@@ -1,6 +1,9 @@
 package com.example.relaxword.ui;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.util.Log;
 
 import com.example.relaxword.R;
@@ -22,12 +25,20 @@ import java.util.List;
 
 public class Model {
     private static final String TAG = "Model";
+    private static final int NUM_PER_LOAD = 10;
     private Context context;
+    private HandlerThread handlerThread = new HandlerThread("model_thread");
+    private Handler workHandler;
+    private Handler mainHandler = new Handler(Looper.getMainLooper());
     private WordDatabase wordDatabase;
     private DicDatabase dicDatabase;
 
     private List<Word> allWordList = new ArrayList<>();
+    private List<Word> selectedWordList = new ArrayList<>();
     private List<Translation> allTranslatonList = new ArrayList<>();
+    private List<LoadWordListener> loadWordListenerList = new ArrayList<>();
+
+    private boolean isLoadingWord;
 
 
     private static Model model = new Model();
@@ -36,10 +47,13 @@ public class Model {
         return model;
     }
 
+
     public void init(Context context){
         this.context = context;
         allWordList.clear();
         allTranslatonList.clear();
+        handlerThread.start();
+        workHandler = new Handler(handlerThread.getLooper());
 
         copyData2Local();
 
@@ -52,24 +66,77 @@ public class Model {
 
         Log.e(TAG, "qureyAllWords: " + (System.currentTimeMillis() - preTime));
 
-        allTranslatonList.addAll(dicDatabase.qureyAllTranslation());
+//        allTranslatonList.addAll(dicDatabase.qureyAllTranslation());
+//
+//        Log.e(TAG, "qureyAllTranslation: " + (System.currentTimeMillis() - preTime));
+//
+//
+//        for(Word item: allWordList){
+//            int index = allTranslatonList.indexOf(item);
+//            if(index >= 0){
+//                item.setTranslation(allTranslatonList.get(index));
+//            }
+//        }
+//
+//        Log.e(TAG, "setTranslation: " + (System.currentTimeMillis() - preTime));
 
-        Log.e(TAG, "qureyAllTranslation: " + (System.currentTimeMillis() - preTime));
+    }
 
+    public void loadNextPageWord(){
+        if(isLoadingWord) return;
+        Log.e(TAG, "enter loadNextPageWord");
+        isLoadingWord = true;
+        workHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                List<Word> selectList = new ArrayList<>();
+                for (int i = 0; i < NUM_PER_LOAD; i++){
+                    int pos = (int)(Math.random() * allWordList.size());
+                    selectList.add(allWordList.get(pos));
+                    allWordList.remove(pos);
+                }
+                dicDatabase.qureyTranslation(selectList);
+                selectedWordList.addAll(selectList);
 
-        for(Word item: allWordList){
-            int index = allTranslatonList.indexOf(item);
-            if(index >= 0){
-                item.setTranslation(allTranslatonList.get(index));
+                Log.e(TAG, "left loadNextPageWord");
+
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        for(LoadWordListener item: loadWordListenerList){
+                            item.onWordsLoaded(selectedWordList);
+                        }
+                        isLoadingWord = false;
+                    }
+                });
+
             }
-        }
-
-        Log.e(TAG, "setTranslation: " + (System.currentTimeMillis() - preTime));
+        });
 
     }
 
     public List<Word> getAllWord(){
         return allWordList;
+    }
+
+    public void addLoadWordListener(LoadWordListener listener){
+        loadWordListenerList.add(listener);
+    }
+
+    public void removeLoadWordListener(LoadWordListener listener){
+        loadWordListenerList.remove(listener);
+    }
+
+    public Handler getMainHandler(){
+        return mainHandler;
+    }
+
+    public Handler getWorkHandler(){
+        return workHandler;
+    }
+
+    public interface LoadWordListener{
+        void onWordsLoaded(List<Word> list);
     }
 
 

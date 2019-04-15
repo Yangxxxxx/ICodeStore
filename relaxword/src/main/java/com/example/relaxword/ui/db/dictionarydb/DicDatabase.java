@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.relaxword.ui.bean.Translation;
+import com.example.relaxword.ui.bean.Word;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -25,6 +26,27 @@ public class DicDatabase {
         contentValues.put(DicDatabaseHelper.DicTable.WORD_INFO, new Gson().toJson(wordBean));
         contentValues.put(DicDatabaseHelper.DicTable.WORD, wordBean.getWord());
         database.insert(DicDatabaseHelper.DicTable.TABLE_NAME, null, contentValues);
+
+        database.close();
+    }
+
+    public void qureyTranslation(List<Word> wordList) {
+        SQLiteDatabase database = dicDatabaseHelper.getReadableDatabase();
+
+        for (Word item : wordList) {
+            Cursor cursor = database.query(DicDatabaseHelper.DicTable.TABLE_NAME,
+                    new String[]{DicDatabaseHelper.DicTable.WORD_INFO},
+                    DicDatabaseHelper.DicTable.WORD + "=?", new String[]{item.getSpell()}, null, null, null);
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    int wordInfoIndex = cursor.getColumnIndex(DicDatabaseHelper.DicTable.WORD_INFO);
+                    String wordInfo = cursor.getString(wordInfoIndex);
+                    Translation translation = new Gson().fromJson(wordInfo, Translation.class);
+                    item.setTranslation(translation);
+                }
+            }
+            cursor.close();
+        }
 
         database.close();
     }

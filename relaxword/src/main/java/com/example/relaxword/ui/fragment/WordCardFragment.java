@@ -22,7 +22,9 @@ import com.example.relaxword.ui.bean.Word;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WordCardFragment extends Fragment {
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
+
+public class WordCardFragment extends Fragment implements Model.LoadWordListener{
 //    private static final String[] test_words = new String[]{"hello", "widget", "fragment", "bundle", "instance", "layout", "manager", "recycle"};
 
     private List<Word> wordList = new ArrayList<>();
@@ -42,6 +44,20 @@ public class WordCardFragment extends Fragment {
         initView(view);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        recyclerView.removeOnScrollListener(onScrollListener);
+        Model.getInstance().removeLoadWordListener(this);
+    }
+
+    @Override
+    public void onWordsLoaded(List<Word> list) {
+        wordList.clear();
+        wordList.addAll(list);
+        recyclerView.getAdapter().notifyDataSetChanged();
+    }
+
     public String getShowingWord() {
         int pos = linearLayoutManager.findFirstVisibleItemPosition();
         return wordList.get(pos).getSpell();
@@ -49,7 +65,9 @@ public class WordCardFragment extends Fragment {
 
     private void initData() {
         wordList.clear();
-        wordList.addAll(Model.getInstance().getAllWord());
+        Model.getInstance().addLoadWordListener(this);
+        Model.getInstance().loadNextPageWord();
+//        wordList.addAll(Model.getInstance().getAllWord());
     }
 
     private void initView(View view) {
@@ -59,7 +77,27 @@ public class WordCardFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(new WordListAdapter());
         new PagerSnapHelper().attachToRecyclerView(recyclerView);
+        recyclerView.addOnScrollListener(onScrollListener);
     }
+
+    private RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+            if(newState == SCROLL_STATE_IDLE && layoutManager instanceof LinearLayoutManager){
+                int lastPostion = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
+                if(wordList.size() - lastPostion <= 3){
+                    Model.getInstance().loadNextPageWord();
+                }
+            }
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+        }
+    };
 
     class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordListHolder> {
 
