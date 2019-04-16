@@ -53,7 +53,6 @@ public class WordCardFragment extends Fragment implements Model.LoadWordListener
 
     @Override
     public void onWordsLoaded(List<Word> list) {
-        wordList.clear();
         wordList.addAll(list);
         recyclerView.getAdapter().notifyDataSetChanged();
     }
@@ -143,6 +142,7 @@ public class WordCardFragment extends Fragment implements Model.LoadWordListener
         }
 
         private String formatMeaning(List<String> list, String seprator) {
+            if(list == null) return "";
             StringBuilder result = new StringBuilder();
             for (int i = 0; i < list.size(); i++) {
                 result.append(list.get(i));

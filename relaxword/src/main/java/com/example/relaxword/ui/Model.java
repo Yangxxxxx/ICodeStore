@@ -34,7 +34,6 @@ public class Model {
     private DicDatabase dicDatabase;
 
     private List<Word> allWordList = new ArrayList<>();
-    private List<Word> selectedWordList = new ArrayList<>();
     private List<Translation> allTranslatonList = new ArrayList<>();
     private List<LoadWordListener> loadWordListenerList = new ArrayList<>();
 
@@ -61,50 +60,32 @@ public class Model {
         dicDatabase = new DicDatabase(context);
 
         long preTime = System.currentTimeMillis();
-
         allWordList.addAll(wordDatabase.qureyAllWords());
-
         Log.e(TAG, "qureyAllWords: " + (System.currentTimeMillis() - preTime));
-
-//        allTranslatonList.addAll(dicDatabase.qureyAllTranslation());
-//
-//        Log.e(TAG, "qureyAllTranslation: " + (System.currentTimeMillis() - preTime));
-//
-//
-//        for(Word item: allWordList){
-//            int index = allTranslatonList.indexOf(item);
-//            if(index >= 0){
-//                item.setTranslation(allTranslatonList.get(index));
-//            }
-//        }
-//
-//        Log.e(TAG, "setTranslation: " + (System.currentTimeMillis() - preTime));
-
     }
 
     public void loadNextPageWord(){
         if(isLoadingWord) return;
-        Log.e(TAG, "enter loadNextPageWord");
+        final long preTime = System.currentTimeMillis();
         isLoadingWord = true;
         workHandler.post(new Runnable() {
             @Override
             public void run() {
-                List<Word> selectList = new ArrayList<>();
+                final List<Word> selectList = new ArrayList<>();
                 for (int i = 0; i < NUM_PER_LOAD; i++){
                     int pos = (int)(Math.random() * allWordList.size());
                     selectList.add(allWordList.get(pos));
                     allWordList.remove(pos);
                 }
                 dicDatabase.qureyTranslation(selectList);
-                selectedWordList.addAll(selectList);
 
-                Log.e(TAG, "left loadNextPageWord");
+                Log.e(TAG, "loadNextPageWord: " + (System.currentTimeMillis() - preTime));
 
                 mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
                         for(LoadWordListener item: loadWordListenerList){
-                            item.onWordsLoaded(selectedWordList);
+                            item.onWordsLoaded(selectList);
                         }
                         isLoadingWord = false;
                     }
