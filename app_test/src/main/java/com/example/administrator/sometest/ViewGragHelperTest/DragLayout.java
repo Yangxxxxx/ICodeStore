@@ -58,7 +58,21 @@ public class DragLayout extends RelativeLayout {
         viewDragHelper = ViewDragHelper.create(relativeLayout, 1, callback);
     }
 
+    float scaleUnit = 0.1f;
+    float sdcaleValue = 1f;
     ViewDragHelper.Callback callback = new ViewDragHelper.Callback() {
+        @Override
+        public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
+            super.onViewPositionChanged(changedView, left, top, dx, dy);
+            changedView.setScaleX(sdcaleValue);
+            changedView.setScaleY(sdcaleValue);
+            if(sdcaleValue > 3){
+                sdcaleValue -= scaleUnit;
+            }else{
+                sdcaleValue += scaleUnit;
+            }
+        }
+
         @Override
         public boolean tryCaptureView(View child, int pointerId) {
             return true;
