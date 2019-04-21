@@ -62,6 +62,7 @@ public class GestureFramlayout extends FrameLayout {
         }else if(ev.getAction() == MotionEvent.ACTION_MOVE) {
             if(consumeView != null){
                 consumeView.dispatchTouchEvent(ev);
+                Log.e("yuan", "gesture: " + ev.getAction() + " " + ev.getY() +  " " + ev.hashCode());
             }else {
                 float offsetX = Math.abs(ev.getX() - touchDownX);
                 float offsety = Math.abs(ev.getY() - touchDownY);

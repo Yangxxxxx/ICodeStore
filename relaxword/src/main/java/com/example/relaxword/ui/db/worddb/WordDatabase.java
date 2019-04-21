@@ -27,6 +27,17 @@ public class WordDatabase {
         database.close();
     }
 
+    public void updateWord(Word word){
+        SQLiteDatabase database = wordDatabaseHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(WordDatabaseHelper.WordTable.WORD, word.getSpell());
+        contentValues.put(WordDatabaseHelper.WordTable.WORD_STATE, word.getWordState());
+        database.update(WordDatabaseHelper.WordTable.TABLE_NAME,
+                contentValues, WordDatabaseHelper.WordTable.WORD + "=?", new String[]{word.getSpell()});
+
+        database.close();
+    }
+
     public List<Word> qureyAllWords(){
         List<Word> wordList = new ArrayList<>();
         SQLiteDatabase database = wordDatabaseHelper.getReadableDatabase();

@@ -1,8 +1,11 @@
 package com.example.relaxword.ui.bean;
 
 public class Word {
+    public static final int UNKNOWN = 0;
+    public static final int KNOWN = 1;
+
     private String spell;
-    private int wordState;
+    private int wordState = UNKNOWN;
     private Translation translation;
 
     public Word(String spell, int wordState){

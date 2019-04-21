@@ -7,7 +7,6 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.example.relaxword.R;
-import com.example.relaxword.ui.bean.Translation;
 import com.example.relaxword.ui.bean.Word;
 import com.example.relaxword.ui.db.dictionarydb.DicDatabase;
 import com.example.relaxword.ui.db.dictionarydb.DicDatabaseHelper;
@@ -34,8 +33,10 @@ public class Model {
     private DicDatabase dicDatabase;
 
     private List<Word> allWordList = new ArrayList<>();
-    private List<Translation> allTranslatonList = new ArrayList<>();
+    private List<Word> unknownList = new ArrayList<>();
+    private List<Word> knownList = new ArrayList<>();
     private List<LoadWordListener> loadWordListenerList = new ArrayList<>();
+    private List<UnknownWordChangeListener> unknownWordChangeListenerList = new ArrayList<>();
 
     private boolean isLoadingWord;
 
@@ -46,11 +47,21 @@ public class Model {
         return model;
     }
 
+    public void addKnownWord(final Word word){
+        word.setWordState(Word.KNOWN);
+        knownList.add(word);
+        workHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                wordDatabase.updateWord(word);
+            }
+        });
+        invokeUnknownWordChangeListener(getUnknownWordNum());
+    }
 
     public void init(Context context){
         this.context = context;
         allWordList.clear();
-        allTranslatonList.clear();
         handlerThread.start();
         workHandler = new Handler(handlerThread.getLooper());
 
@@ -61,6 +72,14 @@ public class Model {
 
         long preTime = System.currentTimeMillis();
         allWordList.addAll(wordDatabase.qureyAllWords());
+
+        for(Word item: allWordList){
+            if(item.getWordState() == Word.UNKNOWN){
+                unknownList.add(item);
+            }else if(item.getWordState() == Word.KNOWN){
+                knownList.add(item);
+            }
+        }
         Log.e(TAG, "qureyAllWords: " + (System.currentTimeMillis() - preTime));
     }
 
@@ -73,24 +92,13 @@ public class Model {
             public void run() {
                 final List<Word> selectList = new ArrayList<>();
                 for (int i = 0; i < NUM_PER_LOAD; i++){
-                    int pos = (int)(Math.random() * allWordList.size());
-                    selectList.add(allWordList.get(pos));
-                    allWordList.remove(pos);
+                    int pos = (int)(Math.random() * unknownList.size());
+                    selectList.add(unknownList.get(pos));
+                    unknownList.remove(pos);
                 }
                 dicDatabase.qureyTranslation(selectList);
-
                 Log.e(TAG, "loadNextPageWord: " + (System.currentTimeMillis() - preTime));
-
-                mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        for(LoadWordListener item: loadWordListenerList){
-                            item.onWordsLoaded(selectList);
-                        }
-                        isLoadingWord = false;
-                    }
-                });
-
+                invokeLoadWordListener(selectList);
             }
         });
 
@@ -108,6 +116,15 @@ public class Model {
         loadWordListenerList.remove(listener);
     }
 
+    public void addUnknownWordChangeListener(UnknownWordChangeListener listener){
+        unknownWordChangeListenerList.add(listener);
+        invokeUnknownWordChangeListener(getUnknownWordNum());
+    }
+
+    public void removeUnknownwordChangeListener(UnknownWordChangeListener listener){
+        unknownWordChangeListenerList.remove(listener);
+    }
+
     public Handler getMainHandler(){
         return mainHandler;
     }
@@ -120,6 +137,36 @@ public class Model {
         void onWordsLoaded(List<Word> list);
     }
 
+    public interface UnknownWordChangeListener{
+        void onUnknownWordChange(int unknownWordNum);
+    }
+
+    private void invokeLoadWordListener(final List<Word> list){
+        mainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                for(LoadWordListener item: loadWordListenerList){
+                    item.onWordsLoaded(list);
+                }
+                isLoadingWord = false;
+            }
+        });
+    }
+
+    private void invokeUnknownWordChangeListener(final int num){
+        mainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                for(UnknownWordChangeListener item: unknownWordChangeListenerList){
+                    item.onUnknownWordChange(num);
+                }
+            }
+        });
+    }
+
+    private int getUnknownWordNum(){
+        return allWordList.size() - knownList.size();
+    }
 
     private void copyData2Local(){
         copyRaw2Database(R.raw.wordlist, WordDatabaseHelper.dbName);
