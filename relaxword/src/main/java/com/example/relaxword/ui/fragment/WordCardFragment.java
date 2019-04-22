@@ -140,6 +140,7 @@ public class WordCardFragment extends Fragment implements Model.LoadWordListener
             wordListHolder.drawView.setCardRecyclerView(recyclerView);
             wordListHolder.drawView.setDragRemoveListener(this);
             wordListHolder.drawView.setTag(i);
+            wordListHolder.drawView.reset();
         }
 
         @Override
@@ -180,7 +181,8 @@ public class WordCardFragment extends Fragment implements Model.LoadWordListener
                     wordList.remove(index);
                     Model.getInstance().addKnownWord(word);
                     notifyItemRemoved(index);
-                    notifyDataSetChanged();
+//                    notifyDataSetChanged();
+                    notifyItemRangeChanged(index, wordList.size() - index);
                     break;
                 case R.id.tv_phonetic_uk:
                     Translation translationUK = word.getTranslation();
@@ -211,7 +213,12 @@ public class WordCardFragment extends Fragment implements Model.LoadWordListener
             wordList.remove(index);
             Model.getInstance().addKnownWord(word);
             notifyItemRemoved(index);
-            notifyDataSetChanged();
+//            notifyDataSetChanged();
+            int needRefreshNum = wordList.size() - index;
+            notifyItemRangeChanged(index, needRefreshNum);
+            if(needRefreshNum < 3){
+                Model.getInstance().loadNextPageWord();
+            }
         }
 
         private String formatMeaning(List<String> list, String seprator) {

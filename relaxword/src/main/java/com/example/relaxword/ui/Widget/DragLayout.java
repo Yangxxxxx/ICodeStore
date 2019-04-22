@@ -6,6 +6,12 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 
 import com.example.relaxword.R;
@@ -58,7 +64,14 @@ public class DragLayout extends FrameLayout {
             canDrag = true;
         }else if(event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
             if(canRemove(event) && dragRemoveListener != null){
-                dragRemoveListener.onDragRemove(this);
+                showRemoveAnim(new Runnable() {
+                    @Override
+                    public void run() {
+                        dragRemoveListener.onDragRemove(DragLayout.this);
+                    }
+                });
+            }else {
+                reset();
             }
             canDrag = false;
         }
@@ -85,13 +98,50 @@ public class DragLayout extends FrameLayout {
 
             return true;
         } else {
-            contentView.setTranslationX(0);
-            contentView.setTranslationY(0);
-            contentView.setScaleX(1);
-            contentView.setScaleY(1);
-            contentView.setAlpha(1);
             return super.onTouchEvent(event);
         }
+    }
+
+    public void reset(){
+        contentView.setVisibility(VISIBLE);
+        contentView.setTranslationX(0);
+        contentView.setTranslationY(0);
+        contentView.setScaleX(1);
+        contentView.setScaleY(1);
+        contentView.setAlpha(1);
+    }
+
+    private void showRemoveAnim(final Runnable animEndTask){
+        AnimationSet animationSet = new AnimationSet(true);
+        AlphaAnimation alphaAnimation = new AlphaAnimation(1, 0);
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 0.5f, 1f, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0f);
+        TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, 0, -200);
+        animationSet.addAnimation(alphaAnimation);
+//        animationSet.addAnimation(scaleAnimation);
+        animationSet.addAnimation(translateAnimation);
+        animationSet.setInterpolator(new AccelerateInterpolator());
+        animationSet.setDuration(200);
+        animationSet.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                Log.e("an", "fsegesg");
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                contentView.setVisibility(INVISIBLE);
+                if(animEndTask != null) {
+                    animEndTask.run();
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        contentView.startAnimation(animationSet);
     }
 
     private boolean canRemove(MotionEvent event){
