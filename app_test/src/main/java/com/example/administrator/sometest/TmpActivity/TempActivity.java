@@ -65,6 +65,20 @@ public class TempActivity extends AppCompatActivity {
 //        shellExec("wm density 240");
 //        saveScreenBrightness(255);
         setScreenBrightness(255);
+
+        findViewById(R.id.fl_1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setVisibility(v.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
+            }
+        });
+
+        findViewById(R.id.tv1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setVisibility(v.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
+            }
+        });
     }
 
     private void saveScreenBrightness(int paramInt){
