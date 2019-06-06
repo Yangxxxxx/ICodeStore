@@ -12,21 +12,29 @@
         android:layout_height="300dp"
         android:background="#987">
 
-        <com.example.administrator.sometest.TouchEventTest.NonameLayout
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+        <com.example.administrator.sometest.TouchEventTest.NoNameTextView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_centerInParent="true"
-            android:background="#986">
+            android:background="#921"/>
 
-            <com.example.administrator.sometest.TouchEventTest.NonameLayout
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerInParent="true"
-                android:background="#956">
 
-            </com.example.administrator.sometest.TouchEventTest.NonameLayout>
 
-        </com.example.administrator.sometest.TouchEventTest.NonameLayout>
+        <!--<com.example.administrator.sometest.TouchEventTest.NonameLayout-->
+            <!--android:layout_width="200dp"-->
+            <!--android:layout_height="200dp"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:background="#986">-->
+
+            <!--<com.example.administrator.sometest.TouchEventTest.NonameLayout-->
+                <!--android:layout_width="100dp"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:background="#956">-->
+
+            <!--</com.example.administrator.sometest.TouchEventTest.NonameLayout>-->
+
+        <!--</com.example.administrator.sometest.TouchEventTest.NonameLayout>-->
 
     </com.example.administrator.sometest.TouchEventTest.NonameLayout>
 

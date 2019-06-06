@@ -67,4 +67,11 @@ public class WordBean {
     public void setWebMeanings(List<WebMeaning> webMeanings) {
         this.webMeanings = webMeanings;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean hasWord = obj instanceof String && word.equals((String)obj);
+        boolean sameWord = obj instanceof WordBean && word.equals(((WordBean)obj).getWord());
+        return hasWord || sameWord;
+    }
 }
