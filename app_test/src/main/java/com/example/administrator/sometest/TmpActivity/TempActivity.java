@@ -69,17 +69,50 @@ public class TempActivity extends AppCompatActivity {
         findViewById(R.id.fl_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setVisibility(v.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
+//                v.setVisibility(v.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
+                sendEmail(TempActivity.this);
             }
         });
 
         findViewById(R.id.tv1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setVisibility(v.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
+//                v.setVisibility(v.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
             }
         });
     }
+
+
+    public static void sendEmail(Context context) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("plain/text");
+//        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"940350851@qq.com"});
+//        intent.putExtra(Intent.EXTRA_SUBJECT, "github");
+//        intent.putExtra(Intent.EXTRA_TEXT, "coding for fun!");
+        try {
+//            if (!(context instanceof Activity)) {
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            }
+            context.startActivity(intent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(context, "未安装邮箱应用！", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public static void sendEmail2(Context context){
+        /* Create the Intent */
+        final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+
+        /* Fill it with Data */
+        emailIntent.setType("plain/text");
+        emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"to@email.com"});
+        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject");
+        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Text");
+
+        /* Send it off to the Activity-Chooser */
+        context.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+    }
+
 
     private void saveScreenBrightness(int paramInt){
         try{
