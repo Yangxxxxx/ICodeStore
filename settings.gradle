@@ -1,1 +1,1 @@
-include ':app_main', ':qrcodecore', ':zxing', ':app_test', ':java_test', ':INote', ':relaxword', ':touchpad', ':app_translator'
+include ':app_main', ':qrcodecore', ':zxing', ':app_test', ':java_test', ':INote', ':relaxword', ':touchpad', ':app_translator', 'app_video_edit'
