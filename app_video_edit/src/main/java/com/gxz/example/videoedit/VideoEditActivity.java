@@ -18,6 +18,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -35,8 +36,8 @@ import java.lang.ref.WeakReference;
  */
 public class VideoEditActivity extends AppCompatActivity {
     private static final String TAG = VideoEditActivity.class.getSimpleName();
-    private static final long MIN_CUT_DURATION = 3 * 1000L;// 最小剪辑时间3s
-    private static final long MAX_CUT_DURATION = 20 * 1000L;//视频最多剪切多长时间
+    private static final long MIN_CUT_DURATION = 5 * 1000L;// 最小剪辑时间3s
+    private static final long MAX_CUT_DURATION = 15 * 1000L;//视频最多剪切多长时间
     private static final int MAX_COUNT_RANGE = 10;//seekBar的区域内一共有多少张图片
     private LinearLayout seekBarLayout;
     private ExtractVideoInfoUtil mExtractVideoInfoUtil;
@@ -58,6 +59,8 @@ public class VideoEditActivity extends AppCompatActivity {
     private int mScaledTouchSlop;
     private int lastScrollX;
     private boolean isSeeking;
+
+    private TextView textViewInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,13 +89,14 @@ public class VideoEditActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        textViewInfo = (TextView) findViewById(R.id.tv_debug);
         seekBarLayout = (LinearLayout) findViewById(R.id.id_seekBarLayout);
         mVideoView = (VideoView) findViewById(R.id.uVideoView);
         positionIcon = (ImageView) findViewById(R.id.positionIcon);
         mRecyclerView = (RecyclerView) findViewById(R.id.id_rv_id);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         videoEditAdapter = new VideoEditAdapter(this,
-                (UIUtil.getScreenWidth(this) - UIUtil.dip2px(this, 70)) / 10);
+                (UIUtil.getScreenWidth(this) - UIUtil.dip2px(this, 70)) / MAX_COUNT_RANGE);
         mRecyclerView.setAdapter(videoEditAdapter);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
     }
@@ -111,9 +115,10 @@ public class VideoEditActivity extends AppCompatActivity {
             rangeWidth = mMaxWidth;
         } else {
             isOver_60_s = true;
-            thumbnailsCount = (int) (endPosition * 1.0f / (MAX_CUT_DURATION * 1.0f) * MAX_COUNT_RANGE);
+            thumbnailsCount = (int)Math.ceil(endPosition * 1.0f / (MAX_CUT_DURATION * 1.0f) * MAX_COUNT_RANGE);
             rangeWidth = mMaxWidth / MAX_COUNT_RANGE * thumbnailsCount;
         }
+
         mRecyclerView.addItemDecoration(new EditSpacingItemDecoration(UIUtil.dip2px(this, 35), thumbnailsCount));
 
         //init seekBar
@@ -132,7 +137,8 @@ public class VideoEditActivity extends AppCompatActivity {
         seekBarLayout.addView(seekBar);
 
         Log.d(TAG, "-------thumbnailsCount--->>>>" + thumbnailsCount);
-        averageMsPx = duration * 1.0f / rangeWidth * 1.0f;
+        averageMsPx = duration * 1f / rangeWidth;
+//        averageMsPx = Math.min(duration, MAX_CUT_DURATION) * 1f / mMaxWidth;
         Log.d(TAG, "-------rangeWidth--->>>>" + rangeWidth);
         Log.d(TAG, "-------localMedia.getDuration()--->>>>" + duration);
         Log.d(TAG, "-------averageMsPx--->>>>" + averageMsPx);
@@ -152,6 +158,7 @@ public class VideoEditActivity extends AppCompatActivity {
         averagePxMs = (mMaxWidth * 1.0f / (rightProgress - leftProgress));
         Log.d(TAG, "------averagePxMs----:>>>>>" + averagePxMs);
 
+        showPosInfo(leftProgress, rightProgress);
 
     }
 
@@ -226,6 +233,8 @@ public class VideoEditActivity extends AppCompatActivity {
                 mVideoView.seekTo((int) leftProgress);
             }
             lastScrollX = scrollX;
+
+            showPosInfo(leftProgress, rightProgress);
         }
     };
 
@@ -320,6 +329,8 @@ public class VideoEditActivity extends AppCompatActivity {
                 default:
                     break;
             }
+
+            showPosInfo(leftProgress, rightProgress);
         }
     };
 
@@ -414,5 +425,9 @@ public class VideoEditActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(OutPutFileDirPath)) {
             PictureUtils.deleteFile(new File(OutPutFileDirPath));
         }
+    }
+
+    private void showPosInfo(long leftPos, long rightProgress){
+        textViewInfo.setText(leftPos + " : " + rightProgress);
     }
 }

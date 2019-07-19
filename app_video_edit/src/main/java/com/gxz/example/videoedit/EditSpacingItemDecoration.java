@@ -25,6 +25,8 @@ public class EditSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+//        thumbnailsCount = parent.getAdapter().getItemCount();
+
         // 第一个的前面和最后一个的后面
         int position = parent.getChildAdapterPosition(view);
         if (position == 0) {
