@@ -175,9 +175,19 @@ public class RangeSeekBar extends View {
         }
     }
 
+    public float getLeftOffset(){
+        return normalizedToScreen(normalizedMinValue);
+    }
+
+    public float getRightOffset(){
+        return normalizedToScreen(normalizedMaxValue);
+    }
+
 
     private void drawThumb(float screenCoord, boolean pressed, Canvas canvas, boolean isLeft) {
-        canvas.drawBitmap(pressed ? thumbPressedImage : (isLeft ? thumbImageLeft : thumbImageRight), screenCoord - (isLeft ? 0 : thumbWidth), (pressed ? thumbPressPaddingTop : thumbPaddingTop), paint);
+        canvas.drawBitmap(pressed ? thumbPressedImage : (isLeft ? thumbImageLeft : thumbImageRight),
+                screenCoord - (isLeft ? 0 : thumbWidth), (pressed ? thumbPressPaddingTop : thumbPaddingTop),
+                paint);
     }
 
 

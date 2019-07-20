@@ -254,22 +254,31 @@ public class VideoEditActivity extends AppCompatActivity {
     private ValueAnimator animator;
 
     private void anim() {
-        Log.d(TAG, "--anim--onProgressUpdate---->>>>>>>" + mVideoView.getCurrentPosition());
+        Log.e(TAG, "anim start pos: " + mVideoView.getCurrentPosition());
         if (positionIcon.getVisibility() == View.GONE) {
             positionIcon.setVisibility(View.VISIBLE);
         }
         final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) positionIcon.getLayoutParams();
         int start = (int) (UIUtil.dip2px(this, 35) + (leftProgress/*mVideoView.getCurrentPosition()*/ - scrollPos) * averagePxMs);
         int end = (int) (UIUtil.dip2px(this, 35) + (rightProgress - scrollPos) * averagePxMs);
+
+        start = (int) (UIUtil.dip2px(this, 35) + seekBar.getLeftOffset());
+        end = (int) (UIUtil.dip2px(this, 35) + seekBar.getRightOffset());
+
         animator = ValueAnimator
                 .ofInt(start, end)
-                .setDuration((rightProgress - scrollPos) - (leftProgress/*mVideoView.getCurrentPosition()*/ - scrollPos));
+                .setDuration(getVideoDuration());
         animator.setInterpolator(new LinearInterpolator());
+        final int finalEnd = end;
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 params.leftMargin = (int) animation.getAnimatedValue();
                 positionIcon.setLayoutParams(params);
+
+                if(params.leftMargin == finalEnd){
+                    Log.e(TAG, "anim end pos: " + mVideoView.getCurrentPosition());
+                }
             }
         });
         animator.start();
@@ -343,28 +352,32 @@ public class VideoEditActivity extends AppCompatActivity {
             animator.cancel();
         }
         anim();
-        handler.removeCallbacks(run);
-        handler.post(run);
+        handler.removeCallbacks(ReplayTask);
+        handler.postDelayed(ReplayTask, getVideoDuration());
     }
 
-    private void videoProgressUpdate() {
-        long currentPosition = mVideoView.getCurrentPosition();
-        Log.d(TAG, "----onProgressUpdate-cp---->>>>>>>" + currentPosition);
-        if (currentPosition >= (rightProgress)) {
+    private boolean replayVideoIfNeed() {
+        boolean needReplay = mVideoView.getCurrentPosition() >= rightProgress;
+        if (needReplay) {
+            Log.e(TAG, "check replay true pos: " + mVideoView.getCurrentPosition());
+            mVideoView.pause(); //有必要，不然再次播放时，seek的指针位置有变化
             mVideoView.seekTo((int) leftProgress);
             positionIcon.clearAnimation();
             if (animator != null && animator.isRunning()) {
                 animator.cancel();
             }
-            anim();
+        }else {
+            Log.e(TAG, "check replay false pos: " + mVideoView.getCurrentPosition());
         }
+
+        return needReplay;
     }
 
     private void videoPause() {
         isSeeking = false;
         if (mVideoView != null && mVideoView.isPlaying()) {
             mVideoView.pause();
-            handler.removeCallbacks(run);
+            handler.removeCallbacks(ReplayTask);
         }
         Log.d(TAG, "----videoPause----->>>>>>>");
         if (positionIcon.getVisibility() == View.VISIBLE) {
@@ -395,12 +408,15 @@ public class VideoEditActivity extends AppCompatActivity {
     }
 
     private Handler handler = new Handler();
-    private Runnable run = new Runnable() {
+    private Runnable ReplayTask = new Runnable() {
 
         @Override
         public void run() {
-            videoProgressUpdate();
-            handler.postDelayed(run, 1000);
+            boolean needReplay = replayVideoIfNeed();
+            if(!needReplay) {
+                long nextCheckTime = rightProgress - mVideoView.getCurrentPosition(); //下次检测是否播放完成的时间点
+                handler.postDelayed(ReplayTask, nextCheckTime);
+            }
         }
     };
 
@@ -429,5 +445,9 @@ public class VideoEditActivity extends AppCompatActivity {
 
     private void showPosInfo(long leftPos, long rightProgress){
         textViewInfo.setText(leftPos + " : " + rightProgress);
+    }
+
+    private long getVideoDuration(){
+        return rightProgress - leftProgress;
     }
 }

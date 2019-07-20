@@ -38,14 +38,6 @@
             android:layout_height="match_parent"
             />
 
-        <ImageView
-            android:id="@+id/positionIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="35dp"
-            android:src="@drawable/lf_ugc_publish_pos"
-            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,6 +62,16 @@
                 android:layout_height="match_parent"
                 android:background="#66000000"/>
         </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/positionIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="35dp"
+            android:src="@drawable/lf_ugc_publish_pos"
+            />
     </FrameLayout>
 
     <TextView
