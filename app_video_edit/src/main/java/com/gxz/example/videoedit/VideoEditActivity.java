@@ -131,6 +131,7 @@ public class VideoEditActivity extends AppCompatActivity {
             seekBar.setSelectedMinValue(0L);
             seekBar.setSelectedMaxValue(endPosition);
         }
+        seekBar.setMinDistanceRatio(1.0 * MIN_CUT_DURATION / MAX_CUT_DURATION);
         seekBar.setMin_cut_time(MIN_CUT_DURATION);//设置最小裁剪时间
         seekBar.setNotifyWhileDragging(true);
         seekBar.setOnRangeSeekBarChangeListener(mOnRangeSeekBarChangeListener);
@@ -210,28 +211,26 @@ public class VideoEditActivity extends AppCompatActivity {
             isSeeking = false;
             int scrollX = getScrollXDistance();
             //达不到滑动的距离
-            if (Math.abs(lastScrollX - scrollX) < mScaledTouchSlop) {
-                isOverScaledTouchSlop = false;
-                return;
-            }
+//            if (Math.abs(lastScrollX - scrollX) < mScaledTouchSlop) {
+//                isOverScaledTouchSlop = false;
+//                return;
+//            }
             isOverScaledTouchSlop = true;
             Log.d(TAG, "-------scrollX:>>>>>" + scrollX);
             //初始状态,why ? 因为默认的时候有35dp的空白！
-            if (scrollX == -UIUtil.dip2px(VideoEditActivity.this, 35)) {
-                scrollPos = 0;
-            } else {
-                // why 在这里处理一下,因为onScrollStateChanged早于onScrolled回调
-                if (mVideoView != null && mVideoView.isPlaying()) {
-                    videoPause();
-                }
-                isSeeking = true;
-                scrollPos = (long) (averageMsPx * (UIUtil.dip2px(VideoEditActivity.this, 35) + scrollX));
-                Log.d(TAG, "-------scrollPos:>>>>>" + scrollPos);
-                leftProgress = seekBar.getSelectedMinValue() + scrollPos;
-                rightProgress = seekBar.getSelectedMaxValue() + scrollPos;
-                Log.d(TAG, "-------leftProgress:>>>>>" + leftProgress);
-                mVideoView.seekTo((int) leftProgress);
+
+            // why 在这里处理一下,因为onScrollStateChanged早于onScrolled回调
+            if (mVideoView != null && mVideoView.isPlaying()) {
+                videoPause();
             }
+            isSeeking = true;
+            scrollPos = (long) (averageMsPx * (UIUtil.dip2px(VideoEditActivity.this, 35) + scrollX));
+            Log.d(TAG, "-------scrollPos:>>>>>" + " : " + scrollX + " : " + averageMsPx);
+            leftProgress = getSeekBarLeftTime() + scrollPos;
+            rightProgress = getSeekBarRightTime() + scrollPos;
+            Log.d(TAG, "-------leftProgress:>>>>>" + leftProgress);
+            mVideoView.seekTo((int) leftProgress);
+
             lastScrollX = scrollX;
 
             showPosInfo(leftProgress, rightProgress);
@@ -309,11 +308,11 @@ public class VideoEditActivity extends AppCompatActivity {
 
     private final RangeSeekBar.OnRangeSeekBarChangeListener mOnRangeSeekBarChangeListener = new RangeSeekBar.OnRangeSeekBarChangeListener() {
         @Override
-        public void onRangeSeekBarValuesChanged(RangeSeekBar bar, long minValue, long maxValue, int action, boolean isMin, RangeSeekBar.Thumb pressedThumb) {
+        public void onRangeSeekBarValuesChanged(RangeSeekBar bar, float minValue, float maxValue, int action, boolean isMin, RangeSeekBar.Thumb pressedThumb) {
             Log.d(TAG, "-----minValue----->>>>>>" + minValue);
             Log.d(TAG, "-----maxValue----->>>>>>" + maxValue);
-            leftProgress = minValue + scrollPos;
-            rightProgress = maxValue + scrollPos;
+            leftProgress = getSeekBarLeftTime() + scrollPos;
+            rightProgress = getSeekBarRightTime() + scrollPos;
             Log.d(TAG, "-----leftProgress----->>>>>>" + leftProgress);
             Log.d(TAG, "-----rightProgress----->>>>>>" + rightProgress);
             switch (action) {
@@ -449,5 +448,13 @@ public class VideoEditActivity extends AppCompatActivity {
 
     private long getVideoDuration(){
         return rightProgress - leftProgress;
+    }
+
+    private long getSeekBarLeftTime(){
+        return (long) (1.0 * seekBar.getLeftOffset() / seekBar.getWidth() * MAX_CUT_DURATION);
+    }
+
+    private long getSeekBarRightTime(){
+        return (long) (1.0 * seekBar.getRightOffset() / seekBar.getWidth() * MAX_CUT_DURATION);
     }
 }

@@ -7,8 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
@@ -20,8 +18,19 @@ import android.view.ViewConfiguration;
 
 import java.text.DecimalFormat;
 
-public class RangeSeekBar extends View {
-    private static final String TAG = RangeSeekBar.class.getSimpleName();
+
+/**
+ * ================================================
+ * 作    者：顾修忠-guxiuzhong@youku.com/gfj19900401@163.com
+ * 版    本：
+ * 创建日期：2017/4/4-下午1:22
+ * 描    述：
+ * 修订历史：
+ * ================================================
+ */
+
+public class RangeSeekBar_bak extends View {
+    private static final String TAG = RangeSeekBar_bak.class.getSimpleName();
     private double absoluteMinValuePrim, absoluteMaxValuePrim;
     private double normalizedMinValue = 0d;//点坐标占总长度的比例值，范围从0-1
     private double normalizedMaxValue = 1d;//点坐标占总长度的比例值，范围从0-1
@@ -35,6 +44,7 @@ public class RangeSeekBar extends View {
     private Bitmap mBitmapBlack;
     private Bitmap mBitmapPro;
     private Paint paint;
+    private Paint rectPaint;
     private int thumbWidth;
     private float thumbHalfWidth;
     private final float padding = 0;
@@ -52,109 +62,29 @@ public class RangeSeekBar extends View {
     private double min_width = 1;//最小裁剪距离
     private boolean notifyWhileDragging = false;
 
-    /****************************************************************************************/
-    private double minDistanceRatio; //两个把手之间的最小距离比
-    private int lineWidth;
-    private boolean isSizeInfoAvailable;
-    private float preActionX;
-    private RectF leftHandleRect = new RectF();
-    private RectF rightHandleRect = new RectF();
-    private RectF pressedHandleRect;
-
-    public void setMinDistanceRatio(double ratio){
-        minDistanceRatio = ratio;
-    }
-
-    private boolean pressRectArea(RectF rectF, MotionEvent event){
-        return genClickArea(rectF).contains(event.getX(), event.getY());
-    }
-
-    private void offsetRectX(RectF rectF, float x){//范围再0 - getwidth() 之间
-        float offsetX = x;
-        if(rectF.left + x < 0){
-            offsetX = -rectF.left;
-        }else if(rectF.right + x > getWidth()){
-            offsetX = getWidth() - rectF.right;
-        }
-
-        float minDistance = (float) (minDistanceRatio * getWidth());
-        if(x > 0 && pressedHandleRect == leftHandleRect){
-            if(rightHandleRect.right - leftHandleRect.left - x < minDistance){
-                offsetX = rightHandleRect.right - leftHandleRect.left - minDistance;
-            }
-        }else if(x < 0 && pressedHandleRect == rightHandleRect){
-            if(rightHandleRect.right + x - leftHandleRect.left < minDistance){
-                offsetX = minDistance - rightHandleRect.right + leftHandleRect.left;
-            }
-        }
-
-        rectF.offset(offsetX, 0);
-    }
-
-    private RectF genClickArea(RectF org){
-        RectF clickArea = new RectF(org); //扩大范围，便于点击
-        clickArea.left -= 60;
-        clickArea.right += 60;
-
-        if(clickArea.left < 0) {
-            clickArea.right -= clickArea.left;
-            clickArea.left = 0;
-        }
-        if(clickArea.right > getWidth()){
-            clickArea.left -= clickArea.right - getWidth();
-            clickArea.right = getWidth();
-        }
-        return clickArea;
-    }
-
-    class Circle{
-        float centerX;
-        float centerY;
-        float radius;
-        public Circle(float centerX, float centerY, float radius){
-            this.centerX = centerX;
-            this.centerY = centerY;
-            this.radius = radius;
-        }
-
-        public boolean contains(float x, float y){
-            float pointDistance = (float)Math.sqrt((centerX - x) * (centerX - x) + (centerY - y) * (centerY - y));
-            return pointDistance <= radius;
-        }
-    }
-
-    /****************************************************************************************/
-
     public enum Thumb {
         MIN, MAX
     }
 
-    public RangeSeekBar(Context context) {
+    public RangeSeekBar_bak(Context context) {
         super(context);
     }
 
-    public RangeSeekBar(Context context, @Nullable AttributeSet attrs) {
+    public RangeSeekBar_bak(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public RangeSeekBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public RangeSeekBar_bak(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public RangeSeekBar(Context context, long absoluteMinValuePrim, long absoluteMaxValuePrim) {
+    public RangeSeekBar_bak(Context context, long absoluteMinValuePrim, long absoluteMaxValuePrim) {
         super(context);
         this.absoluteMinValuePrim = absoluteMinValuePrim;
         this.absoluteMaxValuePrim = absoluteMaxValuePrim;
         setFocusable(true);
         setFocusableInTouchMode(true);
-
-        post(new Runnable() {
-            @Override
-            public void run() {
-                init();
-                isSizeInfoAvailable = true;
-            }
-        });
+        init();
     }
 
     private void init() {
@@ -176,18 +106,12 @@ public class RangeSeekBar extends View {
         thumbHalfWidth = thumbWidth / 2;
 
 
-        lineWidth = UIUtil.dip2px(getContext(), 2);
-
         mBitmapBlack = BitmapFactory.decodeResource(getResources(), R.drawable.upload_overlay_black);
         mBitmapPro = BitmapFactory.decodeResource(getResources(), R.drawable.upload_overlay_trans);
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.parseColor("#ffffff"));
-        paint.setStrokeWidth(lineWidth);
-
-        final int handleWidth = 30;
-        leftHandleRect.set(0, 0, handleWidth, getHeight());
-        rightHandleRect.set(getWidth() - handleWidth, 0, getWidth(), getHeight());
+        rectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        rectPaint.setStyle(Paint.Style.FILL);
+        rectPaint.setColor(Color.parseColor("#ffffff"));
     }
 
     @Override
@@ -206,27 +130,6 @@ public class RangeSeekBar extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(!isSizeInfoAvailable) return;
-
-        //画两侧点击区域
-        canvas.drawBitmap(thumbImageLeft, null, leftHandleRect, paint);
-        canvas.drawBitmap(thumbImageRight, null, rightHandleRect, paint);
-
-        //画两侧透明层
-        paint.setColor(0x66000000);
-        canvas.drawRect(0, 0, leftHandleRect.left, getHeight(), paint);
-        canvas.drawRect(rightHandleRect.right, 0, getWidth(), getHeight(), paint);
-
-        //画上下侧线条
-        paint.setColor(0xffffffff);
-        canvas.drawLine(leftHandleRect.right, lineWidth/2, rightHandleRect.left, lineWidth/2, paint);
-        canvas.drawLine(leftHandleRect.right, getHeight() - lineWidth/2, rightHandleRect.left, getHeight() - lineWidth/2, paint);
-
-        //测试点击区域
-//        paint.setColor(Color.parseColor("#88ff0000"));
-//        canvas.drawRect(genClickArea(leftHandleRect), paint);
-//        canvas.drawRect(genClickArea(rightHandleRect), paint);
-
         float bg_middle_left = 0;
         float bg_middle_right = getWidth() - getPaddingRight();
         float scale = (bg_middle_right - bg_middle_left) / mBitmapPro.getWidth();
@@ -236,33 +139,32 @@ public class RangeSeekBar extends View {
         float scale_pro = (rangeR - rangeL) / mBitmapPro.getWidth();
         if (scale_pro > 0) {
             try {
-
-//                Matrix pro_mx = new Matrix();
-//                pro_mx.postScale(scale_pro, 1f);
-//                Bitmap m_bitmap_pro_new = Bitmap.createBitmap(mBitmapPro, 0, 0, mBitmapPro.getWidth(),
-//                        mBitmapPro.getHeight(), pro_mx, true);
+                Matrix pro_mx = new Matrix();
+                pro_mx.postScale(scale_pro, 1f);
+                Bitmap m_bitmap_pro_new = Bitmap.createBitmap(mBitmapPro, 0, 0, mBitmapPro.getWidth(),
+                        mBitmapPro.getHeight(), pro_mx, true);
 
                 //画中间的透明遮罩
-//                canvas.drawBitmap(m_bitmap_pro_new, rangeL, thumbPaddingTop, paint);
+                canvas.drawBitmap(m_bitmap_pro_new, rangeL, thumbPaddingTop, paint);
 
-//                Matrix mx = new Matrix();
-//                mx.postScale(scale, 1f);
-//                Bitmap m_bitmap_black_new = Bitmap.createBitmap(mBitmapBlack, 0, 0, mBitmapBlack.getWidth(), mBitmapBlack.getHeight(), mx, true);
+                Matrix mx = new Matrix();
+                mx.postScale(scale, 1f);
+                Bitmap m_bitmap_black_new = Bitmap.createBitmap(mBitmapBlack, 0, 0, mBitmapBlack.getWidth(), mBitmapBlack.getHeight(), mx, true);
 
                 //画左边的半透明遮罩
-//                Bitmap m_bg_new1 = Bitmap.createBitmap(m_bitmap_black_new, 0, 0, (int) (rangeL - bg_middle_left) + (int) thumbWidth / 2, mBitmapBlack.getHeight());
-//                canvas.drawBitmap(m_bg_new1, bg_middle_left, thumbPaddingTop, paint);
+                Bitmap m_bg_new1 = Bitmap.createBitmap(m_bitmap_black_new, 0, 0, (int) (rangeL - bg_middle_left) + (int) thumbWidth / 2, mBitmapBlack.getHeight());
+                canvas.drawBitmap(m_bg_new1, bg_middle_left, thumbPaddingTop, paint);
 
                 //画右边的半透明遮罩
-//                Bitmap m_bg_new2 = Bitmap.createBitmap(m_bitmap_black_new, (int) (rangeR - thumbWidth / 2), 0, (int) (getWidth() - rangeR) + (int) thumbWidth / 2, mBitmapBlack.getHeight());
-//                canvas.drawBitmap(m_bg_new2, (int) (rangeR - thumbWidth / 2), thumbPaddingTop, paint);
+                Bitmap m_bg_new2 = Bitmap.createBitmap(m_bitmap_black_new, (int) (rangeR - thumbWidth / 2), 0, (int) (getWidth() - rangeR) + (int) thumbWidth / 2, mBitmapBlack.getHeight());
+                canvas.drawBitmap(m_bg_new2, (int) (rangeR - thumbWidth / 2), thumbPaddingTop, paint);
 
                 //画上下的矩形
-//                canvas.drawRect(rangeL, thumbPaddingTop, rangeR, thumbPaddingTop + dip2px(2), rectPaint);
-//                canvas.drawRect(rangeL, getHeight() - dip2px(2), rangeR, getHeight(), rectPaint);
+                canvas.drawRect(rangeL, thumbPaddingTop, rangeR, thumbPaddingTop + dip2px(2), rectPaint);
+                canvas.drawRect(rangeL, getHeight() - dip2px(2), rangeR, getHeight(), rectPaint);
                 //画左右thumb
-//                drawThumb(normalizedToScreen(normalizedMinValue), false, canvas, true);
-//                drawThumb(normalizedToScreen(normalizedMaxValue), false, canvas, false);
+                drawThumb(normalizedToScreen(normalizedMinValue), false, canvas, true);
+                drawThumb(normalizedToScreen(normalizedMaxValue), false, canvas, false);
             } catch (Exception e) {
                 // 当pro_scale非常小，例如width=12，Height=48，pro_scale=0.01979065时，
                 // 宽高按比例计算后值为0.237、0.949，系统强转为int型后宽就变成0了。就出现非法参数异常
@@ -274,13 +176,11 @@ public class RangeSeekBar extends View {
     }
 
     public float getLeftOffset(){
-//        return normalizedToScreen(normalizedMinValue);
-        return leftHandleRect.left;
+        return normalizedToScreen(normalizedMinValue);
     }
 
     public float getRightOffset(){
-//        return normalizedToScreen(normalizedMaxValue);
-        return rightHandleRect.right;
+        return normalizedToScreen(normalizedMaxValue);
     }
 
 
@@ -289,6 +189,7 @@ public class RangeSeekBar extends View {
                 screenCoord - (isLeft ? 0 : thumbWidth), (pressed ? thumbPressPaddingTop : thumbPaddingTop),
                 paint);
     }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -314,31 +215,17 @@ public class RangeSeekBar extends View {
                 mDownMotionX = event.getX(pointerIndex);
                 // 判断touch到的是最大值thumb还是最小值thumb
                 pressedThumb = evalPressedThumb(mDownMotionX);
-//                if (pressedThumb == null)
-//                    return super.onTouchEvent(event);
-//                setPressed(true);// 设置该控件被按下了
+                if (pressedThumb == null)
+                    return super.onTouchEvent(event);
+                setPressed(true);// 设置该控件被按下了
                 onStartTrackingTouch();// 置mIsDragging为true，开始追踪touch事件
                 trackTouchEvent(event);
                 attemptClaimDrag();
-
-                if(pressRectArea(leftHandleRect, event)){
-                    pressedHandleRect = leftHandleRect;
-                }else if(pressRectArea(rightHandleRect, event)){
-                    pressedHandleRect = rightHandleRect;
-                }
-                preActionX = event.getX();
-
                 if (listener != null) {
                     listener.onRangeSeekBarValuesChanged(this, getSelectedMinValue(), getSelectedMaxValue(), MotionEvent.ACTION_DOWN, isMin, pressedThumb);
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
-                if(pressedHandleRect != null){
-                    offsetRectX(pressedHandleRect, event.getX() - preActionX);
-                    preActionX = event.getX();
-                    invalidate();
-                }
-
                 if (pressedThumb != null) {
                     if (mIsDragging) {
                         trackTouchEvent(event);
@@ -377,7 +264,6 @@ public class RangeSeekBar extends View {
                     listener.onRangeSeekBarValuesChanged(this, getSelectedMinValue(), getSelectedMaxValue(), MotionEvent.ACTION_UP, isMin, pressedThumb);
                 }
                 pressedThumb = null;// 手指抬起，则置被touch到的thumb为空
-                pressedHandleRect = null;
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
                 final int index = event.getPointerCount() - 1;
@@ -396,12 +282,11 @@ public class RangeSeekBar extends View {
                     setPressed(false);
                 }
                 invalidate(); // see above explanation
-                pressedHandleRect = null;
                 break;
             default:
                 break;
         }
-        return pressedHandleRect != null;
+        return true;
     }
 
     private void onSecondaryPointerUp(MotionEvent ev) {
@@ -556,9 +441,9 @@ public class RangeSeekBar extends View {
      * 试图告诉父view不要拦截子控件的drag
      */
     private void attemptClaimDrag() {
-//        if (getParent() != null) {
-//            getParent().requestDisallowInterceptTouchEvent(true);
-//        }
+        if (getParent() != null) {
+            getParent().requestDisallowInterceptTouchEvent(true);
+        }
     }
 
     void onStartTrackingTouch() {
@@ -614,14 +499,12 @@ public class RangeSeekBar extends View {
     }
 
 
-    public float getSelectedMinValue() {
-//        return normalizedToValue(normalizedMinValueTime);
-        return leftHandleRect.left;
+    public long getSelectedMinValue() {
+        return normalizedToValue(normalizedMinValueTime);
     }
 
-    public float getSelectedMaxValue() {
-//        return normalizedToValue(normalizedMaxValueTime);
-        return getWidth() - rightHandleRect.right;
+    public long getSelectedMaxValue() {
+        return normalizedToValue(normalizedMaxValueTime);
     }
 
     private long normalizedToValue(double normalized) {
@@ -674,7 +557,7 @@ public class RangeSeekBar extends View {
     private OnRangeSeekBarChangeListener listener;
 
     public interface OnRangeSeekBarChangeListener {
-        void onRangeSeekBarValuesChanged(RangeSeekBar bar, float minValue, float maxValue, int action, boolean isMin, Thumb pressedThumb);
+        void onRangeSeekBarValuesChanged(RangeSeekBar_bak bar, long minValue, long maxValue, int action, boolean isMin, Thumb pressedThumb);
     }
 
     public void setOnRangeSeekBarChangeListener(OnRangeSeekBarChangeListener listener) {
