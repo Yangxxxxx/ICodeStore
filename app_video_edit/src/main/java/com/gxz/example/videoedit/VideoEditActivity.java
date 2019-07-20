@@ -122,18 +122,8 @@ public class VideoEditActivity extends AppCompatActivity {
         mRecyclerView.addItemDecoration(new EditSpacingItemDecoration(UIUtil.dip2px(this, 35), thumbnailsCount));
 
         //init seekBar
-        if (isOver_60_s) {
-            seekBar = new RangeSeekBar(this, 0L, MAX_CUT_DURATION);
-            seekBar.setSelectedMinValue(0L);
-            seekBar.setSelectedMaxValue(MAX_CUT_DURATION);
-        } else {
-            seekBar = new RangeSeekBar(this, 0L, endPosition);
-            seekBar.setSelectedMinValue(0L);
-            seekBar.setSelectedMaxValue(endPosition);
-        }
+        seekBar = new RangeSeekBar(this);
         seekBar.setMinDistanceRatio(1.0 * MIN_CUT_DURATION / MAX_CUT_DURATION);
-        seekBar.setMin_cut_time(MIN_CUT_DURATION);//设置最小裁剪时间
-        seekBar.setNotifyWhileDragging(true);
         seekBar.setOnRangeSeekBarChangeListener(mOnRangeSeekBarChangeListener);
         seekBarLayout.addView(seekBar);
 
@@ -308,13 +298,9 @@ public class VideoEditActivity extends AppCompatActivity {
 
     private final RangeSeekBar.OnRangeSeekBarChangeListener mOnRangeSeekBarChangeListener = new RangeSeekBar.OnRangeSeekBarChangeListener() {
         @Override
-        public void onRangeSeekBarValuesChanged(RangeSeekBar bar, float minValue, float maxValue, int action, boolean isMin, RangeSeekBar.Thumb pressedThumb) {
-            Log.d(TAG, "-----minValue----->>>>>>" + minValue);
-            Log.d(TAG, "-----maxValue----->>>>>>" + maxValue);
+        public void onRangeSeekBarValuesChanged(int action, boolean isLeftHandleMoving) {
             leftProgress = getSeekBarLeftTime() + scrollPos;
             rightProgress = getSeekBarRightTime() + scrollPos;
-            Log.d(TAG, "-----leftProgress----->>>>>>" + leftProgress);
-            Log.d(TAG, "-----rightProgress----->>>>>>" + rightProgress);
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
                     Log.d(TAG, "-----ACTION_DOWN---->>>>>>");
@@ -324,8 +310,7 @@ public class VideoEditActivity extends AppCompatActivity {
                 case MotionEvent.ACTION_MOVE:
                     Log.d(TAG, "-----ACTION_MOVE---->>>>>>");
                     isSeeking = true;
-                    mVideoView.seekTo((int) (pressedThumb == RangeSeekBar.Thumb.MIN ?
-                            leftProgress : rightProgress));
+                    mVideoView.seekTo((int) (isLeftHandleMoving ? leftProgress : rightProgress));
                     break;
                 case MotionEvent.ACTION_UP:
                     Log.d(TAG, "-----ACTION_UP--leftProgress--->>>>>>" + leftProgress);
