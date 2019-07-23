@@ -4,16 +4,21 @@ import android.arch.lifecycle.MutableLiveData
 import android.content.Context
 import android.os.Handler
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.MotionEvent
+import java.io.File
 
-open class VideoCutViewModel(val context: Context, val videoPath: String,  val mMaxWidth: Int, val mUIHandler: Handler){
+open class VideoCutViewModel(val context: Context, val videoPath: String,  val mMaxWidth: Int){
     private val TAG = "VideoCutViewModel"
-    private val MIN_CUT_DURATION = 5 * 1000L// 最小剪辑时间3s
-    private val MAX_CUT_DURATION = 15 * 1000L//视频最多剪切多长时间
-    private val MAX_COUNT_RANGE = 10//seekBar的区域内一共有多少张图片
 
+    companion object {
+        const val MIN_CUT_DURATION = 5 * 1000L// 最小剪辑时间
+        const val MAX_CUT_DURATION = 15 * 1000L//视频最多剪切多长时间
+        const val MAX_COUNT_RANGE = 10//seekBar的区域内一共有多少张图片
+    }
     var startProgress = MutableLiveData<Long>()
     var endProgress = MutableLiveData<Long>()
+    var thumbInfo = MutableLiveData<VideoEditInfo>()
 
     var videoPauseEvent = SingleLiveEvent<Void>()
     var videoStartEvent = SingleLiveEvent<Void>()
@@ -23,6 +28,8 @@ open class VideoCutViewModel(val context: Context, val videoPath: String,  val m
     private var rightSeekProgress: Long = 0
     private var scrollProgress: Long = 0
 
+
+    private var thumbnailsCount: Int = 0
     private var mExtractVideoInfoUtil: ExtractVideoInfoUtil? = null
 
     private var isSeeking: Boolean = false
@@ -31,13 +38,18 @@ open class VideoCutViewModel(val context: Context, val videoPath: String,  val m
     private var OutPutFileDirPath: String? = null
     private var mExtractFrameWorkThread: ExtractFrameWorkThread? = null
 
-    fun start(){
+    init {
+        val thumbExtractListener = object : ThumbExtractListener{
+            override fun onOneThumbExtract(videoEditInfo: VideoEditInfo) {
+                thumbInfo.postValue(videoEditInfo)
+            }
+        }
+
         mExtractVideoInfoUtil = ExtractVideoInfoUtil(videoPath)
         duration = mExtractVideoInfoUtil?.videoLength?.toLong() ?: 0
 
         val startPosition: Long = 0
         val endPosition = duration
-        val thumbnailsCount: Int
         val rangeWidth: Int
         val isOver_60_s: Boolean
         if (endPosition <= MAX_CUT_DURATION) {
@@ -49,13 +61,7 @@ open class VideoCutViewModel(val context: Context, val videoPath: String,  val m
             thumbnailsCount = Math.ceil((endPosition * 1.0f / (MAX_CUT_DURATION * 1.0f) * MAX_COUNT_RANGE).toDouble()).toInt()
             rangeWidth = mMaxWidth / MAX_COUNT_RANGE * thumbnailsCount
         }
-
         averageMsPx = duration * 1f / rangeWidth
-        OutPutFileDirPath = PictureUtils.getSaveEditThumbnailDir(context)
-        val extractW = (UIUtil.getScreenWidth(context) - UIUtil.dip2px(context, 70)) / MAX_COUNT_RANGE
-        val extractH = UIUtil.dip2px(context, 55)
-        mExtractFrameWorkThread = ExtractFrameWorkThread(extractW, extractH, mUIHandler, videoPath, OutPutFileDirPath, startPosition, endPosition, thumbnailsCount)
-        mExtractFrameWorkThread?.start()
 
         leftSeekProgress = 0;
         if (isOver_60_s) {
@@ -65,7 +71,20 @@ open class VideoCutViewModel(val context: Context, val videoPath: String,  val m
         }
         startProgress.value = leftSeekProgress
         endProgress.value = rightSeekProgress
+
+        OutPutFileDirPath = PictureUtils.getSaveEditThumbnailDir(context)
+        val extractW = (UIUtil.getScreenWidth(context) - UIUtil.dip2px(context, 70)) / MAX_COUNT_RANGE
+        val extractH = UIUtil.dip2px(context, 55)
+        mExtractFrameWorkThread = ExtractFrameWorkThread(extractW, extractH, thumbExtractListener, videoPath, OutPutFileDirPath, startPosition, endPosition, thumbnailsCount)
+    }
+
+    fun start(){
+        mExtractFrameWorkThread?.start()
         videoStartEvent.call()
+    }
+
+    fun getThumbPicNum(): Int{
+        return thumbnailsCount;
     }
 
     fun getVideoDuration(): Long{
@@ -75,22 +94,22 @@ open class VideoCutViewModel(val context: Context, val videoPath: String,  val m
     fun end(){
         mExtractFrameWorkThread?.stopExtract()
         mExtractVideoInfoUtil?.release()
+        if (!TextUtils.isEmpty(OutPutFileDirPath)) {
+            PictureUtils.deleteFile(File(OutPutFileDirPath))
+        }
     }
 
     fun onScrollStateChanged(newState: Int) {
         if (newState == RecyclerView.SCROLL_STATE_IDLE) {
             isSeeking = false
-        } else {
-            isSeeking = true
-            videoPauseEvent.call()
         }
     }
 
     private var preScrollX = 0;
     fun onScrolled(scrollX: Int, dx: Int, dy: Int) {
         if(dx == preScrollX) return //此时没有滚动
-        videoPauseEvent.call()
         isSeeking = true
+        videoPauseEvent.call()
         scrollProgress = (averageMsPx * (UIUtil.dip2px(context, 35) + scrollX)).toLong()
         startProgress.value = leftSeekProgress + scrollProgress
         endProgress.value = rightSeekProgress + scrollProgress
@@ -123,8 +142,6 @@ open class VideoCutViewModel(val context: Context, val videoPath: String,  val m
             MotionEvent.ACTION_MOVE -> {
                 isSeeking = true
                 videoSeekEvent.value = if (isLeft) startProgress.value?.toInt() else endProgress.value?.toInt()
-
-
             }
             MotionEvent.ACTION_UP -> {
                 isSeeking = false
@@ -132,4 +149,5 @@ open class VideoCutViewModel(val context: Context, val videoPath: String,  val m
             }
         }
     }
+
 }

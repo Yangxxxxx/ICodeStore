@@ -21,14 +21,14 @@ public class ExtractFrameWorkThread extends Thread {
     private int thumbnailsCount;
     private VideoExtractFrameAsyncUtils mVideoExtractFrameAsyncUtils;
 
-    public ExtractFrameWorkThread(int extractW, int extractH, Handler mHandler, String videoPath, String OutPutFileDirPath,
+    public ExtractFrameWorkThread(int extractW, int extractH, ThumbExtractListener listener, String videoPath, String OutPutFileDirPath,
                                   long startPosition, long endPosition, int thumbnailsCount) {
         this.videoPath = videoPath;
         this.OutPutFileDirPath = OutPutFileDirPath;
         this.startPosition = startPosition;
         this.endPosition = endPosition;
         this.thumbnailsCount = thumbnailsCount;
-        this.mVideoExtractFrameAsyncUtils = new VideoExtractFrameAsyncUtils(extractW,extractH,mHandler);
+        this.mVideoExtractFrameAsyncUtils = new VideoExtractFrameAsyncUtils(extractW,extractH,listener);
     }
 
     @Override

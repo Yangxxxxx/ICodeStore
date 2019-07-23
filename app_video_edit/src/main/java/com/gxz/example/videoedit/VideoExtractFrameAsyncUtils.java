@@ -19,12 +19,12 @@ import android.util.Log;
 
 public class VideoExtractFrameAsyncUtils {
 
-    private Handler mHandler;
+    private ThumbExtractListener listener;
     private  int extractW;
     private  int extractH;
 
-    public VideoExtractFrameAsyncUtils(int extractW, int extractH, Handler mHandler) {
-        this.mHandler = mHandler;
+    public VideoExtractFrameAsyncUtils(int extractW, int extractH, ThumbExtractListener listener) {
+        this.listener = listener;
         this.extractW=extractW;
         this.extractH=extractH;
     }
@@ -55,59 +55,6 @@ public class VideoExtractFrameAsyncUtils {
         metadataRetriever.release();
     }
 
-//    public void getVideoThumbnailsInfoForEdit(String videoPath, String OutPutFileDirPath, long startPosition, long endPosition, int thumbnailsCount) {
-//        MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
-//        metadataRetriever.setDataSource(videoPath);
-//        long interval = 1500;
-//        long snapTime = startPosition;
-//
-//
-//
-//        for(; snapTime <= endPosition; snapTime += interval){
-//            if (stop) {
-//                Log.d("ExtractFrame", "-------ok-stop-stop-->>>>>>>>>");
-//                metadataRetriever.release();
-//                break;
-//            }
-//
-//            String path = extractFrame(metadataRetriever, snapTime, OutPutFileDirPath);
-//            sendAPic(path, snapTime);
-//        }
-//
-//        if(snapTime != endPosition){
-//            String path = extractFrame(metadataRetriever, endPosition, OutPutFileDirPath);
-//            sendAPic(path, snapTime);
-//        }
-//
-//        metadataRetriever.release();
-//    }
-
-//    public void getVideoThumbnailsInfoForEdit(String videoPath, String OutPutFileDirPath, long startPosition, long endPosition, int thumbnailsCount) {
-//        MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
-//        metadataRetriever.setDataSource(videoPath);
-//        long interval = (endPosition - startPosition) / (thumbnailsCount - 1);
-//        for (int i = 0; i < thumbnailsCount; i++) {
-//            if (stop) {
-//                Log.d("ExtractFrame", "-------ok-stop-stop-->>>>>>>>>");
-//                metadataRetriever.release();
-//                break;
-//            }
-//            long time = startPosition + interval * i;
-//            if (i == thumbnailsCount - 1) {
-//                if (interval > 1000) {
-//                    String path = extractFrame(metadataRetriever, endPosition - 800, OutPutFileDirPath);
-//                    sendAPic(path, endPosition - 800);
-//                } else {
-//                    String path = extractFrame(metadataRetriever, endPosition, OutPutFileDirPath);
-//                    sendAPic(path, endPosition);
-//                }
-//            } else {
-//                String path = extractFrame(metadataRetriever, time, OutPutFileDirPath);
-//                sendAPic(path, time);
-//            }
-//        }
-//        metadataRetriever.release();
-//    }
 
     /**
      * 成功一张add一张
@@ -120,9 +67,9 @@ public class VideoExtractFrameAsyncUtils {
         VideoEditInfo info = new VideoEditInfo();
         info.path = path;
         info.time = time;
-        Message msg = mHandler.obtainMessage(ExtractFrameWorkThread.MSG_SAVE_SUCCESS);
-        msg.obj = info;
-        mHandler.sendMessage(msg);
+        if(listener != null){
+            listener.onOneThumbExtract(info);
+        }
     }
 
     private String extractFrame(MediaMetadataRetriever metadataRetriever, long time, String OutPutFileDirPath) {
