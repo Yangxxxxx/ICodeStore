@@ -15,6 +15,9 @@ import android.view.View;
 
 public class RangeSeekBar extends View {
     private static final String TAG = RangeSeekBar.class.getSimpleName();
+    private static final int TRANLUCENT_COVER_COLOR = 0x66000000;
+    private static final int LINE_COLOR = 0xffffffff;
+    private static final int EXPANDED_CLICK_AREA_WIDTH = 60;
     private Bitmap thumbImageLeft;
     private Bitmap thumbImageRight;
     private Paint paint;
@@ -77,12 +80,12 @@ public class RangeSeekBar extends View {
         canvas.drawBitmap(thumbImageRight, null, rightHandleRect, paint);
 
         //画两侧透明层
-        paint.setColor(0x66000000);
+        paint.setColor(TRANLUCENT_COVER_COLOR);
         canvas.drawRect(0, 0, leftHandleRect.left, getHeight(), paint);
         canvas.drawRect(rightHandleRect.right, 0, getWidth(), getHeight(), paint);
 
         //画上下侧线条
-        paint.setColor(0xffffffff);
+        paint.setColor(LINE_COLOR);
         canvas.drawLine(leftHandleRect.right, lineWidth/2, rightHandleRect.left, lineWidth/2, paint);
         canvas.drawLine(leftHandleRect.right, getHeight() - lineWidth/2, rightHandleRect.left, getHeight() - lineWidth/2, paint);
 
@@ -155,12 +158,17 @@ public class RangeSeekBar extends View {
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.parseColor("#ffffff"));
         paint.setStrokeWidth(lineWidth);
+    }
+
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
 
         final int handleWidth = 30;
         leftHandleRect.set(0, 0, handleWidth, getHeight());
         rightHandleRect.set(getWidth() - handleWidth, 0, getWidth(), getHeight());
     }
-
 
     private boolean isLeftHandleMoving(){
         return pressedHandleRect != null && pressedHandleRect == leftHandleRect;
@@ -177,12 +185,15 @@ public class RangeSeekBar extends View {
 
     private void offsetRectX(RectF rectF, float x){//范围再0 - getwidth() 之间
         float offsetX = x;
+
+        //预防超出左右边界
         if(rectF.left + x < 0){
             offsetX = -rectF.left;
         }else if(rectF.right + x > getWidth()){
             offsetX = getWidth() - rectF.right;
         }
 
+        //控制最小宽度
         float minDistance = (float) (minDistanceRatio * getWidth());
         if(x > 0 && pressedHandleRect == leftHandleRect){
             if(rightHandleRect.right - leftHandleRect.left - x < minDistance){
@@ -199,8 +210,8 @@ public class RangeSeekBar extends View {
 
     private RectF genClickArea(RectF org){
         RectF clickArea = new RectF(org); //扩大范围，便于点击
-        clickArea.left -= 60;
-        clickArea.right += 60;
+        clickArea.left -= EXPANDED_CLICK_AREA_WIDTH;
+        clickArea.right += EXPANDED_CLICK_AREA_WIDTH;
 
         if(clickArea.left < 0) {
             clickArea.right -= clickArea.left;

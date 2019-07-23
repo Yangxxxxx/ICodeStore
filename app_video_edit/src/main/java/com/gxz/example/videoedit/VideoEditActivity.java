@@ -1,11 +1,14 @@
 package com.gxz.example.videoedit;
 
 import android.animation.ValueAnimator;
+import android.arch.lifecycle.Observer;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -62,14 +65,18 @@ public class VideoEditActivity extends AppCompatActivity {
 
     private TextView textViewInfo;
 
+    private Handler UIHandler = new Handler(Looper.getMainLooper());
+    private VideoCutViewModel videoCutViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_edit);
         initData();
         initView();
-        initEditVideo();
+
         initPlay();
+        initEditVideo();
     }
 
     private void initData() {
@@ -86,6 +93,45 @@ public class VideoEditActivity extends AppCompatActivity {
         mMaxWidth = UIUtil.getScreenWidth(this) - UIUtil.dip2px(this, 70);
         mScaledTouchSlop = ViewConfiguration.get(this).getScaledTouchSlop();
 
+
+        videoCutViewModel = new VideoCutViewModel(this, path, mMaxWidth, mUIHandler);
+
+        videoCutViewModel.getVideoPauseEvent().observe(this, new Observer<Void>() {
+            @Override
+            public void onChanged(@Nullable Void aVoid) {
+                videoPause();
+            }
+        });
+
+        videoCutViewModel.getVideoStartEvent().observe(this, new Observer<Void>() {
+            @Override
+            public void onChanged(@Nullable Void aVoid) {
+                videoStart();
+            }
+        });
+
+        videoCutViewModel.getVideoSeekEvent().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                mVideoView.seekTo(integer);
+            }
+        });
+
+        videoCutViewModel.getStartProgress().observe(this, new Observer<Long>() {
+            @Override
+            public void onChanged(@Nullable Long aLong) {
+                leftProgress = aLong;
+                showPosInfo(leftProgress, rightProgress);
+            }
+        });
+
+        videoCutViewModel.getEndProgress().observe(this, new Observer<Long>() {
+            @Override
+            public void onChanged(@Nullable Long aLong) {
+                rightProgress = aLong;
+                showPosInfo(leftProgress, rightProgress);
+            }
+        });
     }
 
     private void initView() {
@@ -127,30 +173,31 @@ public class VideoEditActivity extends AppCompatActivity {
         seekBar.setOnRangeSeekBarChangeListener(mOnRangeSeekBarChangeListener);
         seekBarLayout.addView(seekBar);
 
-        Log.d(TAG, "-------thumbnailsCount--->>>>" + thumbnailsCount);
-        averageMsPx = duration * 1f / rangeWidth;
-//        averageMsPx = Math.min(duration, MAX_CUT_DURATION) * 1f / mMaxWidth;
-        Log.d(TAG, "-------rangeWidth--->>>>" + rangeWidth);
-        Log.d(TAG, "-------localMedia.getDuration()--->>>>" + duration);
-        Log.d(TAG, "-------averageMsPx--->>>>" + averageMsPx);
-        OutPutFileDirPath = PictureUtils.getSaveEditThumbnailDir(this);
-        int extractW = (UIUtil.getScreenWidth(this) - UIUtil.dip2px(this, 70)) / MAX_COUNT_RANGE;
-        int extractH = UIUtil.dip2px(this, 55);
-        mExtractFrameWorkThread = new ExtractFrameWorkThread(extractW, extractH, mUIHandler, path, OutPutFileDirPath, startPosition, endPosition, thumbnailsCount);
-        mExtractFrameWorkThread.start();
+//        Log.d(TAG, "-------thumbnailsCount--->>>>" + thumbnailsCount);
+//        averageMsPx = duration * 1f / rangeWidth;
+////        averageMsPx = Math.min(duration, MAX_CUT_DURATION) * 1f / mMaxWidth;
+//        Log.d(TAG, "-------rangeWidth--->>>>" + rangeWidth);
+//        Log.d(TAG, "-------localMedia.getDuration()--->>>>" + duration);
+//        Log.d(TAG, "-------averageMsPx--->>>>" + averageMsPx);
+//        OutPutFileDirPath = PictureUtils.getSaveEditThumbnailDir(this);
+//        int extractW = (UIUtil.getScreenWidth(this) - UIUtil.dip2px(this, 70)) / MAX_COUNT_RANGE;
+//        int extractH = UIUtil.dip2px(this, 55);
+//        mExtractFrameWorkThread = new ExtractFrameWorkThread(extractW, extractH, mUIHandler, path, OutPutFileDirPath, startPosition, endPosition, thumbnailsCount);
+//        mExtractFrameWorkThread.start();
 
         //init pos icon start
-        leftProgress = 0;
-        if (isOver_60_s) {
-            rightProgress = MAX_CUT_DURATION;
-        } else {
-            rightProgress = endPosition;
-        }
-        averagePxMs = (mMaxWidth * 1.0f / (rightProgress - leftProgress));
-        Log.d(TAG, "------averagePxMs----:>>>>>" + averagePxMs);
+//        leftProgress = 0;
+//        if (isOver_60_s) {
+//            rightProgress = MAX_CUT_DURATION;
+//        } else {
+//            rightProgress = endPosition;
+//        }
+//        averagePxMs = (mMaxWidth * 1.0f / (rightProgress - leftProgress));
+//        Log.d(TAG, "------averagePxMs----:>>>>>" + averagePxMs);
+//
+//        showPosInfo(leftProgress, rightProgress);
 
-        showPosInfo(leftProgress, rightProgress);
-
+        videoCutViewModel.start();
     }
 
 
@@ -164,17 +211,18 @@ public class VideoEditActivity extends AppCompatActivity {
                 mp.setOnSeekCompleteListener(new MediaPlayer.OnSeekCompleteListener() {
                     @Override
                     public void onSeekComplete(MediaPlayer mp) {
-                        Log.d(TAG, "------ok----real---start-----");
-                        Log.d(TAG, "------isSeeking-----"+isSeeking);
-                        if (!isSeeking) {
-                            videoStart();
-                        }
+//                        Log.d(TAG, "------ok----real---start-----");
+//                        Log.d(TAG, "------isSeeking-----"+isSeeking);
+//                        if (!isSeeking) {
+//                            videoStart();
+//                        }
+                        videoCutViewModel.onSeekComplete();
                     }
                 });
             }
         });
         //first
-        videoStart();
+//        videoStart();
     }
 
     private boolean isOverScaledTouchSlop;
@@ -183,47 +231,14 @@ public class VideoEditActivity extends AppCompatActivity {
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-            Log.d(TAG, "-------newState:>>>>>" + newState);
-            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                isSeeking = false;
-//                videoStart();
-            } else {
-                isSeeking = true;
-                if (isOverScaledTouchSlop && mVideoView != null && mVideoView.isPlaying()) {
-                    videoPause();
-                }
-            }
+            videoCutViewModel.onScrollStateChanged(newState);
         }
 
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
-            isSeeking = false;
             int scrollX = getScrollXDistance();
-            //达不到滑动的距离
-//            if (Math.abs(lastScrollX - scrollX) < mScaledTouchSlop) {
-//                isOverScaledTouchSlop = false;
-//                return;
-//            }
-            isOverScaledTouchSlop = true;
-            Log.d(TAG, "-------scrollX:>>>>>" + scrollX);
-            //初始状态,why ? 因为默认的时候有35dp的空白！
-
-            // why 在这里处理一下,因为onScrollStateChanged早于onScrolled回调
-            if (mVideoView != null && mVideoView.isPlaying()) {
-                videoPause();
-            }
-            isSeeking = true;
-            scrollPos = (long) (averageMsPx * (UIUtil.dip2px(VideoEditActivity.this, 35) + scrollX));
-            Log.d(TAG, "-------scrollPos:>>>>>" + " : " + scrollX + " : " + averageMsPx);
-            leftProgress = getSeekBarLeftTime() + scrollPos;
-            rightProgress = getSeekBarRightTime() + scrollPos;
-            Log.d(TAG, "-------leftProgress:>>>>>" + leftProgress);
-            mVideoView.seekTo((int) leftProgress);
-
-            lastScrollX = scrollX;
-
-            showPosInfo(leftProgress, rightProgress);
+            videoCutViewModel.onScrolled(scrollX, dx, dy);
         }
     };
 
@@ -256,7 +271,7 @@ public class VideoEditActivity extends AppCompatActivity {
 
         animator = ValueAnimator
                 .ofInt(start, end)
-                .setDuration(getVideoDuration());
+                .setDuration(videoCutViewModel.getVideoDuration());
         animator.setInterpolator(new LinearInterpolator());
         final int finalEnd = end;
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -299,45 +314,27 @@ public class VideoEditActivity extends AppCompatActivity {
     private final RangeSeekBar.OnRangeSeekBarChangeListener mOnRangeSeekBarChangeListener = new RangeSeekBar.OnRangeSeekBarChangeListener() {
         @Override
         public void onRangeSeekBarValuesChanged(int action, boolean isLeftHandleMoving) {
-            leftProgress = getSeekBarLeftTime() + scrollPos;
-            rightProgress = getSeekBarRightTime() + scrollPos;
-            switch (action) {
-                case MotionEvent.ACTION_DOWN:
-                    Log.d(TAG, "-----ACTION_DOWN---->>>>>>");
-                    isSeeking = false;
-                    videoPause();
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    Log.d(TAG, "-----ACTION_MOVE---->>>>>>");
-                    isSeeking = true;
-                    mVideoView.seekTo((int) (isLeftHandleMoving ? leftProgress : rightProgress));
-                    break;
-                case MotionEvent.ACTION_UP:
-                    Log.d(TAG, "-----ACTION_UP--leftProgress--->>>>>>" + leftProgress);
-                    isSeeking = false;
-                    //从minValue开始播
-                    mVideoView.seekTo((int) leftProgress);
-//                    videoStart();
-                    break;
-                default:
-                    break;
-            }
-
-            showPosInfo(leftProgress, rightProgress);
+            videoCutViewModel.onRangeSeekBarValuesChanged(isLeftHandleMoving ? seekBar.getLeftOffset() : seekBar.getRightOffset(),
+                    seekBar.getWidth(), isLeftHandleMoving, action);
         }
     };
 
 
     private void videoStart() {
-        Log.d(TAG, "----videoStart----->>>>>>>");
-        mVideoView.start();
-        positionIcon.clearAnimation();
-        if (animator != null && animator.isRunning()) {
-            animator.cancel();
-        }
-        anim();
-        handler.removeCallbacks(ReplayTask);
-        handler.postDelayed(ReplayTask, getVideoDuration());
+        UIHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG, "----videoStart----->>>>>>>");
+                mVideoView.start();
+                positionIcon.clearAnimation();
+                if (animator != null && animator.isRunning()) {
+                    animator.cancel();
+                }
+                anim();
+                handler.removeCallbacks(ReplayTask);
+                handler.postDelayed(ReplayTask, videoCutViewModel.getVideoDuration());
+            }
+        });
     }
 
     private boolean replayVideoIfNeed() {
@@ -358,6 +355,7 @@ public class VideoEditActivity extends AppCompatActivity {
     }
 
     private void videoPause() {
+        if(mVideoView == null || !mVideoView.isPlaying()) return;
         isSeeking = false;
         if (mVideoView != null && mVideoView.isPlaying()) {
             mVideoView.pause();
@@ -379,7 +377,6 @@ public class VideoEditActivity extends AppCompatActivity {
         super.onResume();
         if (mVideoView != null) {
             mVideoView.seekTo((int) leftProgress);
-//            videoStart();
         }
     }
 
@@ -425,14 +422,11 @@ public class VideoEditActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(OutPutFileDirPath)) {
             PictureUtils.deleteFile(new File(OutPutFileDirPath));
         }
+        videoCutViewModel.end();
     }
 
     private void showPosInfo(long leftPos, long rightProgress){
         textViewInfo.setText(leftPos + " : " + rightProgress);
-    }
-
-    private long getVideoDuration(){
-        return rightProgress - leftProgress;
     }
 
     private long getSeekBarLeftTime(){
