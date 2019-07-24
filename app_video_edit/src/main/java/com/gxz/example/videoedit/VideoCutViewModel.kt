@@ -1,6 +1,9 @@
 package com.gxz.example.videoedit
 
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
 import android.os.Handler
 import android.support.v7.widget.RecyclerView
@@ -8,7 +11,7 @@ import android.text.TextUtils
 import android.view.MotionEvent
 import java.io.File
 
-open class VideoCutViewModel(val context: Context, val videoPath: String,  val mMaxWidth: Int){
+open class VideoCutViewModel(val context: Context, val videoPath: String,  val mMaxWidth: Int): LifecycleObserver{
     private val TAG = "VideoCutViewModel"
 
     companion object {
@@ -78,9 +81,19 @@ open class VideoCutViewModel(val context: Context, val videoPath: String,  val m
         mExtractFrameWorkThread = ExtractFrameWorkThread(extractW, extractH, thumbExtractListener, videoPath, OutPutFileDirPath, startPosition, endPosition, thumbnailsCount)
     }
 
-    fun start(){
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun onCreate(){
         mExtractFrameWorkThread?.start()
-        videoStartEvent.call()
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onResume() {
+        videoSeekEvent.value = startProgress.value?.toInt()
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun onPause() {
+        videoPauseEvent.call()
     }
 
     fun getThumbPicNum(): Int{
