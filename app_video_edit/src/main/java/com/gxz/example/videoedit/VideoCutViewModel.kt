@@ -11,7 +11,7 @@ import android.text.TextUtils
 import android.view.MotionEvent
 import java.io.File
 
-open class VideoCutViewModel(val context: Context, val videoPath: String,  val mMaxWidth: Int): LifecycleObserver{
+open class VideoCutViewModel(val context: Context, val videoPath: String?,  val mMaxWidth: Int): LifecycleObserver{
     private val TAG = "VideoCutViewModel"
 
     companion object {
