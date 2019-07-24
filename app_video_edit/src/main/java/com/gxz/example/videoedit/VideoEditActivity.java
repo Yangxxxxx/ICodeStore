@@ -122,7 +122,7 @@ public class VideoEditActivity extends AppCompatActivity {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
-            int scrollX = getScrollXDistance();
+            int scrollX = getScrollXDistance() + UIUtil.dip2px(VideoEditActivity.this, 35);
             videoCutViewModel.onScrolled(scrollX, dx, dy);
         }
     };

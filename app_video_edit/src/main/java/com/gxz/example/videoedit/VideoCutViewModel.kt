@@ -123,7 +123,7 @@ open class VideoCutViewModel(val context: Context, val videoPath: String,  val m
         if(dx == preScrollX) return //此时没有滚动
         isSeeking = true
         videoPauseEvent.call()
-        scrollProgress = (averageMsPx * (UIUtil.dip2px(context, 35) + scrollX)).toLong()
+        scrollProgress = (averageMsPx * scrollX).toLong()
         startProgress.value = leftSeekProgress + scrollProgress
         endProgress.value = rightSeekProgress + scrollProgress
 
