@@ -13,8 +13,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class RangeSeekBar extends View {
-    private static final String TAG = RangeSeekBar.class.getSimpleName();
+public class VideoSeekBar extends View {
+    private static final String TAG = VideoSeekBar.class.getSimpleName();
     private static final int TRANLUCENT_COVER_COLOR = 0x66000000;
     private static final int LINE_COLOR = 0xffffffff;
     private static final int EXPANDED_CLICK_AREA_WIDTH = 60;
@@ -32,15 +32,15 @@ public class RangeSeekBar extends View {
 
     private OnRangeSeekBarChangeListener listener;
 
-    public RangeSeekBar(Context context, @Nullable AttributeSet attrs) {
+    public VideoSeekBar(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public RangeSeekBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public VideoSeekBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public RangeSeekBar(Context context) {
+    public VideoSeekBar(Context context) {
         super(context);
         post(new Runnable() {
             @Override

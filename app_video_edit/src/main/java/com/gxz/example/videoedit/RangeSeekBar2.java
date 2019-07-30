@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 public class RangeSeekBar2<T extends Number> extends ImageView {
-    private static final String TAG = RangeSeekBar.class.getSimpleName();
+    private static final String TAG = VideoSeekBar.class.getSimpleName();
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint rectPaint;
     private Bitmap thumbImage_left;

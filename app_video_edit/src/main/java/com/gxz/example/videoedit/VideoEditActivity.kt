@@ -24,7 +24,7 @@ import java.io.File
 
 class VideoEditActivity : AppCompatActivity() {
     private var seekBarLayout: LinearLayout? = null
-    private lateinit var seekBar: RangeSeekBar
+    private lateinit var seekBar: VideoSeekBar
     private lateinit var mVideoView: VideoView
     private var mRecyclerView: RecyclerView? = null
     private var positionIcon: ImageView? = null
@@ -113,7 +113,7 @@ class VideoEditActivity : AppCompatActivity() {
         }
     }
 
-    private val mOnRangeSeekBarChangeListener = RangeSeekBar.OnRangeSeekBarChangeListener { action, isLeftHandleMoving ->
+    private val mOnRangeSeekBarChangeListener = VideoSeekBar.OnRangeSeekBarChangeListener { action, isLeftHandleMoving ->
         var offset = if (isLeftHandleMoving) seekBar.leftOffset else seekBar.rightOffset
         videoCutViewModel?.onRangeSeekBarValuesChanged(offset, seekBar.width.toFloat(), isLeftHandleMoving, action)
     }
@@ -136,7 +136,7 @@ class VideoEditActivity : AppCompatActivity() {
     private fun initEditVideo() {
         mRecyclerView?.addItemDecoration(EditSpacingItemDecoration(UIUtil.dip2px(this, 35), videoCutViewModel?.getThumbPicNum() ?: 0))
 
-        seekBar = RangeSeekBar(this)
+        seekBar = VideoSeekBar(this)
         seekBar.setMinDistanceRatio(1.0 * VideoCutViewModel.MIN_CUT_DURATION / VideoCutViewModel.MAX_CUT_DURATION)
         seekBar.setOnRangeSeekBarChangeListener(mOnRangeSeekBarChangeListener)
         seekBarLayout?.addView(seekBar)
