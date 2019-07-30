@@ -45,6 +45,7 @@ import com.example.administrator.sometest.ViewDrawProcessTest.ViewDrawProcessAct
 import com.example.administrator.sometest.ViewGragHelperTest.ViewDragActivity;
 import com.example.administrator.sometest.ViewPagerTest.ViewPagerTestActivity;
 import com.example.administrator.sometest.fragmentTest.FragmentTestActivity;
+import com.example.administrator.sometest.mp4parser.MP4ParserActivity;
 import com.example.administrator.sometest.patch9Test.Patch9Activity;
 
 public class HomeActivity extends AppCompatActivity{
@@ -55,6 +56,7 @@ public class HomeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        addButton("MP4ParserActivity", MP4ParserActivity.class);
         addButton("ShelltopActivity", ShelltopActivity.class);
         addButton("ViewDragActivity", ViewDragActivity.class);
         addButton("RecyclerViewTestActivity", RecyclerViewTestActivity.class);

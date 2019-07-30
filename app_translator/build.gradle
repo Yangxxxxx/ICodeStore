@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     sourceSets.main.jniLibs.srcDirs = ['libs']
     compileSdkVersion 24
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.youdao.sdk.ydtranslatedemo"
         minSdkVersion 17

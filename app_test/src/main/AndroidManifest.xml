@@ -149,8 +149,9 @@
         <activity android:name=".DialTest.DialTestActivity" />
         <activity
             android:name=".ShellTopActivity.ShelltopActivity"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".RecyclerViewTest.RecyclerViewTestActivity"></activity>
+            android:screenOrientation="landscape" />
+        <activity android:name=".RecyclerViewTest.RecyclerViewTestActivity" />
+        <activity android:name=".mp4parser.MP4ParserActivity"></activity>
     </application>
 
 </manifest>
