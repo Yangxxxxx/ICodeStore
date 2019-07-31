@@ -41,6 +41,7 @@ import com.example.administrator.sometest.TaskQueueTest.TaskQueueActivity;
 import com.example.administrator.sometest.TmpActivity.TempActivity;
 import com.example.administrator.sometest.ToolbarMenuTest.ToolbarMenuActivity;
 import com.example.administrator.sometest.TouchEventTest.TouchEventActivity;
+import com.example.administrator.sometest.VideoFrameTest.VideoFrameActivity;
 import com.example.administrator.sometest.ViewDrawProcessTest.ViewDrawProcessActivity;
 import com.example.administrator.sometest.ViewGragHelperTest.ViewDragActivity;
 import com.example.administrator.sometest.ViewPagerTest.ViewPagerTestActivity;
@@ -56,6 +57,7 @@ public class HomeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        addButton("VideoFrameActivity", VideoFrameActivity.class);
         addButton("MP4ParserActivity", MP4ParserActivity.class);
         addButton("ShelltopActivity", ShelltopActivity.class);
         addButton("ViewDragActivity", ViewDragActivity.class);

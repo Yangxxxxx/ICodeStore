@@ -151,7 +151,8 @@
             android:name=".ShellTopActivity.ShelltopActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".RecyclerViewTest.RecyclerViewTestActivity" />
-        <activity android:name=".mp4parser.MP4ParserActivity"></activity>
+        <activity android:name=".mp4parser.MP4ParserActivity" />
+        <activity android:name=".VideoFrameTest.VideoFrameActivity"></activity>
     </application>
 
 </manifest>
