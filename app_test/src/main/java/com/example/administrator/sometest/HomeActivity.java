@@ -18,6 +18,7 @@ import com.example.administrator.sometest.DatabindingTest.DataBindingTestActivit
 import com.example.administrator.sometest.DialTest.DialTestActivity;
 import com.example.administrator.sometest.DrawableTest.ClipDrawableTestActivity;
 import com.example.administrator.sometest.HttpUrlConnectionTest.HttpUrlConnectionActivity;
+import com.example.administrator.sometest.KillBySystemTest.KillBySystemActivity;
 import com.example.administrator.sometest.KotlinTest.KotlinTestActivity;
 import com.example.administrator.sometest.LayoutChangeTest.LayoutChangeActivity;
 import com.example.administrator.sometest.LifeCycleTest.LifeCycleActivity;
@@ -57,6 +58,7 @@ public class HomeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        addButton("KillBySystemActivity", KillBySystemActivity.class);
         addButton("VideoFrameActivity", VideoFrameActivity.class);
         addButton("MP4ParserActivity", MP4ParserActivity.class);
         addButton("ShelltopActivity", ShelltopActivity.class);

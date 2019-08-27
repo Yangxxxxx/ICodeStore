@@ -32,6 +32,7 @@ public class Activity2 extends AppCompatActivity {
             fragmentList.add(new Fragment1());
             fragmentList.add(new Fragment2());
             fragmentList.add(new Fragment3());
+            fragmentList.add(new Fragment4());
         }
 
         @Override

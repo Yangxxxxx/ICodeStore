@@ -152,7 +152,8 @@
             android:screenOrientation="landscape" />
         <activity android:name=".RecyclerViewTest.RecyclerViewTestActivity" />
         <activity android:name=".mp4parser.MP4ParserActivity" />
-        <activity android:name=".VideoFrameTest.VideoFrameActivity"></activity>
+        <activity android:name=".VideoFrameTest.VideoFrameActivity" />
+        <activity android:name=".KillBySystemTest.KillBySystemActivity"></activity>
     </application>
 
 </manifest>
