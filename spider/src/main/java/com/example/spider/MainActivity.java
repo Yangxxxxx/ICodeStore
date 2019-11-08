@@ -93,7 +93,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Object array = Array.newInstance(subClass, itemElements.size());
 
                     for (int i = 0; i < itemElements.size(); i++){
-                        Array.set(array, i, elementTransfer2Object(itemElements.get(i), subClass));
+                        if(subClass.getSimpleName().equals("String")){
+                            Array.set(array, i, itemElements.get(i).text());
+                        }else {
+                            Array.set(array, i, elementTransfer2Object(itemElements.get(i), subClass));
+                        }
                     }
 
                     item.set(result, array);

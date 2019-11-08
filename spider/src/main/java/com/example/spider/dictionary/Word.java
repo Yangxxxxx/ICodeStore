@@ -14,8 +14,8 @@ public class Word {
     @FieldPath("us dpron-i >pron dpron")
     public String usPhonetic;
 
-    @FieldPath("sense-body dsense_b")
-    public Translation[] translations;
+    @FieldPath("pr entry-body__el")
+    public Attribution[] attributions;
 
     @NonNull
     @Override
@@ -25,8 +25,8 @@ public class Word {
         builder.append("\n");
         builder.append("uk:" + ukPhonetic + "  us:" + usPhonetic);
         builder.append("\n");
-        if(translations != null){
-            for (Translation item: translations){
+        if(attributions != null){
+            for (Attribution item: attributions){
                 builder.append(item.toString());
                 builder.append("\n\n\n");
             }
