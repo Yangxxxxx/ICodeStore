@@ -53,7 +53,7 @@ public class GenOriginalDataView extends android.support.v7.widget.AppCompatText
                     bufferedReader.close();
                     inputStreamReader.close();
 
-                    copyFileUsingFileStreams(getContext().getDatabasePath("dictionary.db"), new File("/sdcard/spider_dic.db"));
+                    Utils.copyFileUsingFileStreams(getContext().getDatabasePath("dictionary.db"), new File("/sdcard/spider_dic.db"));
 
                     post(new Runnable() {
                         @Override
@@ -83,23 +83,5 @@ public class GenOriginalDataView extends android.support.v7.widget.AppCompatText
                 });
             }
         }, 1000, 1000);
-    }
-
-    private static void copyFileUsingFileStreams(File source, File dest)
-            throws IOException {
-        InputStream input = null;
-        OutputStream output = null;
-        try {
-            input = new FileInputStream(source);
-            output = new FileOutputStream(dest);
-            byte[] buf = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = input.read(buf)) != -1) {
-                output.write(buf, 0, bytesRead);
-            }
-        } finally {
-            input.close();
-            output.close();
-        }
     }
 }

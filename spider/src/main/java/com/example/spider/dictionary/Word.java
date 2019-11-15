@@ -11,8 +11,13 @@ public class Word {
     @FieldPath("uk dpron-i >pron dpron")
     public String ukPhonetic;
 
+    @FieldPath("uk dpron-i >audio/mpeg")
+    public String ukSound;
+
     @FieldPath("us dpron-i >pron dpron")
     public String usPhonetic;
+
+    public String usSound;
 
     @FieldPath("pr entry-body__el")
     public Attribution[] attributions;
