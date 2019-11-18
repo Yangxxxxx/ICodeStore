@@ -5,10 +5,10 @@ import android.support.annotation.NonNull;
 import com.example.spider.annotation.FieldPath;
 
 public class SampleSentence {
-    @FieldPath("eg deg")
+    @FieldPath(".eg.deg")
     public String enSentence;
 
-    @FieldPath("trans dtrans dtrans-se hdb")
+    @FieldPath(".trans.dtrans.dtrans-se.hdb")
     public String znSentence;
 
     @NonNull

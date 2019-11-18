@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.example.spider.annotation.AttrName;
 import com.example.spider.annotation.FieldPath;
 import com.example.spider.dictionary.Word;
 
@@ -44,8 +45,10 @@ public class HtmlParserManager {
             Field[] fields = tClass.getDeclaredFields();
             for (Field item: fields){
                 String fieldPath = item.getAnnotation(FieldPath.class).value();
+                AttrName attrName = item.getAnnotation(FieldPath.class).attr();
 //                Elements itemElements = parentElement.getElementsByClass(fieldPath);
-                Elements itemElements = getElementsByPath(parentElement, fieldPath);
+//                Elements itemElements = getElementsByPath(parentElement, fieldPath);
+                Elements itemElements = parentElement.select(fieldPath);
                 if(itemElements == null) continue;
 
                 if(item.getType().isArray()){
@@ -54,7 +57,7 @@ public class HtmlParserManager {
 
                     for (int i = 0; i < itemElements.size(); i++){
                         if(subClass.getSimpleName().equals("String")){
-                            Array.set(array, i, itemElements.get(i).text());
+                            Array.set(array, i, getElementContent(itemElements.get(i), attrName));
                         }else {
                             Array.set(array, i, elementTransfer2Object(itemElements.get(i), subClass));
                         }
@@ -62,7 +65,7 @@ public class HtmlParserManager {
 
                     item.set(result, array);
                 }else if(!itemElements.isEmpty()){
-                    item.set(result, itemElements.first().text());
+                    item.set(result, getElementContent(itemElements.first(), attrName));
                 }
             }
 
@@ -73,6 +76,15 @@ public class HtmlParserManager {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private String getElementContent(Element element, AttrName attrName){
+       if(attrName == AttrName.SRC){
+           return element.attr(attrName.getName());
+       }else if (attrName == AttrName.TEXT){
+           return element.text();
+       }
+       return null;
     }
 
     /*

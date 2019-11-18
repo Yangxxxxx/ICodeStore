@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
-    private static String NET_URL = "https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93/";
+    private static String NET_URL = "https://dictionary.cambridge.org/dictionary/english-chinese-simplified/";
 
     private HtmlParserManager htmlParserManager = new HtmlParserManager();
     private boolean stop = true;

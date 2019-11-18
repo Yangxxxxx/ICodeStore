@@ -28,7 +28,8 @@
         android:layout_height="48dp"
         android:background="#698"
         android:gravity="center"
-        android:text="start"/>
+        android:text="start"
+        android:visibility="gone"/>
 
     <ScrollView
         android:layout_width="match_parent"
