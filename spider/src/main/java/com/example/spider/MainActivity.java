@@ -121,7 +121,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void run() {
                 TextView textView = findViewById(R.id.content_view);
-                textView.setText(word.toString());
+                textView.setText("剩余： "+words.size() + "\n");
+                textView.append(word.toString());
             }
         });
     }
