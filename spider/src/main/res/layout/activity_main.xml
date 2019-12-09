@@ -64,4 +64,6 @@
         android:text="start"
         android:visibility="gone"/>
 
+    <include layout="@layout/layout_check_no_consistent_word"/>
+
 </RelativeLayout>

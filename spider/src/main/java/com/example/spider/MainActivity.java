@@ -5,28 +5,17 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.spider.annotation.ClassPath;
-import com.example.spider.annotation.FieldPath;
 import com.example.spider.bean.WordState;
 import com.example.spider.db.SpiderDatabase;
-import com.example.spider.dictionary.Translation;
 import com.example.spider.dictionary.Word;
 import com.google.gson.Gson;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -47,8 +36,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_start).setOnClickListener(this);
         findViewById(R.id.tv_copy_db).setOnClickListener(this);
 
-        spiderDatabase = new SpiderDatabase(this);
-        words.addAll(spiderDatabase.queryAllWord());
+//        spiderDatabase = new SpiderDatabase(this);
+//        words.addAll(spiderDatabase.queryAllWord());
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
@@ -109,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     state = WordState.NOT_SAME;
                 }
 
-                spiderDatabase.updateWord(item, gson.toJson(word), state);
+                spiderDatabase.updateExplain(item, gson.toJson(word), state);
 
                 requestOneWord();
             }
