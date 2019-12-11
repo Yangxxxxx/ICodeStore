@@ -2,28 +2,25 @@ package com.example.spider;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.spider.bean.WordDB;
-import com.example.spider.bean.WordState;
 import com.example.spider.dictionaryDB.SpiderDatabase;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
 
-public class CheckWordConsistent extends RelativeLayout {
-    private HashMap<String, WordDB> words = new HashMap<>();
+public class LowerCaseFormat extends RelativeLayout {
+    private ArrayList<String> words = new ArrayList<>();
     private SpiderDatabase spiderDatabase;
 
     private TextView contentView;
     private TextView confirmView;
 
-    public CheckWordConsistent(Context context, AttributeSet attrs) {
+    public LowerCaseFormat(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
@@ -59,27 +56,25 @@ public class CheckWordConsistent extends RelativeLayout {
 
     private void init(){
         spiderDatabase = new SpiderDatabase(getContext());
-        words.putAll(spiderDatabase.queryNotConsistentWords());
+        words.addAll(spiderDatabase.queryAllWord());
     }
 
     private void check(){
-        for (String key: words.keySet() ){
-           WordDB wordDB = words.get(key);
-           if((wordDB.state == WordState.NO_CONTENT) || (wordDB.state == WordState.BLANK)){
-               spiderDatabase.deleteWord(key);
-               Log.e("Check", "delete " + key);
-           }
-           if(wordDB.state == WordState.NOT_SAME){
-               spiderDatabase.updateWord(key, wordDB.name, WordState.NORMAL);
-               Log.e("Check", "update " + key + "->" + wordDB.name);
-           }
+        for (String item: words){
+            String lowerCaseStr = item.toLowerCase();
+            if(!item.equals(lowerCaseStr)) {
+                spiderDatabase.updateWord(item, item.toLowerCase(), -1);
+            }
         }
     }
 
     private String genString(){
         StringBuilder builder = new StringBuilder();
-        for (String key: words.keySet() ){
-            builder.append(key).append(" : ").append(words.get(key).name).append("\n");
+        for (String item: words){
+            String lowerCaseStr = item.toLowerCase();
+            if(!item.equals(lowerCaseStr)) {
+                builder.append(item).append("\n");
+            }
         }
         return builder.toString();
     }

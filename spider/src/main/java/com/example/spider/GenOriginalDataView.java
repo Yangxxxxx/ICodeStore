@@ -2,20 +2,16 @@ package com.example.spider;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.spider.bean.WordState;
-import com.example.spider.db.SpiderDatabase;
+import com.example.spider.dictionaryDB.SpiderDatabase;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -41,15 +37,22 @@ public class GenOriginalDataView extends android.support.v7.widget.AppCompatText
             public void run() {
                 super.run();
                 try {
-                    InputStreamReader inputStreamReader = new InputStreamReader(getResources().getAssets().open("google-10000-english-usa.txt"));
+                    InputStreamReader inputStreamReader = new InputStreamReader(getResources().getAssets().open("oxford-5000.txt"));
                     BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                     String line;
+                    int newWordNum = 0;
                     while ((line = bufferedReader.readLine()) != null){
                         if(line.length() > 1){
-                            database.insertWord(line, "", WordState.BLANK);
+                            String word = line.split(" ")[0];
+                            if(!database.existWord(word)) {
+                                database.insertWord(word, "", WordState.BLANK);
+                                Log.e("yang", "new Word: " + word);
+                                newWordNum ++;
+                            }
                         }
                         count ++;
                     }
+                    Log.e("yang", "total new Word: " + newWordNum);
                     bufferedReader.close();
                     inputStreamReader.close();
 

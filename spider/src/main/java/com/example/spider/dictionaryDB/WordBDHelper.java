@@ -1,4 +1,4 @@
-package com.example.spider.db;
+package com.example.spider.dictionaryDB;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

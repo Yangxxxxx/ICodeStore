@@ -54,16 +54,17 @@
         android:gravity="center"
         android:text="拷贝数据库"/>
 
-    <com.example.spider.GenOriginalDataView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:background="#982"
-        android:text="start"
-        android:visibility="gone"/>
+<!--    <com.example.spider.GenOriginalDataView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:paddingTop="10dp"-->
+<!--        android:paddingBottom="10dp"-->
+<!--        android:background="#982"-->
+<!--        android:text="start"/>-->
 
-    <include layout="@layout/layout_check_no_consistent_word"/>
+<!--    <include layout="@layout/layout_check_no_consistent_word"/>-->
+
+<!--    <include layout="@layout/layout_lowercase_format"/>-->
 
 </RelativeLayout>
