@@ -1,6 +1,6 @@
 package com.example.yangjitao.icodestore.FragmentUsage;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.yangjitao.icodestore.R;

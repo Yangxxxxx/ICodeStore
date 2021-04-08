@@ -1,16 +1,12 @@
 package com.example.touchpad;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
-
-import java.io.DataInputStream;
 
 public class MainActivity extends AppCompatActivity{
     private MyClient myClient;

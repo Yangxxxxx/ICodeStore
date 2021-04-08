@@ -2,7 +2,7 @@ package com.example.administrator.sometest.eglTest;
 
 import android.opengl.GLES20;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.SurfaceView;
 

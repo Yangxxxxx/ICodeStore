@@ -1,10 +1,9 @@
 package com.example.jtnote;
 
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.Context;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.util.Log;
 
 import com.example.jtnote.bean.NoteItem;
 import com.example.jtnote.db.DBUsageImplNew;

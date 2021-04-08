@@ -3,7 +3,7 @@ package com.example.administrator.sometest.QCodeTest;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;

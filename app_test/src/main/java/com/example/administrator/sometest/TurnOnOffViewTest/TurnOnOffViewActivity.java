@@ -2,7 +2,7 @@ package com.example.administrator.sometest.TurnOnOffViewTest;
 
 import android.annotation.TargetApi;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;

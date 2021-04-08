@@ -1,7 +1,7 @@
 package com.example.administrator.sometest.KillBySystemTest;
 
 import android.os.PersistableBundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;

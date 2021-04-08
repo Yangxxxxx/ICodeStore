@@ -1,17 +1,15 @@
 package com.example.administrator.sometest.SavedInstanceStateTest;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 
 import com.example.administrator.sometest.R;
-import com.example.administrator.sometest.fragmentTest.Fragment1;
 import com.example.administrator.sometest.fragmentTest.Fragment2;
 
 import java.util.Set;

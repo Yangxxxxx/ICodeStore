@@ -1,12 +1,12 @@
 package com.gxz.example.videoedit
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.OnLifecycleEvent
 import android.content.Context
 import android.os.Handler
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import android.view.MotionEvent
 import java.io.File
@@ -113,7 +113,7 @@ open class VideoCutViewModel(val context: Context, val videoPath: String?,  val 
     }
 
     fun onScrollStateChanged(newState: Int) {
-        if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+        if (newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE) {
             isSeeking = false
         }
     }

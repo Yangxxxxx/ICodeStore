@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
 import android.media.MediaMetadataRetriever.OPTION_CLOSEST
 import android.media.MediaMetadataRetriever.OPTION_CLOSEST_SYNC
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.administrator.sometest.R

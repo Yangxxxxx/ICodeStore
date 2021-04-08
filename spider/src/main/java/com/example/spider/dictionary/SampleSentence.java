@@ -1,6 +1,6 @@
 package com.example.spider.dictionary;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.example.spider.annotation.FieldPath;
 

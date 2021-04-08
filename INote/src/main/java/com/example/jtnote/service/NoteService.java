@@ -5,7 +5,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import com.example.jtnote.Constants;
@@ -16,8 +16,6 @@ import com.example.jtnote.UsageInterface.InoteService;
 import com.example.jtnote.bean.NoteItem;
 import com.example.jtnote.ui.AlarmRingPage.AlarmRingActivity;
 import com.example.jtnote.utils.AlarmManagerTimer;
-import com.example.jtnote.utils.HandlerTimer;
-import com.example.jtnote.utils.ITimer;
 
 import java.util.List;
 import java.util.Timer;

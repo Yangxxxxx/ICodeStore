@@ -3,7 +3,7 @@ package com.example.spider.dictionaryDB;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 public class WordBDHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "dictionary.db";

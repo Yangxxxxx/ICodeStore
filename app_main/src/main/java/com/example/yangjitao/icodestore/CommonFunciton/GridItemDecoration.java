@@ -1,10 +1,10 @@
 package com.example.yangjitao.icodestore.CommonFunciton;
 
 import android.graphics.Rect;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.LayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.LayoutManager;
 
 /** recyclerview分割线（井字形状的分割线）*/
 public class GridItemDecoration extends RecyclerView.ItemDecoration {

@@ -4,9 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
-public class TmpView extends android.support.v7.widget.AppCompatTextView {
+public class TmpView extends androidx.appcompat.widget.AppCompatTextView {
     private static final String TAG = "TmpView";
     public TmpView(Context context) {
         super(context);

@@ -1,6 +1,6 @@
 package com.example.administrator.sometest.DialTest;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 
 public class ItemSelectHelper {

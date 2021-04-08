@@ -1,14 +1,14 @@
 package com.gxz.example.videoedit
 
 import android.animation.ValueAnimator
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.os.Looper
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
@@ -26,7 +26,7 @@ class VideoEditActivity : AppCompatActivity() {
     private var seekBarLayout: LinearLayout? = null
     private lateinit var seekBar: VideoSeekBar
     private lateinit var mVideoView: VideoView
-    private var mRecyclerView: RecyclerView? = null
+    private var mRecyclerView: androidx.recyclerview.widget.RecyclerView? = null
     private var positionIcon: ImageView? = null
     private var textViewInfo: TextView? = null
 
@@ -100,13 +100,13 @@ class VideoEditActivity : AppCompatActivity() {
     }
 
 
-    private val mOnScrollListener = object : RecyclerView.OnScrollListener() {
-        override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+    private val mOnScrollListener = object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: androidx.recyclerview.widget.RecyclerView?, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
             videoCutViewModel?.onScrollStateChanged(newState)
         }
 
-        override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+        override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView?, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
             val scrollX = scrollXDistance + UIUtil.dip2px(this@VideoEditActivity, 35)
             videoCutViewModel?.onScrolled(scrollX, dx, dy)
@@ -124,8 +124,8 @@ class VideoEditActivity : AppCompatActivity() {
         seekBarLayout = findViewById<View>(R.id.id_seekBarLayout) as LinearLayout
         mVideoView = findViewById<View>(R.id.uVideoView) as VideoView
         positionIcon = findViewById<View>(R.id.positionIcon) as ImageView
-        mRecyclerView = findViewById<View>(R.id.id_rv_id) as RecyclerView
-        mRecyclerView?.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        mRecyclerView = findViewById<View>(R.id.id_rv_id) as androidx.recyclerview.widget.RecyclerView
+        mRecyclerView?.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL, false)
         videoEditAdapter = VideoEditAdapter(this,
                 (UIUtil.getScreenWidth(this) - UIUtil.dip2px(this, 70)) / VideoCutViewModel.MAX_COUNT_RANGE)
         mRecyclerView?.adapter = videoEditAdapter
@@ -239,7 +239,7 @@ class VideoEditActivity : AppCompatActivity() {
 
     private val scrollXDistance: Int
         get() {
-            val layoutManager = mRecyclerView?.layoutManager as LinearLayoutManager
+            val layoutManager = mRecyclerView?.layoutManager as androidx.recyclerview.widget.LinearLayoutManager
             val position = layoutManager.findFirstVisibleItemPosition()
             val firstVisibleChildView = layoutManager.findViewByPosition(position)
             val itemWidth = firstVisibleChildView.width

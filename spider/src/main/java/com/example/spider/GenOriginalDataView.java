@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class GenOriginalDataView extends android.support.v7.widget.AppCompatTextView implements View.OnClickListener{
+public class GenOriginalDataView extends androidx.appcompat.widget.AppCompatTextView implements View.OnClickListener{
     private int count;
     private SpiderDatabase database;
     public GenOriginalDataView(Context context, AttributeSet attrs) {
