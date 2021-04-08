@@ -1,1 +1,2 @@
+include ':app_learning'
 include ':app_main', ':qrcodecore', ':zxing', ':app_test', ':java_test', ':INote', ':relaxword', ':touchpad', ':app_translator', ':spider', 'app_video_edit'
